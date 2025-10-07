@@ -567,7 +567,10 @@ export class ClientsService {
     if (client.targetFrameworks) {
       try {
         for (const framework of client.targetFrameworks) {
-          const response = await this.serviceDiscovery.callService(
+          interface ComplianceScoreResponse {
+            score: number;
+          }
+          const response = await this.serviceDiscovery.callService<ComplianceScoreResponse>(
             'control-service',
             'GET',
             `/compliance-score/${id}?framework=${framework}`,

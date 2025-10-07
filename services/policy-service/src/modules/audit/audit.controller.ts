@@ -24,7 +24,7 @@ interface UserContext {
 
 @ApiTags('audit')
 @ApiBearerAuth()
-@Controller('audit')
+@Controller('api/v1/audit')
 @UseGuards(KongAuthGuard, RolesGuard)
 export class AuditController {
   constructor(private readonly auditService: AuditService) {}

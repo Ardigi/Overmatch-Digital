@@ -27,7 +27,7 @@ import {
 } from './entities/control.entity';
 
 @ApiTags('Controls')
-@Controller('controls')
+@Controller('api/v1/controls')
 @UseGuards(KongAuthGuard)
 export class ControlsController {
   constructor(private readonly controlsService: ControlsService) {}

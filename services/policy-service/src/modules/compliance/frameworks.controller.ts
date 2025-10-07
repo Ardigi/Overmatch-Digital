@@ -25,7 +25,7 @@ import type { CreateFrameworkDto, UpdateFrameworkDto } from './dto';
 import { FrameworksService } from './frameworks.service';
 
 @ApiTags('frameworks')
-@Controller('frameworks')
+@Controller('api/v1/frameworks')
 @UseGuards(KongAuthGuard, RolesGuard)
 @ApiBearerAuth()
 export class FrameworksController {

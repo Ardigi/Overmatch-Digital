@@ -24,7 +24,7 @@ interface UserContext {
 
 @ApiTags('monitoring')
 @ApiBearerAuth()
-@Controller('monitoring')
+@Controller('api/v1/monitoring')
 @UseGuards(KongAuthGuard, RolesGuard)
 export class MonitoringController {
   constructor(private readonly monitoringService: MonitoringService) {}

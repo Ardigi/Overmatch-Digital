@@ -68,7 +68,7 @@ import { Policy, PolicyType } from './entities/policy.entity';
 import { PoliciesService } from './policies.service';
 
 @ApiTags('policies')
-@Controller('policies')
+@Controller('api/v1/policies')
 @UseGuards(KongAuthGuard, RolesGuard, AuthorizationGuard, ThrottlerGuard)
 @UseInterceptors(ResourceOwnershipInterceptor)
 @ApiBearerAuth()

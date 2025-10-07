@@ -30,7 +30,7 @@ interface UserContext {
 
 @ApiTags('api-keys')
 @ApiBearerAuth()
-@Controller('api-keys')
+@Controller('api/v1/api-keys')
 @UseGuards(KongAuthGuard, RolesGuard, ThrottlerGuard)
 export class ApiKeysController {
   constructor(private readonly apiKeysService: ApiKeysService) {}

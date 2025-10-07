@@ -16,7 +16,7 @@ import { PolicyEngineService } from './policy-engine.service';
 import type { PolicyEvaluationParameters, TemplateParameters } from '../shared/types';
 import { PolicyTemplateService } from './policy-template.service';
 
-@Controller('policy-engine')
+@Controller('api/v1/policy-engine')
 @UseGuards(KongAuthGuard, RolesGuard)
 export class PolicyEngineController {
   constructor(

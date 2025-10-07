@@ -33,7 +33,7 @@ import {
 import { CreatePolicyControlMappingDto } from './dto/create-policy-control-mapping.dto';
 
 @ApiTags('compliance-mapping')
-@Controller('compliance-mapping')
+@Controller('api/v1/compliance-mapping')
 @UseGuards(KongAuthGuard, RolesGuard)
 @ApiBearerAuth()
 export class ComplianceMappingController {

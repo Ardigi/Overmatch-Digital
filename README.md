@@ -56,7 +56,6 @@ See [docs/STATUS.md](docs/STATUS.md) for detailed service status and readiness.
 - [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment
 - [Security Guide](docs/SECURITY.md) - Security implementation
 - [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues and solutions
-- [Claude AI Guide](CLAUDE.md) - AI assistant instructions
 
 ## 🔧 Development
 

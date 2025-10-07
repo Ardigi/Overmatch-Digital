@@ -28,11 +28,6 @@ Welcome to the comprehensive documentation for the SOC Compliance Platform.
 | [PERFORMANCE.md](PERFORMANCE.md) | Performance optimization |
 | [REDIS_CACHING.md](REDIS_CACHING.md) | Caching strategies |
 
-### AI Assistant
-
-| Document | Purpose |
-|----------|---------|
-| [../CLAUDE.md](../CLAUDE.md) | Instructions for Claude AI assistant |
 
 ## 🚀 Quick Start Guides
 

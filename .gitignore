@@ -1,0 +1,302 @@
+# Dependencies
+node_modules/
+*/node_modules/
+**/node_modules/
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Production builds
+dist/
+*/dist/
+**/dist/
+build/
+*/build/
+**/build/
+.next/
+*/.next/
+/out/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
+**/.env
+**/.env.local
+.env*.local
+!.env.example
+
+# IDE & Editor files
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json.template
+.idea/
+*.swp
+*.swo
+*~
+.fleet/
+.zed/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Testing
+coverage/
+*/coverage/
+**/coverage/
+.nyc_output/
+jest-results/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfplan
+*.tfvars
+!terraform.tfvars.example
+.terraform.lock.hcl
+
+# Docker
+docker-compose.override.yml
+.docker/
+docker-volumes/
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+helm-values-*.yaml
+!helm-values-example.yaml
+
+# Certificates and Security
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+!*.example
+!*.template
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+tmp/
+temp/
+.tmp/
+
+# Test artifacts and debug files
+test-*.json
+debug-*.js
+*-test.json
+login-test.json
+integration-*.json
+e2e-results/
+test-data-*.json
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+data/
+postgres-data/
+mongo-data/
+redis-data/
+elastic-data/
+
+# Backup files
+*.backup
+*.bak
+*.old
+*.orig
+backup/
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+*.7z
+!*.example.zip
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Vercel
+.vercel
+.turbo/
+
+# Lock files (keep package-lock.json)
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Docker Secrets and Vault
+docker-secrets/*.txt
+docker-secrets/*.json
+!docker-secrets/*.example
+!docker-secrets/*.template
+.env.secrets
+.env.vault
+vault-keys/
+vault-data/
+vault-logs/
+vault-auth-token/
+vault-monitoring-token/
+secrets/
+!secrets/.gitkeep
+
+# Sensitive configuration files
+*.token
+*.secret
+*_password
+*_key
+*.credentials
+!*.example
+!*.template
+!*.sample
+
+# Claude/AI assistant files
+.claude/
+!.claude/agents/
+!.claude/commands/
+.claude/.pytest_cache/
+.claude/tmp/
+.claude/hooks.d/notifications/*.json
+.claude/hooks.d/cache/
+.claude/settings.local.json
+
+# Monitoring and metrics
+monitoring-data/
+prometheus-data/
+grafana-data/
+metrics/
+
+# Archive and outdated files
+archive/
+archived/
+OLD_*
+DEPRECATED_*
+backup_*
+
+# Generated documentation
+docs/generated/
+docs/api-docs/
+api-documentation.json
+
+# Local development
+.localstack/
+local-data/
+dev-data/
+
+# Performance profiling
+*.heapsnapshot
+*.cpuprofile
+*.trace
+flame-graph/
+
+# Package manager stores
+.npm/
+.yarn/
+.pnpm-store/
+
+# Misc
+*.pid
+*.seed
+*.pid.lock
+.grunt/
+.docusaurus/
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.vscode-test/
+.eslintcache
+.stylelintcache
+.prettiercache
+.parcel-cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Next.js specific
+.next/
+out/
+next-env.d.ts
+
+# NestJS specific
+ormconfig.json
+ormconfig.js
+
+# Monorepo specific
+lerna-debug.log
+packages/*/lib
+.changeset/
+
+# Platform specific files that should not be tracked
+kong-config-local.yml
+keycloak-realm-export.json
+kafka-topics-local.json
+
+# Kong Gateway (deprecated - using Konnect cloud)
+gateway/kong.yml
+gateway/kong-local.yml
+gateway/kong-config-local.yml
+gateway/kong-konnect-local.yml
+gateway/kong-konnect-*.yml
+!gateway/kong-konnect.yaml
+
+# Test and utility scripts with sensitive data
+token.txt
+test-*.ps1
+get-*.ps1
+!scripts/test-*.ps1
+!scripts/get-*.ps1
+
+# Integration test data
+integration-test-results/
+e2e-screenshots/
+e2e-videos/
+
+# CI/CD
+.github/actions/*/dist/
+ci-artifacts/
+deployment-artifacts/
+
+# Documentation drafts (keep only finalized docs)
+docs/drafts/
+docs/WIP_*
+*.draft.md
+docs/*_OLD.md
+docs/*_DEPRECATED.md
+docs/*.backup
+docs/ARCHITECTURE.md.backup
+docs/SERVICES_IMPLEMENTATION_STATUS.md.backup
+
+# User-specific configuration
+user-config.json
+local-settings.json
+.personal/

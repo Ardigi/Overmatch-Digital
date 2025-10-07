@@ -31,7 +31,7 @@ import type {
 } from './dto';
 import type { ComplianceFramework, ComplianceStatus } from './entities/client.entity';
 
-@Controller('clients')
+@Controller('api/v1/clients')
 @UseGuards(KongAuthGuard, KongRolesGuard)
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}

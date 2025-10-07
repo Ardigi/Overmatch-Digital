@@ -16,7 +16,7 @@ import { AuditsService } from './audits.service';
 import type { CreateAuditTrailDto, QueryAuditTrailDto } from './dto';
 import type { AuditResourceType } from './entities/audit-trail.entity';
 
-@Controller('audits')
+@Controller('api/v1/audits')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class AuditsController {
   constructor(private readonly auditsService: AuditsService) {}

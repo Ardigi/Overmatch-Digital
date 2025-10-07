@@ -20,7 +20,7 @@ import type {
   UpdateLineItemDto,
 } from './dto';
 
-@Controller('contracts')
+@Controller('api/v1/contracts')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class ContractsController {
   constructor(private readonly contractsService: ContractsService) {}

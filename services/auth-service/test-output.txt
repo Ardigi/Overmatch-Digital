@@ -1,0 +1,438 @@
+
+> @soc-compliance/auth-service@1.0.0 test
+> jest --config jest.config.js
+
+PASS src/modules/auth/email-verification.service.unit.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS test/simple.test.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/permission.service.unit.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/permission.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/refresh-token.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/password-policy.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/refresh-token.service.unit.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/mfa.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/anomaly-detection.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/soc2-security-controls.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/email-verification.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+[32m[Nest] 20452  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[EmailVerificationService] [39m[32mEmail verification requested for user test@example.com[39m
+[32m[Nest] 20452  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[EmailVerificationService] [39m[32mEmail verification requested for user test@example.com[39m
+[32m[Nest] 20452  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[EmailVerificationService] [39m[32mEmail verified for user test@example.com[39m
+[32m[Nest] 20452  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[EmailVerificationService] [39m[32mEmail verified for user test@example.com[39m
+[32m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[32m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[33m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [33m   WARN[39m [38;5;3m[ForgotPasswordService] [39m[33mPassword reset requested for non-existent email: nonexistent@example.com[39m
+[33m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [33m   WARN[39m [38;5;3m[ForgotPasswordService] [39m[33mPassword reset requested for inactive user: test@example.com[39m
+[32m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[32m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword changed for user test@example.com[39m
+PASS src/modules/auth/forgot-password.service.unit.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/forgot-password.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+[32m[Nest] 12252  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword changed for user test@example.com[39m
+[32m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[32m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[33m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [33m   WARN[39m [38;5;3m[ForgotPasswordService] [39m[33mPassword reset requested for non-existent email: nonexistent@example.com[39m
+[33m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [33m   WARN[39m [38;5;3m[ForgotPasswordService] [39m[33mPassword reset requested for inactive user: test@example.com[39m
+[32m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[32m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword changed for user test@example.com[39m
+[32m[Nest] 32748  - [39m10/07/2025, 3:46:03 AM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword changed for user test@example.com[39m
+PASS src/modules/auth/jwt-security.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39m[31mLogin failed with error[39m
+TypeError: this.eventEmitter.emit is not a function
+    at AuthService.login (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.ts:367:23)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.spec.ts:208:22)
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39m[31mLogin failed with error[39m
+UnauthorizedException: Invalid credentials
+    at AuthService.login (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.ts:183:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.spec.ts:246:7)
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39m[31mLogin failed with error[39m
+UnauthorizedException: Invalid credentials
+    at AuthService.login (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.ts:193:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.spec.ts:255:7)
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39m[31mLogin failed with error[39m
+ForbiddenException: Please verify your email before logging in
+    at AuthService.login (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.ts:199:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.spec.ts:268:7)
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39m[31mLogin failed with error[39m
+UnauthorizedException: Account is not active
+    at AuthService.login (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.ts:208:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.spec.ts:280:7)
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39m[31mLogin failed with error[39m
+TypeError: this.eventEmitter.emit is not a function
+    at AuthService.login (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.ts:367:23)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.spec.ts:316:22)
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39m[31mLogin failed with error[39m
+UnauthorizedException: Invalid MFA token
+    at AuthService.login (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.ts:306:15)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.service.spec.ts:337:7)
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39m[31mError seeding data:[39m
+[31m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthService] [39mError: Database error
+    at Object.<anonymous> [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.service.spec.ts:480:58[90m)[39m
+    at Promise.then.completed (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\run.js:316:40)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at _runTest (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\run.js:121:9)
+    at _runTestsForDescribeBlock (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\run.js:121:9)
+    at run (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-circus[24m\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-runner[24m\build\runTest.js:367:16)
+    at runTest (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-runner[24m\build\runTest.js:444:34)
+    at Object.worker (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\[4mjest-runner[24m\build\testWorker.js:106:12)
+FAIL src/modules/auth/auth.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+  ● AuthService › register › should successfully register a new user
+
+    TypeError: this.eventEmitter.emit is not a function
+
+    [0m [90m 120 |[39m     }[33m;[39m
+     [90m 121 |[39m
+    [31m[1m>[22m[39m[90m 122 |[39m     [36mthis[39m[33m.[39meventEmitter[33m.[39memit([32m'user.registered'[39m[33m,[39m userRegisteredEvent)[33m;[39m
+     [90m     |[39m                       [31m[1m^[22m[39m
+     [90m 123 |[39m     [36mthis[39m[33m.[39mlogger[33m.[39mlog([32m`Emitted user.registered event for user ${user.id}`[39m)[33m;[39m
+     [90m 124 |[39m
+     [90m 125 |[39m     [36mreturn[39m user[33m;[39m[0m
+
+      at AuthService.register (src/modules/auth/auth.service.ts:122:23)
+      at Object.<anonymous> (src/modules/auth/auth.service.spec.ts:138:22)
+
+  ● AuthService › login › should successfully login with valid credentials
+
+    InternalServerErrorException: Login failed due to an internal error
+
+    [0m [90m 473 |[39m       
+     [90m 474 |[39m       [90m// Otherwise throw a generic internal server error[39m
+    [31m[1m>[22m[39m[90m 475 |[39m       [36mthrow[39m [36mnew[39m [33mInternalServerErrorException[39m([32m'Login failed due to an internal error'[39m)[33m;[39m
+     [90m     |[39m             [31m[1m^[22m[39m
+     [90m 476 |[39m     }
+     [90m 477 |[39m   }
+     [90m 478 |[39m[0m
+
+      at AuthService.login (src/modules/auth/auth.service.ts:475:13)
+      at Object.<anonymous> (src/modules/auth/auth.service.spec.ts:208:22)
+
+  ● AuthService › login › should verify MFA token when provided
+
+    InternalServerErrorException: Login failed due to an internal error
+
+    [0m [90m 473 |[39m       
+     [90m 474 |[39m       [90m// Otherwise throw a generic internal server error[39m
+    [31m[1m>[22m[39m[90m 475 |[39m       [36mthrow[39m [36mnew[39m [33mInternalServerErrorException[39m([32m'Login failed due to an internal error'[39m)[33m;[39m
+     [90m     |[39m             [31m[1m^[22m[39m
+     [90m 476 |[39m     }
+     [90m 477 |[39m   }
+     [90m 478 |[39m[0m
+
+      at AuthService.login (src/modules/auth/auth.service.ts:475:13)
+      at Object.<anonymous> (src/modules/auth/auth.service.spec.ts:316:22)
+
+  ● AuthService › login › should skip MFA for test user in development
+
+    expect(received).toHaveProperty(path)
+
+    Expected path: "accessToken"
+    Received path: []
+
+    Received value: {"mfaMethods": ["totp"], "mfaSessionToken": "jwt-token", "requiresMfa": true, "securityNotice": undefined}
+
+    [0m [90m 355 |[39m       [36mconst[39m result [33m=[39m [36mawait[39m service[33m.[39mlogin({ email[33m:[39m testUser[33m.[39memail[33m,[39m password[33m:[39m [32m'password'[39m })[33m;[39m
+     [90m 356 |[39m
+    [31m[1m>[22m[39m[90m 357 |[39m       expect(result)[33m.[39mtoHaveProperty([32m'accessToken'[39m)[33m;[39m
+     [90m     |[39m                      [31m[1m^[22m[39m
+     [90m 358 |[39m       expect(result)[33m.[39mtoHaveProperty([32m'refreshToken'[39m)[33m;[39m
+     [90m 359 |[39m       expect(result)[33m.[39mtoHaveProperty([32m'expiresIn'[39m)[33m;[39m
+     [90m 360 |[39m       expect(result)[33m.[39mtoHaveProperty([32m'tokenType'[39m)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/auth.service.spec.ts:357:22)
+
+  ● AuthService › refreshAccessToken › should refresh access token with valid refresh token
+
+    TypeError: this.keycloakService.refreshTokens is not a function
+
+    [0m [90m 550 |[39m   [36masync[39m refreshAccessToken(refreshToken[33m:[39m string[33m,[39m ipAddress[33m?[39m[33m:[39m string[33m,[39m userAgent[33m?[39m[33m:[39m string) {
+     [90m 551 |[39m     [90m// ENTERPRISE AUTH: Use Keycloak to refresh tokens[39m
+    [31m[1m>[22m[39m[90m 552 |[39m     [36mconst[39m keycloakTokens [33m=[39m [36mawait[39m [36mthis[39m[33m.[39mkeycloakService[33m.[39mrefreshTokens(refreshToken)[33m;[39m
+     [90m     |[39m                                                       [31m[1m^[22m[39m
+     [90m 553 |[39m     
+     [90m 554 |[39m     [36mif[39m ([33m![39mkeycloakTokens) {
+     [90m 555 |[39m       [36mthrow[39m [36mnew[39m [33mUnauthorizedException[39m([32m'Failed to refresh token'[39m)[33m;[39m[0m
+
+      at AuthService.refreshAccessToken (src/modules/auth/auth.service.ts:552:55)
+      at Object.<anonymous> (src/modules/auth/auth.service.spec.ts:392:36)
+
+  ● AuthService › seedInitialData › should create admin user if not exists
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: "admin@overmatch.digital"
+    Received: "admin@soc-compliance.com"
+
+    Number of calls: 1
+
+    [0m [90m 455 |[39m       [36mconst[39m result [33m=[39m [36mawait[39m service[33m.[39mseedInitialData()[33m;[39m
+     [90m 456 |[39m
+    [31m[1m>[22m[39m[90m 457 |[39m       expect(mockUsersService[33m.[39mfindByEmail)[33m.[39mtoHaveBeenCalledWith([32m'admin@overmatch.digital'[39m)[33m;[39m
+     [90m     |[39m                                            [31m[1m^[22m[39m
+     [90m 458 |[39m       expect(mockUsersService[33m.[39mcreateFirstUser)[33m.[39mtoHaveBeenCalledWith(
+     [90m 459 |[39m         [32m'admin@overmatch.digital'[39m[33m,[39m
+     [90m 460 |[39m         [32m'Welcome123!'[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/auth.service.spec.ts:457:44)
+
+[32m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [32m    LOG[39m [38;5;3m[AuthService] [39m[32mStarting seed data creation...[39m
+[32m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [32m    LOG[39m [38;5;3m[AuthService] [39m[32mSeed data created successfully[39m
+[32m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [32m    LOG[39m [38;5;3m[AuthService] [39m[32mStarting seed data creation...[39m
+[32m[Nest] 26220  - [39m10/07/2025, 3:46:04 AM [32m    LOG[39m [38;5;3m[AuthService] [39m[32mStarting seed data creation...[39m
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39m[31mSetup failed:[39m
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39mBadRequestException: System already initialized
+    at AuthController.setup [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.controller.ts:65:15[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at Object.<anonymous> [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.controller.spec.ts:200:7[90m)[39m {
+  response: {
+    message: [32m'System already initialized'[39m,
+    error: [32m'Bad Request'[39m,
+    statusCode: [33m400[39m
+  },
+  status: [33m400[39m,
+  options: {}
+}
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39m[31mError stack:[39m
+BadRequestException: System already initialized
+    at AuthController.setup (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.controller.ts:65:15)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.controller.spec.ts:200:7)
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39m[31mSetup failed:[39m
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39mUnauthorizedException: Invalid setup key
+    at AuthController.setup [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.controller.ts:74:15[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at Object.<anonymous> [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.controller.spec.ts:211:7[90m)[39m {
+  response: {
+    message: [32m'Invalid setup key'[39m,
+    error: [32m'Unauthorized'[39m,
+    statusCode: [33m401[39m
+  },
+  status: [33m401[39m,
+  options: {}
+}
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39m[31mError stack:[39m
+UnauthorizedException: Invalid setup key
+    at AuthController.setup (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.controller.ts:74:15)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.controller.spec.ts:211:7)
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39m[31mSetup failed:[39m
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39mBadRequestException: Password validation failed
+    at AuthController.setup [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.controller.ts:80:15[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at Object.<anonymous> [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.controller.spec.ts:221:7[90m)[39m {
+  response: {
+    message: [32m'Password validation failed'[39m,
+    errors: [
+      [32m'Password must be at least 8 characters'[39m
+    ]
+  },
+  status: [33m400[39m,
+  options: {}
+}
+[31m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39m[31mError stack:[39m
+BadRequestException: Password validation failed
+    at AuthController.setup (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.controller.ts:80:15)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.controller.spec.ts:221:7)
+[31m[Nest] 24972  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39m[31mSetup failed:[39m
+[31m[Nest] 24972  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39mServiceUnavailableException: Setup key not configured. Please set SETUP_KEY environment variable.
+    at AuthController.setup [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.controller.ts:71:15[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at Object.<anonymous> [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\[39msrc\modules\auth\auth.controller.owasp.spec.ts:207:9[90m)[39m {
+  response: {
+    message: [32m'Setup key not configured. Please set SETUP_KEY environment variable.'[39m,
+    error: [32m'Service Unavailable'[39m,
+    statusCode: [33m503[39m
+  },
+  status: [33m503[39m,
+  options: {}
+}
+[31m[Nest] 24972  - [39m10/07/2025, 3:46:04 AM [31m  ERROR[39m [38;5;3m[AuthController] [39m[31mError stack:[39m
+ServiceUnavailableException: Setup key not configured. Please set SETUP_KEY environment variable.
+    at AuthController.setup (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.controller.ts:71:15)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at Object.<anonymous> (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service\src\modules\auth\auth.controller.owasp.spec.ts:207:9)
+PASS src/modules/auth/auth.controller.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+FAIL src/modules/auth/auth.controller.owasp.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+  ● AuthController - OWASP Authentication Tests › WSTG-04-02: Default Credentials Tests › should require strong password for initial setup
+
+    expect(received).rejects.toThrow(expected)
+
+    Expected constructor: BadRequestException
+    Received constructor: ServiceUnavailableException
+
+    Received message: "Setup key not configured. Please set SETUP_KEY environment variable."
+
+        [0m [90m 69 |[39m       [36mconst[39m expectedSetupKey [33m=[39m [36mthis[39m[33m.[39mconfigService[33m.[39m[36mget[39m([32m'SETUP_KEY'[39m)[33m;[39m
+         [90m 70 |[39m       [36mif[39m ([33m![39mexpectedSetupKey) {
+        [31m[1m>[22m[39m[90m 71 |[39m         [36mthrow[39m [36mnew[39m [33mServiceUnavailableException[39m([32m'Setup key not configured. Please set SETUP_KEY environment variable.'[39m)[33m;[39m
+         [90m    |[39m               [31m[1m^[22m[39m
+         [90m 72 |[39m       }
+         [90m 73 |[39m       [36mif[39m (setupDto[33m.[39msetupKey [33m!==[39m expectedSetupKey) {
+         [90m 74 |[39m         [36mthrow[39m [36mnew[39m [33mUnauthorizedException[39m([32m'Invalid setup key'[39m)[33m;[39m[0m
+
+      at AuthController.setup (src/modules/auth/auth.controller.ts:71:15)
+      at Object.<anonymous> (src/modules/auth/auth.controller.owasp.spec.ts:207:9)
+      at Object.toThrow (../../node_modules/expect/build/index.js:218:22)
+      at Object.<anonymous> (src/modules/auth/auth.controller.owasp.spec.ts:207:58)
+
+[32m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [32m    LOG[39m [38;5;3m[AuthController] [39m[32mCreating first admin user...[39m
+[32m[Nest] 18488  - [39m10/07/2025, 3:46:04 AM [32m    LOG[39m [38;5;3m[AuthController] [39m[32mUser created successfully[39m
+PASS src/modules/auth/password-reset.spec.ts (6.929 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+
+Test Suites: 2 failed, 16 passed, 18 total
+Tests:       7 failed, 394 passed, 401 total
+Snapshots:   0 total
+Time:        8.509 s
+Ran all test suites.
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service
+npm error workspace @soc-compliance/auth-service@1.0.0
+npm error location C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c jest --config jest.config.js

@@ -33,7 +33,7 @@ describe('Clients E2E Tests', () => {
     await testSetup.cleanDatabase();
   });
 
-  describe('/clients (POST)', () => {
+  describe('/api/v1/clients (POST)', () => {
     it('should create a new client', async () => {
       const createData = {
         name: 'New Client Inc',
@@ -61,7 +61,7 @@ describe('Clients E2E Tests', () => {
       };
 
       const response = await request(app.getHttpServer())
-        .post('/clients')
+        .post('/api/v1/clients')
         .set(kongHeaders)
         .send(createData)
         .expect(201);
@@ -84,7 +84,7 @@ describe('Clients E2E Tests', () => {
       };
 
       await request(app.getHttpServer())
-        .post('/clients')
+        .post('/api/v1/clients')
         .set(kongHeaders)
         .send(createData)
         .expect(409);
@@ -97,7 +97,7 @@ describe('Clients E2E Tests', () => {
       };
 
       await request(app.getHttpServer())
-        .post('/clients')
+        .post('/api/v1/clients')
         .set(kongHeaders)
         .send(createData)
         .expect(400);
@@ -109,11 +109,11 @@ describe('Clients E2E Tests', () => {
         clientType: ClientType.DIRECT,
       };
 
-      await request(app.getHttpServer()).post('/clients').send(createData).expect(403); // KongAuthGuard returns 403 when headers are missing
+      await request(app.getHttpServer()).post('/api/v1/clients').send(createData).expect(403); // KongAuthGuard returns 403 when headers are missing
     });
   });
 
-  describe('/clients (GET)', () => {
+  describe('/api/v1/clients (GET)', () => {
     it('should return paginated list of clients', async () => {
       // Seed multiple clients
       await testSetup.seedTestClient({ name: 'Client 1' });
@@ -121,7 +121,7 @@ describe('Clients E2E Tests', () => {
       await testSetup.seedTestClient({ name: 'Client 3' });
 
       const response = await request(app.getHttpServer())
-        .get('/clients')
+        .get('/api/v1/clients')
         .set(kongHeaders)
         .query({ page: 1, limit: 2 })
         .expect(200);
@@ -146,7 +146,7 @@ describe('Clients E2E Tests', () => {
       });
 
       const response = await request(app.getHttpServer())
-        .get('/clients')
+        .get('/api/v1/clients')
         .set(kongHeaders)
         .query({ status: ClientStatus.ACTIVE })
         .expect(200);
@@ -166,7 +166,7 @@ describe('Clients E2E Tests', () => {
       });
 
       const response = await request(app.getHttpServer())
-        .get('/clients')
+        .get('/api/v1/clients')
         .set(kongHeaders)
         .query({ complianceStatus: ComplianceStatus.COMPLIANT })
         .expect(200);
@@ -181,7 +181,7 @@ describe('Clients E2E Tests', () => {
       await testSetup.seedTestClient({ name: 'Global Solutions' });
 
       const response = await request(app.getHttpServer())
-        .get('/clients')
+        .get('/api/v1/clients')
         .set(kongHeaders)
         .query({ search: 'Tech' })
         .expect(200);
@@ -196,7 +196,7 @@ describe('Clients E2E Tests', () => {
       await testSetup.seedTestClient({ name: 'Gamma LLC' });
 
       const response = await request(app.getHttpServer())
-        .get('/clients')
+        .get('/api/v1/clients')
         .set(kongHeaders)
         .query({ sortBy: 'name', sortOrder: 'ASC' })
         .expect(200);
@@ -207,12 +207,12 @@ describe('Clients E2E Tests', () => {
     });
   });
 
-  describe('/clients/:id (GET)', () => {
+  describe('/api/v1/clients/:id (GET)', () => {
     it('should return client by ID', async () => {
       const client = await testSetup.seedTestClient({ name: 'Test Client' });
 
       const response = await request(app.getHttpServer())
-        .get(`/clients/${client.id}`)
+        .get(`/api/v1/clients/${client.id}`)
         .set(kongHeaders)
         .expect(200);
 
@@ -222,18 +222,18 @@ describe('Clients E2E Tests', () => {
 
     it('should return 404 for non-existent client', async () => {
       await request(app.getHttpServer())
-        .get('/clients/00000000-0000-0000-0000-000000000000')
+        .get('/api/v1/clients/00000000-0000-0000-0000-000000000000')
         .set(kongHeaders)
         .expect(404);
     });
   });
 
-  describe('/clients/slug/:slug (GET)', () => {
+  describe('/api/v1/clients/by-slug/:slug (GET)', () => {
     it('should return client by slug', async () => {
       const client = await testSetup.seedTestClient({ name: 'Test Client' });
 
       const response = await request(app.getHttpServer())
-        .get(`/clients/by-slug/${client.slug}`)
+        .get(`/api/v1/clients/by-slug/${client.slug}`)
         .set(kongHeaders)
         .expect(200);
 
@@ -242,7 +242,7 @@ describe('Clients E2E Tests', () => {
     });
   });
 
-  describe('/clients/:id (PUT)', () => {
+  describe('/api/v1/clients/:id (PUT)', () => {
     it('should update client details', async () => {
       const client = await testSetup.seedTestClient({ name: 'Original Name' });
 
@@ -253,7 +253,7 @@ describe('Clients E2E Tests', () => {
       };
 
       const response = await request(app.getHttpServer())
-        .put(`/clients/${client.id}`)
+        .put(`/api/v1/clients/${client.id}`)
         .set(kongHeaders)
         .send(updateData)
         .expect(200);
@@ -272,14 +272,14 @@ describe('Clients E2E Tests', () => {
       };
 
       await request(app.getHttpServer())
-        .put(`/clients/${client.id}`)
+        .put(`/api/v1/clients/${client.id}`)
         .set(kongHeaders)
         .send(updateData)
         .expect(400);
     });
   });
 
-  describe('/clients/:id/compliance-status (PUT)', () => {
+  describe('/api/v1/clients/:id/compliance-status (PUT)', () => {
     it('should update compliance status', async () => {
       const client = await testSetup.seedTestClient({
         complianceStatus: ComplianceStatus.NOT_STARTED,
@@ -291,7 +291,7 @@ describe('Clients E2E Tests', () => {
       };
 
       const response = await request(app.getHttpServer())
-        .put(`/clients/${client.id}/compliance-status`)
+        .put(`/api/v1/clients/${client.id}/compliance-status`)
         .set(kongHeaders)
         .send(updateData)
         .expect(200);
@@ -301,33 +301,33 @@ describe('Clients E2E Tests', () => {
     });
   });
 
-  describe('/clients/:id/archive (DELETE)', () => {
+  describe('/api/v1/clients/:id (DELETE)', () => {
     it('should archive client', async () => {
       const client = await testSetup.seedTestClient();
 
       await request(app.getHttpServer())
-        .delete(`/clients/${client.id}`)
+        .delete(`/api/v1/clients/${client.id}`)
         .set(kongHeaders)
         .expect(204);
 
       // Verify client is archived
-      await request(app.getHttpServer()).get(`/clients/${client.id}`).set(kongHeaders).expect(404);
+      await request(app.getHttpServer()).get(`/api/v1/clients/${client.id}`).set(kongHeaders).expect(404);
     });
   });
 
-  describe('/clients/:id/restore (POST)', () => {
+  describe('/api/v1/clients/:id/restore (POST)', () => {
     it('should restore archived client', async () => {
       const client = await testSetup.seedTestClient();
 
       // Archive first
       await request(app.getHttpServer())
-        .delete(`/clients/${client.id}`)
+        .delete(`/api/v1/clients/${client.id}`)
         .set(kongHeaders)
         .expect(204);
 
       // Then restore
       const response = await request(app.getHttpServer())
-        .post(`/clients/${client.id}/restore`)
+        .post(`/api/v1/clients/${client.id}/restore`)
         .set(kongHeaders)
         .expect(201); // POST returns 201
 
@@ -336,7 +336,7 @@ describe('Clients E2E Tests', () => {
     });
   });
 
-  describe('/clients/dashboard/stats (GET)', () => {
+  describe('/api/v1/clients/dashboard/stats (GET)', () => {
     it('should return dashboard statistics', async () => {
       // Seed various clients
       await testSetup.seedTestClient({
@@ -353,7 +353,7 @@ describe('Clients E2E Tests', () => {
       });
 
       const response = await request(app.getHttpServer())
-        .get('/clients/dashboard/stats')
+        .get('/api/v1/clients/dashboard/stats')
         .set(kongHeaders)
         .expect(200);
 
@@ -365,7 +365,7 @@ describe('Clients E2E Tests', () => {
     });
   });
 
-  describe('/clients/upcoming-audits (GET)', () => {
+  describe('/api/v1/clients/upcoming-audits (GET)', () => {
     it('should return clients with upcoming audits', async () => {
       const client1 = await testSetup.seedTestClient({
         name: 'Client 1',
@@ -388,7 +388,7 @@ describe('Clients E2E Tests', () => {
       });
 
       const response = await request(app.getHttpServer())
-        .get('/clients/upcoming-audits')
+        .get('/api/v1/clients/upcoming-audits')
         .set(kongHeaders)
         .query({ days: 90 })
         .expect(200);
@@ -399,7 +399,7 @@ describe('Clients E2E Tests', () => {
     });
   });
 
-  describe('/clients/:id/onboarding/start (POST)', () => {
+  describe('/api/v1/clients/onboarding/start (POST)', () => {
     it('should start client onboarding', async () => {
       const client = await testSetup.seedTestClient({
         status: ClientStatus.PENDING,
@@ -412,7 +412,7 @@ describe('Clients E2E Tests', () => {
       };
 
       const response = await request(app.getHttpServer())
-        .post('/clients/onboarding/start')
+        .post('/api/v1/clients/onboarding/start')
         .set(kongHeaders)
         .send(startData)
         .expect(201); // POST typically returns 201
@@ -435,7 +435,7 @@ describe('Clients E2E Tests', () => {
       };
 
       await request(app.getHttpServer())
-        .post('/clients/onboarding/start')
+        .post('/api/v1/clients/onboarding/start')
         .set(kongHeaders)
         .send(startData)
         .expect(400);
@@ -444,10 +444,10 @@ describe('Clients E2E Tests', () => {
 
   describe('Authorization Tests', () => {
     it('should reject requests without authentication', async () => {
-      await request(app.getHttpServer()).get('/clients').expect(403); // KongAuthGuard returns 403 when headers are missing
+      await request(app.getHttpServer()).get('/api/v1/clients').expect(403); // KongAuthGuard returns 403 when headers are missing
 
       await request(app.getHttpServer())
-        .post('/clients')
+        .post('/api/v1/clients')
         .send({ name: 'Test', clientType: ClientType.DIRECT })
         .expect(403); // KongAuthGuard returns 403 when headers are missing
     });
@@ -461,11 +461,11 @@ describe('Clients E2E Tests', () => {
       );
 
       // Viewers/auditors should be able to read
-      await request(app.getHttpServer()).get('/clients').set(viewerHeaders).expect(200);
+      await request(app.getHttpServer()).get('/api/v1/clients').set(viewerHeaders).expect(200);
 
       // But not create (not in allowed roles)
       await request(app.getHttpServer())
-        .post('/clients')
+        .post('/api/v1/clients')
         .set(viewerHeaders)
         .send({ name: 'Test', clientType: ClientType.DIRECT })
         .expect(403);
@@ -475,7 +475,7 @@ describe('Clients E2E Tests', () => {
   describe('Error Handling', () => {
     it('should handle malformed JSON', async () => {
       await request(app.getHttpServer())
-        .post('/clients')
+        .post('/api/v1/clients')
         .set(kongHeaders)
         .set('Content-Type', 'application/json')
         .send('{ invalid json }')
@@ -483,7 +483,7 @@ describe('Clients E2E Tests', () => {
     });
 
     it('should handle invalid UUIDs', async () => {
-      await request(app.getHttpServer()).get('/clients/invalid-uuid').set(kongHeaders).expect(400);
+      await request(app.getHttpServer()).get('/api/v1/clients/invalid-uuid').set(kongHeaders).expect(400);
     });
   });
 });

@@ -1,3 +1,19 @@
+// Mock keycloak.service BEFORE imports to avoid jwks-rsa ES module issue
+jest.mock('../keycloak/keycloak.service', () => ({
+  KeycloakService: jest.fn().mockImplementation(() => ({
+    onModuleInit: jest.fn(),
+    initialize: jest.fn(),
+    createUser: jest.fn(),
+    getUserById: jest.fn(),
+    getUserByEmail: jest.fn(),
+    updateUser: jest.fn(),
+    deleteUser: jest.fn(),
+    assignRole: jest.fn(),
+    removeRole: jest.fn(),
+    validateToken: jest.fn(),
+  })),
+}));
+
 import { BadRequestException, HttpStatus, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MfaService } from '../mfa/mfa.service';
@@ -93,6 +109,7 @@ describe('AuthController - OWASP Authentication Tests', () => {
         'auth.jwtSecret': 'test-secret',
         'auth.jwtExpiration': '15m',
         'auth.refreshTokenExpiration': '7d',
+        'SETUP_KEY': 'test-setup-key',
       };
       return config[key];
     }),
@@ -184,6 +201,7 @@ describe('AuthController - OWASP Authentication Tests', () => {
           email: 'admin@example.com',
           password,
           organizationName: 'Test Org',
+          setupKey: 'test-setup-key',
         };
 
         mockUsersService.findAll.mockResolvedValue([]);

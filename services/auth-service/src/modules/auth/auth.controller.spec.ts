@@ -1,3 +1,19 @@
+// Mock keycloak.service BEFORE imports to avoid jwks-rsa ES module issue
+jest.mock('../keycloak/keycloak.service', () => ({
+  KeycloakService: jest.fn().mockImplementation(() => ({
+    onModuleInit: jest.fn(),
+    initialize: jest.fn(),
+    createUser: jest.fn(),
+    getUserById: jest.fn(),
+    getUserByEmail: jest.fn(),
+    updateUser: jest.fn(),
+    deleteUser: jest.fn(),
+    assignRole: jest.fn(),
+    removeRole: jest.fn(),
+    validateToken: jest.fn(),
+  })),
+}));
+
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';

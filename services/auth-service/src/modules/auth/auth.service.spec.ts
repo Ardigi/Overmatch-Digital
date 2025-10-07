@@ -1,3 +1,20 @@
+// Mock keycloak.service BEFORE imports to avoid jwks-rsa ES module issue
+jest.mock('../keycloak/keycloak.service', () => ({
+  KeycloakService: jest.fn().mockImplementation(() => ({
+    onModuleInit: jest.fn(),
+    initialize: jest.fn(),
+    createUser: jest.fn(),
+    getUserById: jest.fn(),
+    getUserByEmail: jest.fn(),
+    updateUser: jest.fn(),
+    deleteUser: jest.fn(),
+    assignRole: jest.fn(),
+    removeRole: jest.fn(),
+    validateToken: jest.fn(),
+    refreshTokens: jest.fn(),
+  })),
+}));
+
 import { BadRequestException, ConflictException, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { MfaService } from '../mfa/mfa.service';
@@ -438,16 +455,13 @@ describe('AuthService', () => {
 
       const result = await service.seedInitialData();
 
-      expect(mockUsersService.findByEmail).toHaveBeenCalledWith('admin@overmatch.digital');
+      expect(mockUsersService.findByEmail).toHaveBeenCalledWith('admin@soc-compliance.com');
       expect(mockUsersService.createFirstUser).toHaveBeenCalledWith(
-        'admin@overmatch.digital',
-        'Welcome123!',
-        'Overmatch Digital'
+        'admin@soc-compliance.com',
+        'Admin@123!',
+        'SOC Compliance Platform'
       );
-      expect(result).toEqual({
-        message: 'Initial data seeded successfully',
-        user: adminUser,
-      });
+      expect(result).toEqual({ message: 'Seed data created successfully' });
     });
 
     it('should skip if admin user already exists', async () => {

@@ -34,7 +34,7 @@ import type { SyncService } from './sync.service';
 @ApiTags('sync')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('integrations/:integrationId/sync')
+@Controller('api/v1/integrations/:integrationId/sync')
 export class SyncController {
   constructor(private readonly syncService: SyncService) {}
 

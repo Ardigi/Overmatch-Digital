@@ -21,7 +21,7 @@ import { type LogEventDto, LogEventResponseDto } from './dto/log-event.dto';
  * Provides a simplified interface for services to log audit events
  */
 @ApiTags('events')
-@Controller('events')
+@Controller('api/v1/events')
 export class EventsController {
   private readonly logger = new Logger(EventsController.name);
 

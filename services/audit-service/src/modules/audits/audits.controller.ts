@@ -26,7 +26,7 @@ import type { AuditsService } from './audits.service';
 
 @ApiTags('audits')
 @ApiBearerAuth()
-@Controller('audits')
+@Controller('api/v1/audits')
 export class AuditsController {
   constructor(
     private readonly auditsService: SOCAuditsService,

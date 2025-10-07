@@ -37,7 +37,7 @@ import type { ReportSchedulerService } from './services/report-scheduler.service
 import type { ReportStorageService } from './services/report-storage.service';
 
 @ApiTags('reports')
-@Controller('reports')
+@Controller('api/v1/reports')
 @UseGuards(JwtAuthGuard)
 export class ReportsController {
   private readonly logger = new Logger(ReportsController.name);

@@ -33,7 +33,7 @@ import { AuditEntry, AuditResource } from './entities/audit-entry.entity';
 import { AuditSession } from './entities/audit-session.entity';
 
 @ApiTags('audit-trail')
-@Controller('audit-trail')
+@Controller('api/v1/audit-trail')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @UseInterceptors(AuditLoggingInterceptor)
 @ApiBearerAuth()

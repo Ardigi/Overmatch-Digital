@@ -23,7 +23,7 @@ import type { Response } from 'express';
 
 @ApiTags('findings')
 @ApiBearerAuth()
-@Controller('findings')
+@Controller('api/v1/findings')
 export class FindingsController {
   @Get(':id')
   @ApiOperation({ summary: 'Get finding by ID' })

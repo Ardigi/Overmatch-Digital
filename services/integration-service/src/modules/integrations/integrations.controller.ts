@@ -38,7 +38,7 @@ import type { IntegrationService } from './services/integration.service';
 @ApiTags('integrations')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('integrations')
+@Controller('api/v1/integrations')
 export class IntegrationsController {
   constructor(
     private readonly integrationService: IntegrationService,

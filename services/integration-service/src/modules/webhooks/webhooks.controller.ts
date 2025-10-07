@@ -37,7 +37,7 @@ import type { WebhookService } from './services/webhook.service';
 @ApiTags('webhooks')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('webhooks')
+@Controller('api/v1/webhooks')
 export class WebhooksController {
   constructor(private readonly webhookService: WebhookService) {}
 

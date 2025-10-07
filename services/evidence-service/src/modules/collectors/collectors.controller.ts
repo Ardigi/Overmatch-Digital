@@ -13,7 +13,7 @@ import { KongAuthGuard, KongRolesGuard } from '../../shared/guards';
 import type { CollectorConfig, CollectorType } from './base/collector.interface';
 import type { CollectorManagerService } from './collector-manager.service';
 
-@Controller('collectors')
+@Controller('api/v1/collectors')
 @UseGuards(KongAuthGuard, KongRolesGuard)
 export class CollectorsController {
   constructor(

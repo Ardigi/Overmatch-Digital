@@ -18,7 +18,7 @@ import { MappingService } from './mapping.service';
 @ApiTags('control-mapping')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('control-mapping')
+@Controller('api/v1/control-mapping')
 export class MappingController {
   constructor(private readonly mappingService: MappingService) {}
 

@@ -26,7 +26,7 @@ import type { QueryControlTestsDto } from './dto/query-control-tests.dto';
 
 @ApiTags('control-tests')
 @ApiBearerAuth()
-@Controller('control-tests')
+@Controller('api/v1/control-tests')
 @UseGuards(KongAuthGuard, KongRolesGuard)
 export class ControlTestsController {
   constructor(private readonly controlTestsService: ControlTestsService) {}

@@ -43,7 +43,7 @@ import type {
 } from './dto';
 import type { EvidenceService } from './evidence.service';
 
-@Controller('evidence')
+@Controller('api/v1/evidence')
 @UseGuards(KongAuthGuard, KongRolesGuard)
 export class EvidenceController {
   private readonly logger = new Logger(EvidenceController.name);

@@ -28,7 +28,7 @@ import type { CreateWorkflowDto } from './dto/create-workflow.dto';
 @ApiTags('workflow-templates')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('workflow-templates')
+@Controller('api/v1/workflow-templates')
 export class WorkflowTemplatesController {
   constructor(private readonly templatesService: WorkflowTemplatesService) {}
 

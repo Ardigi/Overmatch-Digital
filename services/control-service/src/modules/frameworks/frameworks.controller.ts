@@ -17,7 +17,7 @@ import { FrameworksService } from './frameworks.service';
 @ApiTags('frameworks')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('frameworks')
+@Controller('api/v1/frameworks')
 export class FrameworksController {
   constructor(private readonly frameworksService: FrameworksService) {}
 

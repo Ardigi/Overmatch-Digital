@@ -25,7 +25,7 @@ import { ImplementationService } from './implementation.service';
 @ApiTags('control-implementation')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('control-implementation')
+@Controller('api/v1/control-implementation')
 export class ImplementationController {
   constructor(private readonly implementationService: ImplementationService) {}
 

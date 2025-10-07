@@ -5,7 +5,7 @@ import { KongAuthGuard, KongRolesGuard } from '../../shared/guards';
 
 @ApiTags('test-auth')
 @ApiBearerAuth()
-@Controller('test-auth')
+@Controller('api/v1/test-auth')
 export class TestAuthController {
   @Get('public')
   @ApiOperation({ summary: 'Public endpoint - no auth required' })

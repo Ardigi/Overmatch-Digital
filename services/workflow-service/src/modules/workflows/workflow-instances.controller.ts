@@ -28,7 +28,7 @@ import { WorkflowInstancesService } from './workflow-instances.service';
 @ApiTags('workflow-instances')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('workflow-instances')
+@Controller('api/v1/workflow-instances')
 export class WorkflowInstancesController {
   constructor(private readonly instancesService: WorkflowInstancesService) {}
 

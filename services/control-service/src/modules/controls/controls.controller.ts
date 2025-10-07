@@ -36,7 +36,7 @@ import { ControlAutomationDetails, WorkflowApprovalRequest } from '../../shared/
 
 @ApiTags('controls')
 @ApiBearerAuth()
-@Controller('controls')
+@Controller('api/v1/controls')
 @UseGuards(KongAuthGuard, KongRolesGuard)
 export class ControlsController {
   constructor(private readonly controlsService: ControlsService) {}

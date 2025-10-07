@@ -13,7 +13,7 @@ import { KongAuthGuard, KongRolesGuard } from '../../shared/guards';
 import type { EvidenceService } from '../evidence/evidence.service';
 import type { EvidenceValidationService } from './evidence-validation.service';
 
-@Controller('validation')
+@Controller('api/v1/validation')
 @UseGuards(KongAuthGuard, KongRolesGuard)
 export class ValidationController {
   constructor(

@@ -1,0 +1,2 @@
+  logger.log('Control Service (SECURED) running on port: ' + port);
+  logger.log('Security: Helmet, Rate Limiting, Input Validation enabled');

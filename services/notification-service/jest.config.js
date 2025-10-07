@@ -1,0 +1,52 @@
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src', '<rootDir>/test'],
+  testMatch: ['**/*.spec.ts', '**/*.test.ts'],
+  transform: {
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.spec.json',
+      },
+    ],
+  },
+  moduleFileExtensions: ['ts', 'js', 'json'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@shared/(.*)$': '<rootDir>/../../shared/$1',
+    '^typeorm$': '<rootDir>/src/__mocks__/typeorm.ts',
+    '^@nestjs/typeorm$': '<rootDir>/src/__mocks__/@nestjs/typeorm.ts',
+    '^@nestjs/terminus$': '<rootDir>/src/__mocks__/@nestjs/terminus.ts',
+    '^@soc-compliance/cache-common$': '<rootDir>/src/__mocks__/@soc-compliance/cache-common.ts',
+    '^ioredis$': '<rootDir>/src/__mocks__/ioredis.ts',
+    '^handlebars$': '<rootDir>/src/__mocks__/handlebars.ts',
+    '^twilio$': '<rootDir>/src/__mocks__/twilio.ts',
+    '^@slack/web-api$': '<rootDir>/src/__mocks__/@slack/web-api.ts',
+    '^firebase-admin$': '<rootDir>/src/__mocks__/firebase-admin.ts',
+  },
+  moduleDirectories: ['node_modules', '<rootDir>/../../node_modules'],
+  setupFilesAfterEnv: ['<rootDir>/test/jest-setup.ts'],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/*.interface.ts',
+    '!src/**/index.ts',
+    '!src/main.ts',
+    '!src/**/*.module.ts',
+    '!src/config/**',
+    '!src/**/*.dto.ts',
+    '!src/**/*.entity.ts',
+  ],
+  coverageDirectory: '../coverage',
+  testTimeout: 30000,
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
+};

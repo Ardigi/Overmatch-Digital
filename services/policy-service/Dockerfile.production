@@ -1,0 +1,70 @@
+# Multi-stage Dockerfile for Policy Service
+# This builds the service with all dependencies from the monorepo
+
+# Stage 1: Build shared packages and service
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy entire monorepo structure (we need shared packages)
+COPY package*.json ./
+COPY packages ./packages
+COPY services/policy-service ./services/policy-service
+
+# Install all dependencies (including dev deps for building)
+RUN npm ci
+
+# Build shared packages first
+RUN npm run build --workspace=@soc-compliance/contracts && \
+    npm run build --workspace=@soc-compliance/events && \
+    npm run build --workspace=@soc-compliance/auth-common && \
+    npm run build --workspace=@soc-compliance/http-common && \
+    npm run build --workspace=@soc-compliance/cache-common && \
+    npm run build --workspace=@soc-compliance/monitoring && \
+    npm run build --workspace=@soc-compliance/secrets
+
+# Build the policy service
+WORKDIR /app/services/policy-service
+RUN npm run build
+
+# Stage 2: Production image
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
+
+# Copy package files from monorepo
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/services/policy-service/package*.json ./services/policy-service/
+
+# Install production dependencies only
+RUN npm ci --omit=dev
+
+# Copy built artifacts
+COPY --from=builder /app/packages/*/dist ./packages/*/dist/
+COPY --from=builder /app/services/policy-service/dist ./services/policy-service/dist/
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Set ownership
+RUN chown -R nodejs:nodejs /app
+
+USER nodejs
+
+# Set working directory to service
+WORKDIR /app/services/policy-service
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3003/v1/health', (r) => {r.statusCode === 200 ? process.exit(0) : process.exit(1)})"
+
+EXPOSE 3003
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["node", "dist/main.js"]

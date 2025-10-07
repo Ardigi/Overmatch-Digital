@@ -1,0 +1,19 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "../..",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^sanitize-html$": "<rootDir>/test/mocks/sanitize-html.ts"
+  },
+  "testTimeout": 30000,
+  "moduleDirectories": ["node_modules", "src"],
+  "modulePathIgnorePatterns": ["<rootDir>/dist"],
+  "transformIgnorePatterns": ["node_modules/(?!(typeorm)/)"],
+  "clearMocks": true,
+  "setupFilesAfterEnv": ["<rootDir>/test/e2e/jest-setup.ts"]
+}

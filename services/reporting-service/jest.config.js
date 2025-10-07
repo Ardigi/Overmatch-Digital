@@ -1,0 +1,43 @@
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src', '<rootDir>/test'],
+  testMatch: ['**/*.spec.ts', '**/*.test.ts'],
+  transform: {
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.spec.json',
+      },
+    ],
+  },
+  moduleFileExtensions: ['ts', 'js', 'json'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@shared/(.*)$': '<rootDir>/../../shared/$1',
+    '^typeorm$': '<rootDir>/src/__mocks__/typeorm.ts',
+    '^@nestjs/typeorm$': '<rootDir>/src/__mocks__/typeorm.ts',
+    '^@nestjs/terminus$': '<rootDir>/src/__mocks__/@nestjs/terminus.ts',
+    '^handlebars$': '<rootDir>/src/__mocks__/handlebars.ts',
+    '^puppeteer$': '<rootDir>/src/__mocks__/puppeteer.ts',
+    '^pdfkit$': '<rootDir>/src/__mocks__/pdfkit.ts',
+    '^xlsx$': '<rootDir>/src/__mocks__/xlsx.ts',
+    '^cron$': '<rootDir>/src/__mocks__/cron.ts',
+    '^cron-parser$': '<rootDir>/src/__mocks__/cron-parser.ts',
+  },
+  moduleDirectories: ['node_modules', '<rootDir>/../../node_modules'],
+  setupFilesAfterEnv: ['<rootDir>/test/jest-setup.ts'],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/*.interface.ts',
+    '!src/**/index.ts',
+    '!src/main.ts',
+    '!**/node_modules/**',
+    '!**/dist/**',
+    '!**/coverage/**',
+  ],
+  coverageDirectory: '../coverage',
+  testTimeout: 30000,
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+};

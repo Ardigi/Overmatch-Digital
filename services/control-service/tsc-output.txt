@@ -1,0 +1,71 @@
+src/modules/access-control/rbac-abac.service.ts(7,28): error TS2307: Cannot find module 'json-logic-js' or its corresponding type declarations.
+src/modules/access-control/rbac-abac.service.ts(80,9): error TS2345: Argument of type 'string[] | undefined' is not assignable to parameter of type 'string[]'.
+  Type 'undefined' is not assignable to type 'string[]'.
+src/modules/access-control/rbac-abac.service.ts(85,62): error TS2345: Argument of type '{ userId: string; resource: string; action: string; error: any; }' is not assignable to parameter of type 'string'.
+src/modules/access-control/rbac-abac.service.ts(234,44): error TS2339: Property 'get' does not exist on type 'RedisService'.
+src/modules/access-control/rbac-abac.service.ts(241,7): error TS2322: Type '{ userId: string; tenantId: string; isActive: true; expiresAt: null; }' is not assignable to type 'FindOptionsWhere<UserRole> | FindOptionsWhere<UserRole>[] | undefined'.
+  Types of property 'expiresAt' are incompatible.
+    Type 'null' is not assignable to type 'Date | FindOperator<Date> | undefined'.
+src/modules/access-control/rbac-abac.service.ts(255,29): error TS2339: Property 'set' does not exist on type 'RedisService'.
+src/modules/access-control/rbac-abac.service.ts(459,66): error TS2345: Argument of type '{ policyId: string; error: any; }' is not assignable to parameter of type 'string'.
+src/modules/access-control/rbac-abac.service.ts(477,45): error TS2339: Property 'get' does not exist on type 'RedisService'.
+src/modules/controls/subscribers/encryption.subscriber.ts(222,22): error TS2341: Property 'getTenantId' is private and only accessible within class 'EncryptionSubscriber'.
+src/modules/controls/subscribers/encryption.subscriber.ts(248,22): error TS2341: Property 'getTenantId' is private and only accessible within class 'EncryptionSubscriber'.
+src/modules/encryption/encryption.service.ts(142,60): error TS2345: Argument of type '{ tenantId: string; classification: DataClassificationLevel; error: any; }' is not assignable to parameter of type 'string'.
+src/modules/encryption/encryption.service.ts(173,30): error TS2769: No overload matches this call.
+  Overload 1 of 4, '(arrayBuffer: WithImplicitCoercion<ArrayBufferLike>, byteOffset?: number | undefined, length?: number | undefined): Buffer<ArrayBufferLike>', gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'WithImplicitCoercion<ArrayBufferLike>'.
+      Type 'undefined' is not assignable to type 'WithImplicitCoercion<ArrayBufferLike>'.
+  Overload 2 of 4, '(string: WithImplicitCoercion<string>, encoding?: BufferEncoding | undefined): Buffer<ArrayBuffer>', gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'WithImplicitCoercion<string>'.
+      Type 'undefined' is not assignable to type 'WithImplicitCoercion<string>'.
+src/modules/encryption/encryption.service.ts(174,35): error TS2769: No overload matches this call.
+  Overload 1 of 4, '(arrayBuffer: WithImplicitCoercion<ArrayBufferLike>, byteOffset?: number | undefined, length?: number | undefined): Buffer<ArrayBufferLike>', gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'WithImplicitCoercion<ArrayBufferLike>'.
+      Type 'undefined' is not assignable to type 'WithImplicitCoercion<ArrayBufferLike>'.
+  Overload 2 of 4, '(string: WithImplicitCoercion<string>, encoding?: BufferEncoding | undefined): Buffer<ArrayBuffer>', gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'WithImplicitCoercion<string>'.
+      Type 'undefined' is not assignable to type 'WithImplicitCoercion<string>'.
+src/modules/encryption/encryption.service.ts(175,31): error TS2769: No overload matches this call.
+  Overload 1 of 4, '(arrayBuffer: WithImplicitCoercion<ArrayBufferLike>, byteOffset?: number | undefined, length?: number | undefined): Buffer<ArrayBufferLike>', gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'WithImplicitCoercion<ArrayBufferLike>'.
+      Type 'undefined' is not assignable to type 'WithImplicitCoercion<ArrayBufferLike>'.
+  Overload 2 of 4, '(string: WithImplicitCoercion<string>, encoding?: BufferEncoding | undefined): Buffer<ArrayBuffer>', gave the following error.
+    Argument of type 'string | undefined' is not assignable to parameter of type 'WithImplicitCoercion<string>'.
+      Type 'undefined' is not assignable to type 'WithImplicitCoercion<string>'.
+src/modules/encryption/encryption.service.ts(197,60): error TS2345: Argument of type '{ tenantId: string; error: any; }' is not assignable to parameter of type 'string'.
+src/modules/encryption/encryption.service.ts(286,62): error TS2345: Argument of type '{ tenantId: string; error: any; }' is not assignable to parameter of type 'string'.
+src/modules/encryption/encryption.service.ts(399,44): error TS2339: Property 'get' does not exist on type 'RedisService'.
+src/modules/encryption/encryption.service.ts(415,29): error TS2339: Property 'set' does not exist on type 'RedisService'.
+src/modules/encryption/encryption.service.ts(565,21): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(timeout: string | number | Timeout | undefined): void', gave the following error.
+    Argument of type 'Timer' is not assignable to parameter of type 'string | number | Timeout | undefined'.
+      Type 'Timer' is missing the following properties from type 'Timeout': close, _onTimeout, [Symbol.dispose]
+  Overload 2 of 2, '(id: number | undefined): void', gave the following error.
+    Argument of type 'Timer' is not assignable to parameter of type 'number'.
+src/modules/financial/advanced-roi.service.ts(3,23): error TS2307: Cannot find module 'mathjs' or its corresponding type declarations.
+src/modules/financial/advanced-roi.service.ts(211,9): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/modules/risk/calculators/loss-event-frequency.calculator.ts(335,26): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ readonly NATION_STATE: { readonly technical: 0.95; readonly resources: 1; readonly persistence: 0.95; }; readonly ORGANIZED_CRIME: { readonly technical: 0.8; readonly resources: 0.85; readonly persistence: 0.8; }; readonly HACKTIVIST: { ...; }; readonly INSIDER_MALICIOUS: { ...; }; readonly INSIDER_ACCIDENTAL: { ....'.
+  No index signature with a parameter of type 'string' was found on type '{ readonly NATION_STATE: { readonly technical: 0.95; readonly resources: 1; readonly persistence: 0.95; }; readonly ORGANIZED_CRIME: { readonly technical: 0.8; readonly resources: 0.85; readonly persistence: 0.8; }; readonly HACKTIVIST: { ...; }; readonly INSIDER_MALICIOUS: { ...; }; readonly INSIDER_ACCIDENTAL: { ....'.
+src/modules/risk/calculators/loss-event-frequency.calculator.ts(542,68): error TS2341: Property 'THREAT_FREQUENCY_BASELINES' is private and only accessible within class 'LossEventFrequencyCalculator'.
+src/modules/risk/calculators/loss-magnitude.calculator.ts(152,18): error TS2339: Property 'hardwareUnitsAffected' does not exist on type 'LossMagnitudeScenario'.
+src/modules/risk/calculators/loss-magnitude.calculator.ts(153,29): error TS2339: Property 'hardwareUnitsAffected' does not exist on type 'LossMagnitudeScenario'.
+src/modules/risk/calculators/loss-magnitude.calculator.ts(158,18): error TS2339: Property 'softwareLicensesAffected' does not exist on type 'LossMagnitudeScenario'.
+src/modules/risk/calculators/loss-magnitude.calculator.ts(159,29): error TS2339: Property 'softwareLicensesAffected' does not exist on type 'LossMagnitudeScenario'.
+src/modules/risk/calculators/loss-magnitude.calculator.ts(533,21): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type 'LossMagnitudeScenario'.
+  No index signature with a parameter of type 'string' was found on type 'LossMagnitudeScenario'.
+src/modules/risk/fair-risk-assessment.service.ts(5,23): error TS2307: Cannot find module 'mathjs' or its corresponding type declarations.
+src/modules/tenant/tenant-isolation.service.ts(32,23): error TS2693: 'TenantAccessLog' only refers to a type, but is being used as a value here.
+src/modules/tenant/tenant-isolation.service.ts(34,23): error TS2693: 'CrossTenantAccessRequest' only refers to a type, but is being used as a value here.
+src/modules/tenant/tenant-isolation.service.ts(43,38): error TS2344: Type 'T' does not satisfy the constraint 'ObjectLiteral'.
+src/modules/tenant/tenant-isolation.service.ts(46,25): error TS2344: Type 'T' does not satisfy the constraint 'ObjectLiteral'.
+src/modules/tenant/tenant-isolation.service.ts(102,46): error TS2339: Property 'get' does not exist on type 'RedisService'.
+src/modules/tenant/tenant-isolation.service.ts(130,31): error TS2339: Property 'set' does not exist on type 'RedisService'.
+src/modules/tenant/tenant-isolation.service.ts(320,44): error TS2339: Property 'get' does not exist on type 'RedisService'.
+src/modules/tenant/tenant-isolation.service.ts(335,29): error TS2339: Property 'set' does not exist on type 'RedisService'.
+src/modules/tenant/tenant-isolation.service.ts(435,88): error TS2345: Argument of type '{ timestamp: Date; userId: string; attemptedTenantId: string; operation: string; resource: string; severity: string; }' is not assignable to parameter of type 'string'.
+src/modules/tenant/tenant-isolation.service.ts(439,43): error TS2339: Property 'incr' does not exist on type 'RedisService'.
+src/modules/tenant/tenant-isolation.service.ts(505,44): error TS2339: Property 'get' does not exist on type 'RedisService'.
+src/modules/tenant/tenant-isolation.service.ts(582,55): error TS2345: Argument of type '{ severity: string; type: string; tenantId: string; userId: string; metrics: any; timestamp: Date; }' is not assignable to parameter of type 'string'.
+src/modules/tenant/tenant-isolation.service.ts(593,60): error TS2345: Argument of type '{ userId: string; }' is not assignable to parameter of type 'string'.

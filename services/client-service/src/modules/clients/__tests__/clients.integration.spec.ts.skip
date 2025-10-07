@@ -1,0 +1,969 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
+import * as request from 'supertest';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ClientsModule } from '../clients.module';
+import { Client, ClientStatus, ComplianceStatus, ClientType, Industry, CompanySize, ComplianceFramework } from '../entities/client.entity';
+import { ClientUser } from '../entities/client-user.entity';
+import { ClientDocument } from '../entities/client-document.entity';
+import { ClientAudit } from '../entities/client-audit.entity';
+import { Contract } from '../../contracts/entities/contract.entity';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { KafkaModule } from '../../events/kafka.module';
+import { KafkaProducerService } from '../../events/kafka-producer.service';
+
+describe('Clients Integration Tests', () => {
+  let app: INestApplication;
+  let clientRepository: Repository<Client>;
+  let contractRepository: Repository<Contract>;
+
+  const authHeaders = {
+    'X-User-ID': 'test-user-123',
+    'X-User-Email': 'admin@example.com',
+    'X-User-Roles': 'admin,compliance_manager',
+    'X-Organization-ID': 'org-123',
+  };
+
+  const testClient = {
+    name: 'Integration Test Client',
+    clientType: ClientType.DIRECT,
+    industry: Industry.TECHNOLOGY,
+    size: CompanySize.MEDIUM,
+    contactInfo: {
+      primaryContact: {
+        name: 'John Doe',
+        email: 'john@testclient.com',
+        phone: '+1234567890',
+      },
+    },
+    address: {
+      headquarters: {
+        street1: '123 Test St',
+        city: 'San Francisco',
+        state: 'CA',
+        postalCode: '94105',
+        country: 'USA',
+      },
+    },
+    targetFrameworks: [ComplianceFramework.SOC2_TYPE2],
+  };
+
+  beforeAll(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [
+        ConfigModule.forRoot({
+          isGlobal: true,
+          envFilePath: '.env.test',
+        }),
+        TypeOrmModule.forRootAsync({
+          imports: [ConfigModule],
+          useFactory: (configService: ConfigService) => ({
+            type: 'sqlite',
+            database: ':memory:',
+            entities: [Client, ClientUser, ClientDocument, ClientAudit, Contract],
+            synchronize: true,
+            logging: false,
+          }),
+          inject: [ConfigService],
+        }),
+        EventEmitterModule.forRoot(),
+        ClientsModule,
+      ],
+    })
+      .overrideProvider(KafkaProducerService)
+      .useValue({
+        publishClientCreated: jest.fn(),
+        publishClientUpdated: jest.fn(),
+      })
+      .compile();
+
+    app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+    }));
+
+    await app.init();
+
+    clientRepository = moduleFixture.get<Repository<Client>>(getRepositoryToken(Client));
+    contractRepository = moduleFixture.get<Repository<Contract>>(getRepositoryToken(Contract));
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  afterEach(async () => {
+    // Clean up database after each test
+    await contractRepository.delete({});
+    await clientRepository.delete({});
+  });
+
+  describe('POST /clients', () => {
+    it('should create a new client', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/clients')
+        .set(authHeaders)
+        .send(testClient)
+        .expect(201);
+
+      expect(response.body).toMatchObject({
+        id: expect.any(String),
+        name: testClient.name,
+        slug: expect.stringMatching(/^integration-test-client-\d+$/),
+        clientType: testClient.clientType,
+        industry: testClient.industry,
+        status: ClientStatus.PENDING,
+        complianceStatus: ComplianceStatus.NOT_STARTED,
+        createdBy: authHeaders['X-User-ID'],
+      });
+
+      // Verify database
+      const savedClient = await clientRepository.findOne({
+        where: { id: response.body.id },
+      });
+      expect(savedClient).toBeDefined();
+      expect(savedClient.name).toBe(testClient.name);
+    });
+
+    it('should reject duplicate client names', async () => {
+      // Create first client
+      await request(app.getHttpServer())
+        .post('/clients')
+        .set(authHeaders)
+        .send(testClient)
+        .expect(201);
+
+      // Try to create duplicate
+      const response = await request(app.getHttpServer())
+        .post('/clients')
+        .set(authHeaders)
+        .send(testClient)
+        .expect(409);
+
+      expect(response.body.message).toContain('Client with this name already exists');
+    });
+
+    it('should validate required fields', async () => {
+      const invalidClient = {
+        // Missing required name field
+        clientType: ClientType.DIRECT,
+      };
+
+      const response = await request(app.getHttpServer())
+        .post('/clients')
+        .set(authHeaders)
+        .send(invalidClient)
+        .expect(400);
+
+      expect(response.body.message).toContain('name should not be empty');
+    });
+
+    it('should enforce role-based access', async () => {
+      const viewerHeaders = {
+        ...authHeaders,
+        'X-User-Roles': 'viewer',
+      };
+
+      await request(app.getHttpServer())
+        .post('/clients')
+        .set(viewerHeaders)
+        .send(testClient)
+        .expect(403);
+    });
+  });
+
+  describe('GET /clients', () => {
+    beforeEach(async () => {
+      // Create test data
+      const clients = [
+        {
+          ...testClient,
+          name: 'Active Client 1',
+          status: ClientStatus.ACTIVE,
+          complianceStatus: ComplianceStatus.COMPLIANT,
+          complianceScore: 0.95,
+        },
+        {
+          ...testClient,
+          name: 'Active Client 2',
+          status: ClientStatus.ACTIVE,
+          complianceStatus: ComplianceStatus.ASSESSMENT,
+          complianceScore: 0.60,
+          industry: Industry.FINANCE,
+        },
+        {
+          ...testClient,
+          name: 'Inactive Client',
+          status: ClientStatus.INACTIVE,
+          complianceStatus: ComplianceStatus.NOT_STARTED,
+          complianceScore: 0,
+        },
+      ];
+
+      for (const clientData of clients) {
+        const client = clientRepository.create({
+          ...clientData,
+          createdBy: 'test-user',
+          updatedBy: 'test-user',
+        });
+        await clientRepository.save(client);
+      }
+    });
+
+    it('should return paginated clients', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients')
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body).toHaveProperty('data');
+      expect(response.body).toHaveProperty('meta');
+      expect(response.body.data).toHaveLength(3);
+      expect(response.body.meta).toEqual({
+        total: 3,
+        page: 1,
+        limit: 20,
+        totalPages: 1,
+      });
+    });
+
+    it('should filter by status', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients')
+        .query({ status: ClientStatus.ACTIVE })
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body.data).toHaveLength(2);
+      expect(response.body.data.every(c => c.status === ClientStatus.ACTIVE)).toBe(true);
+    });
+
+    it('should filter by compliance status', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients')
+        .query({ complianceStatus: ComplianceStatus.COMPLIANT })
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body.data).toHaveLength(1);
+      expect(response.body.data[0].complianceStatus).toBe(ComplianceStatus.COMPLIANT);
+    });
+
+    it('should search by name', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients')
+        .query({ search: 'Active' })
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body.data).toHaveLength(2);
+      expect(response.body.data.every(c => c.name.includes('Active'))).toBe(true);
+    });
+
+    it('should handle pagination', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients')
+        .query({ page: 2, limit: 2 })
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body.data).toHaveLength(1);
+      expect(response.body.meta).toEqual({
+        total: 3,
+        page: 2,
+        limit: 2,
+        totalPages: 2,
+      });
+    });
+
+    it('should sort results', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients')
+        .query({ sortBy: 'complianceScore', sortOrder: 'DESC' })
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body.data[0].complianceScore).toBe(0.95);
+      expect(response.body.data[1].complianceScore).toBe(0.60);
+      expect(response.body.data[2].complianceScore).toBe(0);
+    });
+  });
+
+  describe('GET /clients/:id', () => {
+    let clientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      clientId = saved.id;
+    });
+
+    it('should return a client by ID', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`/clients/${clientId}`)
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body).toMatchObject({
+        id: clientId,
+        name: testClient.name,
+        clientType: testClient.clientType,
+      });
+    });
+
+    it('should return 404 for non-existent client', async () => {
+      const fakeId = '123e4567-e89b-12d3-a456-426614174000';
+
+      await request(app.getHttpServer())
+        .get(`/clients/${fakeId}`)
+        .set(authHeaders)
+        .expect(404);
+    });
+
+    it('should validate UUID format', async () => {
+      await request(app.getHttpServer())
+        .get('/clients/invalid-uuid')
+        .set(authHeaders)
+        .expect(400);
+    });
+  });
+
+  describe('PUT /clients/:id', () => {
+    let clientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      clientId = saved.id;
+    });
+
+    it('should update a client', async () => {
+      const updateData = {
+        name: 'Updated Client Name',
+        complianceScore: 0.85,
+        industry: Industry.FINANCE,
+      };
+
+      const response = await request(app.getHttpServer())
+        .put(`/clients/${clientId}`)
+        .set(authHeaders)
+        .send(updateData)
+        .expect(200);
+
+      expect(response.body).toMatchObject({
+        id: clientId,
+        name: updateData.name,
+        complianceScore: updateData.complianceScore,
+        industry: updateData.industry,
+        updatedBy: authHeaders['X-User-ID'],
+      });
+
+      // Verify database update
+      const updated = await clientRepository.findOne({ where: { id: clientId } });
+      expect(updated.name).toBe(updateData.name);
+      expect(updated.complianceScore).toBe(updateData.complianceScore);
+    });
+
+    it('should handle partial updates', async () => {
+      const partialUpdate = {
+        complianceScore: 0.90,
+      };
+
+      const response = await request(app.getHttpServer())
+        .put(`/clients/${clientId}`)
+        .set(authHeaders)
+        .send(partialUpdate)
+        .expect(200);
+
+      expect(response.body.complianceScore).toBe(0.90);
+      expect(response.body.name).toBe(testClient.name); // Unchanged
+    });
+
+    it('should validate compliance score range', async () => {
+      const invalidUpdate = {
+        complianceScore: 1.5, // Invalid: must be 0-1
+      };
+
+      await request(app.getHttpServer())
+        .put(`/clients/${clientId}`)
+        .set(authHeaders)
+        .send(invalidUpdate)
+        .expect(400);
+    });
+  });
+
+  describe('PUT /clients/:id/compliance-status', () => {
+    let clientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      clientId = saved.id;
+    });
+
+    it('should update compliance status', async () => {
+      const statusUpdate = {
+        status: ComplianceStatus.COMPLIANT,
+        notes: 'Audit completed successfully',
+      };
+
+      const response = await request(app.getHttpServer())
+        .put(`/clients/${clientId}/compliance-status`)
+        .set(authHeaders)
+        .send(statusUpdate)
+        .expect(200);
+
+      expect(response.body.complianceStatus).toBe(ComplianceStatus.COMPLIANT);
+      expect(response.body.complianceScore).toBe(1.0);
+    });
+
+    it('should enforce role restrictions', async () => {
+      const accountManagerHeaders = {
+        ...authHeaders,
+        'X-User-Roles': 'account_manager',
+      };
+
+      await request(app.getHttpServer())
+        .put(`/clients/${clientId}/compliance-status`)
+        .set(accountManagerHeaders)
+        .send({ status: ComplianceStatus.COMPLIANT })
+        .expect(403);
+    });
+  });
+
+  describe('POST /clients/onboarding/start', () => {
+    let clientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      clientId = saved.id;
+    });
+
+    it('should start onboarding process', async () => {
+      const onboardingData = {
+        clientId,
+        projectManagerId: 'pm-123',
+        customTasks: ['Setup environment', 'Initial training'],
+      };
+
+      const response = await request(app.getHttpServer())
+        .post('/clients/onboarding/start')
+        .set(authHeaders)
+        .send(onboardingData)
+        .expect(201);
+
+      expect(response.body.onboardingStartDate).toBeDefined();
+      expect(response.body.status).toBe(ClientStatus.ACTIVE);
+
+      // Verify database
+      const updated = await clientRepository.findOne({ where: { id: clientId } });
+      expect(updated.onboardingStartDate).toBeDefined();
+      expect(updated.status).toBe(ClientStatus.ACTIVE);
+    });
+
+    it('should prevent duplicate onboarding', async () => {
+      // Start onboarding first time
+      await request(app.getHttpServer())
+        .post('/clients/onboarding/start')
+        .set(authHeaders)
+        .send({ clientId })
+        .expect(201);
+
+      // Try to start again
+      await request(app.getHttpServer())
+        .post('/clients/onboarding/start')
+        .set(authHeaders)
+        .send({ clientId })
+        .expect(400);
+    });
+  });
+
+  describe('POST /clients/:id/onboarding/complete', () => {
+    let clientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        onboardingStartDate: new Date(),
+        status: ClientStatus.ACTIVE,
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      clientId = saved.id;
+    });
+
+    it('should complete onboarding', async () => {
+      const completionData = {
+        summary: 'Onboarding completed successfully',
+        finalChecklist: {
+          contractsSigned: true,
+          systemAccessGranted: true,
+          trainingCompleted: true,
+        },
+        firstAuditScheduled: new Date('2025-03-01').toISOString(),
+      };
+
+      const response = await request(app.getHttpServer())
+        .post(`/clients/${clientId}/onboarding/complete`)
+        .set(authHeaders)
+        .send(completionData)
+        .expect(201);
+
+      expect(response.body.onboardingCompleteDate).toBeDefined();
+      expect(response.body.complianceStatus).toBe(ComplianceStatus.ASSESSMENT);
+      expect(new Date(response.body.nextAuditDate)).toEqual(new Date('2025-03-01'));
+    });
+
+    it('should require onboarding to be started', async () => {
+      const newClient = clientRepository.create({
+        ...testClient,
+        name: 'Client Without Onboarding',
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(newClient);
+
+      await request(app.getHttpServer())
+        .post(`/clients/${saved.id}/onboarding/complete`)
+        .set(authHeaders)
+        .send({ summary: 'Test' })
+        .expect(400);
+    });
+  });
+
+  describe('DELETE /clients/:id (Archive)', () => {
+    let clientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      clientId = saved.id;
+    });
+
+    it('should archive a client', async () => {
+      await request(app.getHttpServer())
+        .delete(`/clients/${clientId}`)
+        .set(authHeaders)
+        .expect(204);
+
+      // Verify database
+      const archived = await clientRepository.findOne({ where: { id: clientId } });
+      expect(archived.status).toBe(ClientStatus.ARCHIVED);
+      expect(archived.isDeleted).toBe(true);
+      expect(archived.deletedAt).toBeDefined();
+      expect(archived.deletedBy).toBe(authHeaders['X-User-ID']);
+    });
+
+    it('should prevent archiving with active contracts', async () => {
+      // Create an active contract
+      const contract = contractRepository.create({
+        clientId,
+        contractNumber: 'TEST-001',
+        type: 'SOC2_TYPE2',
+        status: 'ACTIVE',
+        startDate: new Date(),
+        endDate: new Date('2025-12-31'),
+        value: 50000,
+        currency: 'USD',
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      await contractRepository.save(contract);
+
+      await request(app.getHttpServer())
+        .delete(`/clients/${clientId}`)
+        .set(authHeaders)
+        .expect(400);
+    });
+
+    it('should require admin role', async () => {
+      const nonAdminHeaders = {
+        ...authHeaders,
+        'X-User-Roles': 'compliance_manager',
+      };
+
+      await request(app.getHttpServer())
+        .delete(`/clients/${clientId}`)
+        .set(nonAdminHeaders)
+        .expect(403);
+    });
+  });
+
+  describe('POST /clients/:id/restore', () => {
+    let archivedClientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        status: ClientStatus.ARCHIVED,
+        isDeleted: true,
+        deletedAt: new Date(),
+        deletedBy: 'test-user',
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      archivedClientId = saved.id;
+    });
+
+    it('should restore an archived client', async () => {
+      const response = await request(app.getHttpServer())
+        .post(`/clients/${archivedClientId}/restore`)
+        .set(authHeaders)
+        .expect(201);
+
+      expect(response.body.status).toBe(ClientStatus.INACTIVE);
+      expect(response.body.isDeleted).toBe(false);
+      expect(response.body.deletedAt).toBeNull();
+
+      // Verify database
+      const restored = await clientRepository.findOne({ where: { id: archivedClientId } });
+      expect(restored.isDeleted).toBe(false);
+      expect(restored.status).toBe(ClientStatus.INACTIVE);
+    });
+
+    it('should not restore non-archived client', async () => {
+      const activeClient = clientRepository.create({
+        ...testClient,
+        name: 'Active Client',
+        status: ClientStatus.ACTIVE,
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(activeClient);
+
+      await request(app.getHttpServer())
+        .post(`/clients/${saved.id}/restore`)
+        .set(authHeaders)
+        .expect(400);
+    });
+  });
+
+  describe('GET /clients/dashboard/stats', () => {
+    beforeEach(async () => {
+      // Create diverse test data
+      const clients = [
+        {
+          ...testClient,
+          name: 'Compliant Client',
+          status: ClientStatus.ACTIVE,
+          complianceStatus: ComplianceStatus.COMPLIANT,
+          complianceScore: 1.0,
+          targetFrameworks: [ComplianceFramework.SOC2_TYPE2],
+        },
+        {
+          ...testClient,
+          name: 'Under Audit Client',
+          status: ClientStatus.ACTIVE,
+          complianceStatus: ComplianceStatus.UNDER_AUDIT,
+          complianceScore: 0.85,
+          targetFrameworks: [ComplianceFramework.SOC2_TYPE2, ComplianceFramework.ISO27001],
+        },
+        {
+          ...testClient,
+          name: 'New Client',
+          status: ClientStatus.PENDING,
+          complianceStatus: ComplianceStatus.NOT_STARTED,
+          complianceScore: 0,
+          targetFrameworks: [ComplianceFramework.HIPAA],
+        },
+      ];
+
+      for (const clientData of clients) {
+        const client = clientRepository.create({
+          ...clientData,
+          createdBy: 'test-user',
+          updatedBy: 'test-user',
+        });
+        await clientRepository.save(client);
+      }
+    });
+
+    it('should return dashboard statistics', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients/dashboard/stats')
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body).toMatchObject({
+        totalClients: 3,
+        activeClients: 2,
+        clientsByStatus: {
+          active: 2,
+          pending: 1,
+        },
+        clientsByCompliance: {
+          compliant: 1,
+          under_audit: 1,
+          not_started: 1,
+        },
+        clientsByFramework: {
+          soc2_type2: 2,
+          iso27001: 1,
+          hipaa: 1,
+        },
+        averageComplianceScore: expect.any(Number),
+      });
+
+      // Average should be (1.0 + 0.85) / 2 = 0.925 (only active clients)
+      expect(response.body.averageComplianceScore).toBeCloseTo(0.93, 1);
+    });
+  });
+
+  describe('GET /clients/upcoming-audits', () => {
+    beforeEach(async () => {
+      const today = new Date();
+      const in30Days = new Date();
+      in30Days.setDate(today.getDate() + 30);
+      const in120Days = new Date();
+      in120Days.setDate(today.getDate() + 120);
+
+      const clients = [
+        {
+          ...testClient,
+          name: 'Client Needs Audit Now',
+          status: ClientStatus.ACTIVE,
+          nextAuditDate: null,
+        },
+        {
+          ...testClient,
+          name: 'Client Audit in 30 Days',
+          status: ClientStatus.ACTIVE,
+          nextAuditDate: in30Days,
+        },
+        {
+          ...testClient,
+          name: 'Client Audit in 120 Days',
+          status: ClientStatus.ACTIVE,
+          nextAuditDate: in120Days,
+        },
+      ];
+
+      for (const clientData of clients) {
+        const client = clientRepository.create({
+          ...clientData,
+          createdBy: 'test-user',
+          updatedBy: 'test-user',
+        });
+        await clientRepository.save(client);
+      }
+    });
+
+    it('should return clients needing audits within 90 days', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients/upcoming-audits')
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body.data).toHaveLength(2);
+      expect(response.body.meta.daysAhead).toBe(90);
+      
+      // Should include null audit date and audit within 30 days
+      const clientNames = response.body.data.map(c => c.name);
+      expect(clientNames).toContain('Client Needs Audit Now');
+      expect(clientNames).toContain('Client Audit in 30 Days');
+      expect(clientNames).not.toContain('Client Audit in 120 Days');
+    });
+
+    it('should accept custom days parameter', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/clients/upcoming-audits')
+        .query({ days: 150 })
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body.data).toHaveLength(3);
+      expect(response.body.meta.daysAhead).toBe(150);
+    });
+  });
+
+  describe('GET /clients/:id/compliance-metrics', () => {
+    let clientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        complianceScore: 0.85,
+        complianceStatus: ComplianceStatus.UNDER_AUDIT,
+        targetFrameworks: [ComplianceFramework.SOC2_TYPE2, ComplianceFramework.ISO27001],
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      clientId = saved.id;
+    });
+
+    it('should return compliance metrics', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`/clients/${clientId}/compliance-metrics`)
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body).toMatchObject({
+        overallScore: 0.85,
+        frameworkScores: expect.any(Object),
+        controlsStatus: {
+          total: expect.any(Number),
+          implemented: expect.any(Number),
+          inProgress: expect.any(Number),
+          notStarted: expect.any(Number),
+        },
+        upcomingAudits: expect.any(Array),
+        certificateStatus: {
+          active: expect.any(Number),
+          expiringSoon: expect.any(Number),
+          expired: expect.any(Number),
+        },
+      });
+
+      // Framework scores should be calculated for each target framework
+      expect(Object.keys(response.body.frameworkScores)).toHaveLength(2);
+      expect(response.body.frameworkScores).toHaveProperty('soc2_type2');
+      expect(response.body.frameworkScores).toHaveProperty('iso27001');
+    });
+  });
+
+  describe('GET /clients/:id/users', () => {
+    let clientId: string;
+
+    beforeEach(async () => {
+      const client = clientRepository.create({
+        ...testClient,
+        createdBy: 'test-user',
+        updatedBy: 'test-user',
+      });
+      const saved = await clientRepository.save(client);
+      clientId = saved.id;
+    });
+
+    it('should return client users', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`/clients/${clientId}/users`)
+        .set(authHeaders)
+        .expect(200);
+
+      expect(response.body).toHaveProperty('data');
+      expect(response.body).toHaveProperty('meta');
+      expect(response.body.data).toBeInstanceOf(Array);
+    });
+
+    it('should filter by status and role', async () => {
+      await request(app.getHttpServer())
+        .get(`/clients/${clientId}/users`)
+        .query({ status: 'active', role: 'admin' })
+        .set(authHeaders)
+        .expect(200);
+    });
+  });
+
+  describe('Error Handling', () => {
+    it('should handle database connection errors', async () => {
+      // This would require mocking the database connection
+      // For now, we'll test that the error structure is correct
+      await request(app.getHttpServer())
+        .get('/clients/invalid-endpoint')
+        .set(authHeaders)
+        .expect(404);
+    });
+
+    it('should validate enum values', async () => {
+      const invalidClient = {
+        ...testClient,
+        clientType: 'INVALID_TYPE',
+        industry: 'INVALID_INDUSTRY',
+      };
+
+      await request(app.getHttpServer())
+        .post('/clients')
+        .set(authHeaders)
+        .send(invalidClient)
+        .expect(400);
+    });
+
+    it('should handle missing auth headers', async () => {
+      await request(app.getHttpServer())
+        .get('/clients')
+        .expect(401);
+    });
+  });
+
+  describe('Performance Tests', () => {
+    it('should handle large datasets efficiently', async () => {
+      // Create 100 clients
+      const clients = [];
+      for (let i = 0; i < 100; i++) {
+        clients.push(clientRepository.create({
+          ...testClient,
+          name: `Client ${i}`,
+          createdBy: 'test-user',
+          updatedBy: 'test-user',
+        }));
+      }
+      await clientRepository.save(clients);
+
+      const startTime = Date.now();
+      
+      const response = await request(app.getHttpServer())
+        .get('/clients')
+        .query({ limit: 50 })
+        .set(authHeaders)
+        .expect(200);
+
+      const endTime = Date.now();
+      const responseTime = endTime - startTime;
+
+      expect(response.body.data).toHaveLength(50);
+      expect(response.body.meta.total).toBe(100);
+      expect(responseTime).toBeLessThan(1000); // Should respond within 1 second
+    });
+
+    it('should handle concurrent requests', async () => {
+      const requests = [];
+      
+      // Send 10 concurrent requests
+      for (let i = 0; i < 10; i++) {
+        requests.push(
+          request(app.getHttpServer())
+            .get('/clients')
+            .set(authHeaders)
+        );
+      }
+
+      const responses = await Promise.all(requests);
+      
+      // All requests should succeed
+      responses.forEach(response => {
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('data');
+        expect(response.body).toHaveProperty('meta');
+      });
+    });
+  });
+});

@@ -1,0 +1,136 @@
+_format_version: "3.0"
+
+services:
+  # Authentication Service
+  - name: auth-service
+    url: http://auth-service:3000
+    routes:
+      - name: auth-routes
+        paths:
+          - /api/v1/auth
+        strip_path: true
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+
+  # Client Management Service
+  - name: client-service
+    url: http://client-service:3001
+    routes:
+      - name: client-routes
+        paths:
+          - /api/v1/clients
+        strip_path: true
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+
+  # Audit Service
+  - name: audit-service
+    url: http://audit-service:3002
+    routes:
+      - name: audit-routes
+        paths:
+          - /api/v1/audits
+        strip_path: true
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+
+  # Evidence Service
+  - name: evidence-service
+    url: http://evidence-service:3003
+    routes:
+      - name: evidence-routes
+        paths:
+          - /api/v1/evidence
+        strip_path: true
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+
+  # Policy Service
+  - name: policy-service
+    url: http://policy-service:3004
+    routes:
+      - name: policy-routes
+        paths:
+          - /api/v1/policies
+        strip_path: true
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+
+# Global Plugins
+plugins:
+  # Rate Limiting
+  - name: rate-limiting
+    config:
+      minute: 100
+      hour: 10000
+      policy: local
+
+  # CORS
+  - name: cors
+    config:
+      origins:
+        - http://localhost:3000
+        - https://app.soc-compliance.com
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      headers:
+        - Accept
+        - Accept-Version
+        - Content-Length
+        - Content-MD5
+        - Content-Type
+        - Date
+        - X-Auth-Token
+        - X-CSRF-Token
+      exposed_headers:
+        - X-Auth-Token
+      credentials: true
+      max_age: 3600
+
+  # Request/Response Logging
+  - name: http-log
+    config:
+      http_endpoint: http://logging-service:3010/logs
+
+  # JWT Authentication
+  - name: jwt
+    config:
+      secret_is_base64: false
+      claims_to_verify:
+        - exp
+      maximum_expiration: 28800 # 8 hours
+
+# Upstreams for load balancing
+upstreams:
+  - name: auth-service
+    targets:
+      - target: auth-service-1:3000
+        weight: 100
+      - target: auth-service-2:3000
+        weight: 100
+
+  - name: client-service
+    targets:
+      - target: client-service-1:3001
+        weight: 100
+      - target: client-service-2:3001
+        weight: 100

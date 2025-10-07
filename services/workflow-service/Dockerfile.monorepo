@@ -1,0 +1,76 @@
+# Build stage
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Install Python and build dependencies for native modules
+RUN apk add --no-cache python3 make g++ curl
+
+# Copy package files for workspace
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY biome.json ./
+
+# Copy shared packages and their dependencies
+COPY packages ./packages
+COPY shared ./shared
+
+# Copy service-specific files
+COPY services/workflow-service ./services/workflow-service
+
+# Install all dependencies (including workspace dependencies)
+RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+
+# Build shared packages
+RUN npm run build:shared
+
+# Build the service
+WORKDIR /app/services/workflow-service
+RUN npm run build
+
+# Verify build output
+RUN test -f dist/main.js || (echo "Build failed: dist/main.js not found" && exit 1)
+
+# Production stage
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install curl for health checks and dumb-init for signal handling
+RUN apk add --no-cache curl dumb-init
+
+# Copy package files and install production dependencies
+COPY package*.json ./
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/shared ./shared
+COPY services/workflow-service/package*.json ./services/workflow-service/
+
+# Install production dependencies
+RUN npm ci --omit=dev --legacy-peer-deps || npm install --omit=dev --legacy-peer-deps
+
+# Copy built application
+COPY --from=builder /app/services/workflow-service/dist ./services/workflow-service/dist
+
+# Workflows directory is optional - will be created at runtime if needed
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Change ownership
+RUN chown -R nodejs:nodejs /app
+
+USER nodejs
+
+WORKDIR /app/services/workflow-service
+
+# Health check for container orchestration
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:3006/health || exit 1
+
+EXPOSE 3006
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+CMD ["node", "dist/main.js"]

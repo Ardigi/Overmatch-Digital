@@ -1,0 +1,258 @@
+--- a/services/control-service/src/modules/controls/controls.service.ts
++++ b/services/control-service/src/modules/controls/controls.service.ts
+@@ -5340,4 +5340,209 @@ export class ControlsService {
+         break;
+     }
+   }
++
++  /**
++   * Get compatibility mapping between two frameworks
++   */
++  async getCompatibilityMapping(sourceFramework: string, targetFramework: string): Promise<any> {
++    if (!VALID_FRAMEWORKS.includes(sourceFramework) || !VALID_FRAMEWORKS.includes(targetFramework)) {
++      throw new BadRequestException(`Invalid framework: ${sourceFramework} or ${targetFramework}`);
++    }
++
++    // Framework compatibility matrix
++    const compatibilityMatrix = {
++      'SOC2': {
++        'ISO27001': {
++          'CC1.1': ['A.5.1.1', 'A.8.1.1'],
++          'CC1.2': ['A.5.1.2', 'A.8.1.2'],
++          'CC2.1': ['A.9.1.1', 'A.9.2.1'],
++          'CC6.1': ['A.12.4.1', 'A.14.2.8'],
++          'CC6.7': ['A.12.6.1', 'A.17.1.2'],
++        },
++        'NIST': {
++          'CC1.1': ['AC-1', 'AC-2'],
++          'CC1.2': ['AC-3', 'AC-6'],
++          'CC2.1': ['IA-1', 'IA-2'],
++          'CC6.1': ['SI-1', 'SI-2'],
++          'CC6.7': ['CP-1', 'CP-2'],
++        }
++      },
++      'ISO27001': {
++        'SOC2': {
++          'A.5.1.1': ['CC1.1'],
++          'A.8.1.1': ['CC1.1'],
++          'A.9.1.1': ['CC2.1'],
++          'A.12.4.1': ['CC6.1'],
++          'A.17.1.2': ['CC6.7'],
++        },
++        'NIST': {
++          'A.5.1.1': ['AC-1'],
++          'A.9.1.1': ['IA-1'],
++          'A.12.4.1': ['SI-1'],
++          'A.17.1.2': ['CP-1'],
++        }
++      }
++    };
++
++    const mappings = compatibilityMatrix[sourceFramework]?.[targetFramework] || {};
++
++    return {
++      sourceFramework,
++      targetFramework,
++      mappings,
++      mappingCount: Object.keys(mappings).length,
++      generatedAt: new Date(),
++    };
++  }
++
++  /**
++   * Check framework version compatibility
++   */
++  async checkFrameworkVersionCompatibility(framework: string, sourceVersion: string, targetVersion: string): Promise<any> {
++    if (!VALID_FRAMEWORKS.includes(framework)) {
++      throw new BadRequestException(`Invalid framework: ${framework}`);
++    }
++
++    // Version compatibility rules
++    const versionCompatibility = {
++      'SOC2': {
++        '2017': {
++          '2022': { isCompatible: true, migrationRequired: false, changes: ['Minor clarifications'] },
++        },
++        '2022': {
++          '2017': { isCompatible: true, migrationRequired: true, changes: ['Backward compatibility maintained'] },
++        }
++      },
++      'ISO27001': {
++        '2013': {
++          '2022': { isCompatible: false, migrationRequired: true, changes: ['Significant structural changes'] },
++        },
++        '2022': {
++          '2013': { isCompatible: false, migrationRequired: true, changes: ['Not backward compatible'] },
++        }
++      }
++    };
++
++    const compatibility = versionCompatibility[framework]?.[sourceVersion]?.[targetVersion] || {
++      isCompatible: false,
++      migrationRequired: true,
++      changes: ['Unknown compatibility']
++    };
++
++    return {
++      framework,
++      sourceVersion,
++      targetVersion,
++      ...compatibility,
++      checkedAt: new Date(),
++    };
++  }
++
++  /**
++   * Validate framework compliance requirements
++   */
++  async validateFrameworkRequirements(organizationId: string, framework: string): Promise<any> {
++    if (!VALID_FRAMEWORKS.includes(framework)) {
++      throw new BadRequestException(`Invalid framework: ${framework}`);
++    }
++
++    const frameworkControls = await this.getControlsByFramework(framework);
++    const coverage = await this.getFrameworkCoverage(organizationId, framework);
++
++    // Framework requirements
++    const frameworkRequirements = {
++      'SOC2': {
++        requiredControls: ['CC1.1', 'CC1.2', 'CC2.1', 'CC6.1', 'CC6.7'],
++        optionalControls: ['CC3.1', 'CC3.2'],
++        evidenceRequired: true,
++        auditSupport: true,
++        minCoveragePercentage: 100,
++      },
++      'ISO27001': {
++        requiredControls: ['A.5.1', 'A.8.1', 'A.9.1', 'A.12.4', 'A.17.1'],
++        optionalControls: ['A.6.1', 'A.10.1'],
++        evidenceRequired: true,
++        auditSupport: true,
++        minCoveragePercentage: 95,
++      }
++    };
++
++    const requirements = frameworkRequirements[framework] || {
++      requiredControls: [],
++      optionalControls: [],
++      evidenceRequired: false,
++      auditSupport: false,
++      minCoveragePercentage: 80,
++    };
++
++    // Check compliance
++    const implementedControlCodes = frameworkControls
++      .filter(control => control.implementations?.some(impl => 
++        impl.organizationId === organizationId && 
++        impl.status === ImplementationStatus.IMPLEMENTED
++      ))
++      .map(control => control.code);
++
++    const missingControls = requirements.requiredControls.filter(
++      required => !implementedControlCodes.includes(required)
++    );
++
++    const isCompliant = missingControls.length === 0 && 
++                       coverage.overall.coveragePercentage >= requirements.minCoveragePercentage;
++
++    const recommendations = [];
++    if (missingControls.length > 0) {
++      recommendations.push(`Implement missing required controls: ${missingControls.join(', ')}`);
++    }
++    if (coverage.overall.coveragePercentage < requirements.minCoveragePercentage) {
++      recommendations.push(`Increase coverage from ${coverage.overall.coveragePercentage}% to ${requirements.minCoveragePercentage}%`);
++    }
++
++    return {
++      framework,
++      organizationId,
++      isCompliant,
++      requirements,
++      missingControls,
++      implementedControls: implementedControlCodes,
++      coveragePercentage: coverage.overall.coveragePercentage,
++      recommendations,
++      validatedAt: new Date(),
++    };
++  }
++
++  /**
++   * Analyze control overlaps between frameworks
++   */
++  async analyzeControlOverlaps(frameworks: string[]): Promise<any> {
++    // Validate frameworks
++    for (const framework of frameworks) {
++      if (!VALID_FRAMEWORKS.includes(framework)) {
++        throw new BadRequestException(`Invalid framework: ${framework}`);
++      }
++    }
++
++    // Get all controls for all frameworks
++    const frameworkControls = await Promise.all(
++      frameworks.map(async framework => ({
++        framework,
++        controls: await this.getControlsByFramework(framework)
++      }))
++    );
++
++    // Find shared controls (controls that appear in multiple frameworks)
++    const controlsByCode = new Map<string, { control: Control, frameworks: string[] }>();
++
++    for (const { framework, controls } of frameworkControls) {
++      for (const control of controls) {
++        if (!controlsByCode.has(control.code)) {
++          controlsByCode.set(control.code, {
++            control,
++            frameworks: []
++          });
++        }
++        controlsByCode.get(control.code)!.frameworks.push(framework);
++      }
++    }
++
++    // Find overlaps (controls in more than one framework)
++    const sharedControls = Array.from(controlsByCode.entries())
++      .filter(([code, data]) => data.frameworks.length > 1)
++      .map(([code, data]) => ({
++        controlCode: code,
++        controlName: data.control.name,
++        frameworks: data.frameworks,
++        category: data.control.category,
++        type: data.control.type,
++      }));
++
++    // Calculate overlap statistics
++    const totalUniqueControls = controlsByCode.size;
++    const overlapCount = sharedControls.length;
++    const overlapPercentage = totalUniqueControls > 0 ? (overlapCount / totalUniqueControls) * 100 : 0;
++
++    // Framework pair analysis
++    const pairwiseOverlaps = [];
++    for (let i = 0; i < frameworks.length; i++) {
++      for (let j = i + 1; j < frameworks.length; j++) {
++        const framework1 = frameworks[i];
++        const framework2 = frameworks[j];
++        
++        const sharedBetweenPair = sharedControls.filter(shared =>
++          shared.frameworks.includes(framework1) && shared.frameworks.includes(framework2)
++        );
++
++        pairwiseOverlaps.push({
++          framework1,
++          framework2,
++          sharedControlCount: sharedBetweenPair.length,
++          sharedControls: sharedBetweenPair.map(s => s.controlCode),
++        });
++      }
++    }
++
++    return {
++      frameworks,
++      totalUniqueControls,
++      sharedControls,
++      overlapCount,
++      overlapPercentage,
++      pairwiseOverlaps,
++      analyzedAt: new Date(),
++    };
++  }
+ }

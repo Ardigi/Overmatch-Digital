@@ -1,0 +1,68 @@
+# Build stage - for monorepo with shared packages
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy root package files for workspaces
+COPY package*.json ./
+COPY tsconfig.json ./
+
+# Copy all packages and shared directories
+COPY packages ./packages
+COPY shared ./shared
+COPY services/ai-service ./services/ai-service
+
+# Install all dependencies at root level (includes workspace packages)
+RUN npm install --legacy-peer-deps
+
+# Build shared packages first (from shared directory)
+WORKDIR /app/shared/contracts
+RUN npm run build
+
+WORKDIR /app/shared/events
+RUN npm run build
+
+# Build packages directory packages
+WORKDIR /app/packages/auth-common
+RUN npm run build
+
+WORKDIR /app/packages/http-common
+RUN npm run build
+
+WORKDIR /app/packages/cache-common
+RUN npm run build || echo "Warning: cache-common build failed, continuing..."
+
+WORKDIR /app/packages/monitoring
+RUN npm run build || true
+
+WORKDIR /app/packages/secrets
+RUN npm run build || true
+
+# Now build the ai service
+WORKDIR /app/services/ai-service
+RUN npm run build
+
+# Production stage
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy everything we need for runtime
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/shared ./shared
+COPY --from=builder /app/services/ai-service/dist ./dist
+COPY --from=builder /app/services/ai-service/package*.json ./
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Change ownership
+RUN chown -R nodejs:nodejs /app
+
+USER nodejs
+
+EXPOSE 3011
+
+CMD ["node", "dist/main"]

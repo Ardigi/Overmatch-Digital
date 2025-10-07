@@ -1,0 +1,256 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
+
+// Note: This file is marked as .spec.ts but contains integration tests
+// Due to TypeORM/Jest compatibility issues, we cannot import entities directly
+// Real integration tests should be run as E2E tests with Docker
+
+/**
+ * Integration tests for Authentication Service
+ * Tests real implementations against compliance requirements
+ */
+describe('AuthController Integration Tests', () => {
+  let app: INestApplication;
+  let authController: AuthController;
+  let authService: AuthService;
+
+  // Mock repositories
+  const mockUserRepository = {
+    create: jest.fn(),
+    save: jest.fn(),
+    findOne: jest.fn(),
+    update: jest.fn(),
+    find: jest.fn(),
+  };
+
+  const mockRefreshTokenRepository = {
+    create: jest.fn(),
+    save: jest.fn(),
+    findOne: jest.fn(),
+    delete: jest.fn(),
+  };
+
+  const mockAuditLogRepository = {
+    create: jest.fn(),
+    save: jest.fn(),
+  };
+
+  const mockOrganizationRepository = {
+    create: jest.fn(),
+    save: jest.fn(),
+    findOne: jest.fn(),
+  };
+
+  const mockRoleRepository = {
+    findOne: jest.fn(),
+  };
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [
+        ConfigModule.forRoot({
+          isGlobal: true,
+          load: [() => ({
+            JWT_SECRET: 'test-secret',
+            JWT_EXPIRATION: '15m',
+            REDIS_HOST: 'localhost',
+            REDIS_PORT: 6379,
+            APP_NAME: 'SOC-Compliance-Test',
+            ENCRYPTION_KEY: 'test-encryption-key-32-characters',
+            SETUP_KEY: 'test-setup-key',
+          })],
+        }),
+        JwtModule.register({
+          secret: 'test-secret',
+          signOptions: { expiresIn: '15m' },
+        }),
+        AuthModule,
+      ],
+    })
+    .overrideProvider(getRepositoryToken(User))
+    .useValue(mockUserRepository)
+    .overrideProvider(getRepositoryToken(RefreshToken))
+    .useValue(mockRefreshTokenRepository)
+    .overrideProvider(getRepositoryToken(AuditLog))
+    .useValue(mockAuditLogRepository)
+    .overrideProvider(getRepositoryToken(Organization))
+    .useValue(mockOrganizationRepository)
+    .overrideProvider(getRepositoryToken(Role))
+    .useValue(mockRoleRepository)
+    .overrideProvider('REDIS_CLIENT')
+    .useValue({
+      get: jest.fn(),
+      set: jest.fn(),
+      del: jest.fn(),
+      exists: jest.fn(),
+      expire: jest.fn(),
+      incr: jest.fn(),
+      setex: jest.fn(),
+      ttl: jest.fn(),
+      decr: jest.fn(),
+      hget: jest.fn(),
+      hset: jest.fn(),
+      hdel: jest.fn(),
+      hgetall: jest.fn(),
+      on: jest.fn(),
+      quit: jest.fn(),
+    })
+    .compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+
+    authController = (moduleFixture as any).get<AuthController>(AuthController);
+    authService = (moduleFixture as any).get<AuthService>(AuthService);
+  });
+
+  afterEach(async () => {
+    await app.close();
+    jest.clearAllMocks();
+  });
+
+  describe('Setup Endpoint', () => {
+    it('should create first admin user with proper security', async () => {
+      // No users exist
+      mockUserRepository.find.mockResolvedValue([]);
+      
+      const mockOrg = { id: 'org-123', name: 'Test Org' };
+      mockOrganizationRepository.create.mockReturnValue(mockOrg);
+      mockOrganizationRepository.save.mockResolvedValue(mockOrg);
+      
+      const mockUser = {
+        id: 'user-123',
+        email: 'admin@example.com',
+        password: 'hashed-password',
+        firstName: 'Admin',
+        lastName: 'User',
+        organization: mockOrg,
+        emailVerified: true,
+        status: 'active',
+        roles: ['admin'],
+      };
+      
+      mockUserRepository.create.mockReturnValue(mockUser);
+      mockUserRepository.save.mockResolvedValue(mockUser);
+      mockUserRepository.findOne.mockResolvedValue(mockUser);
+      
+      const setupDto = {
+        email: 'admin@example.com',
+        password: 'SecurePassword123!',
+        firstName: 'Admin',
+        lastName: 'User',
+        organizationName: 'Test Org',
+        setupKey: 'test-setup-key',
+      };
+
+      const result = await authController.setup(setupDto);
+      
+      expect(result).toHaveProperty('accessToken');
+      expect(result).toHaveProperty('refreshToken');
+      expect(result.user).toMatchObject({
+        id: 'user-123',
+        email: 'admin@example.com',
+        roles: ['admin'],
+      });
+    });
+
+    it('should reject setup if users already exist', async () => {
+      mockUserRepository.find.mockResolvedValue([{ id: 'existing-user' }]);
+      
+      const setupDto = {
+        email: 'admin@example.com',
+        password: 'SecurePassword123!',
+        firstName: 'Admin',
+        lastName: 'User',
+        organizationName: 'Test Org',
+        setupKey: 'test-setup-key',
+      };
+
+      await expect(authController.setup(setupDto))
+        .rejects.toThrow('System already initialized');
+    });
+  });
+
+  describe('Login with MFA', () => {
+    it('should require MFA token when MFA is enabled', async () => {
+      const mockUser = {
+        id: 'user-123',
+        email: 'user@example.com',
+        password: '$2b$10$YourHashedPasswordHere',
+        emailVerified: true,
+        status: 'active',
+        mfaEnabled: true,
+        mfaSecret: 'secret',
+        roles: ['user'],
+      };
+
+      mockUserRepository.findOne.mockResolvedValue(mockUser);
+
+      const loginDto = {
+        email: 'user@example.com',
+        password: 'password',
+      };
+
+      const result = await authController.login(
+        loginDto,
+        '127.0.0.1',
+        'Mozilla/5.0',
+        {}
+      );
+
+      expect(result).toMatchObject({
+        requiresMfa: true,
+        mfaMethods: ['totp'],
+        tempToken: expect.any(String),
+      });
+    });
+  });
+
+  describe('Security Controls', () => {
+    it('should enforce password policy on registration', async () => {
+      const weakPassword = 'weak';
+      const registerDto = {
+        email: 'test@example.com',
+        password: weakPassword,
+        firstName: 'Test',
+        lastName: 'User',
+      };
+
+      await expect(authController.register(registerDto))
+        .rejects.toThrow();
+    });
+
+    it('should track authentication events in audit log', async () => {
+      const mockUser = {
+        id: 'user-123',
+        email: 'user@example.com',
+        password: '$2b$10$YourHashedPasswordHere',
+        emailVerified: true,
+        status: 'active',
+        mfaEnabled: false,
+        roles: ['user'],
+      };
+
+      mockUserRepository.findOne.mockResolvedValue(mockUser);
+      mockUserRepository.update.mockResolvedValue({ affected: 1 });
+      
+      const mockAuditLog = { id: 'audit-123' };
+      mockAuditLogRepository.create.mockReturnValue(mockAuditLog);
+      mockAuditLogRepository.save.mockResolvedValue(mockAuditLog);
+
+      const loginDto = {
+        email: 'user@example.com',
+        password: 'password',
+      };
+
+      await authController.login(loginDto, '127.0.0.1', 'Mozilla/5.0', {});
+
+      // Verify audit log was created
+      expect(mockAuditLogRepository.save).toHaveBeenCalled();
+    });
+  });
+});

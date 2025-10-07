@@ -1,0 +1,745 @@
+import { ConfigService } from '@nestjs/config';
+import { EmailProviderService, EmailProvider } from './email.provider';
+import { NotificationChannel } from '../../notifications/entities/notification.entity';
+import * as nodemailer from 'nodemailer';
+import * as sgMail from '@sendgrid/mail';
+import * as AWS from 'aws-sdk';
+
+jest.mock('nodemailer');
+jest.mock('@sendgrid/mail');
+jest.mock('aws-sdk');
+jest.mock('mailgun-js');
+
+describe('EmailProviderService', () => {
+  let service: EmailProviderService;
+  let configService: jest.Mocked<ConfigService>;
+
+  const mockSMTPTransporter = {
+    sendMail: jest.fn(),
+    verify: jest.fn(),
+  };
+
+  const mockSendGridResponse = {
+    headers: {
+      'x-message-id': 'sendgrid-msg-123',
+    },
+  };
+
+  const mockAWSSESResponse = {
+    MessageId: 'ses-msg-123',
+    ResponseMetadata: {
+      RequestId: 'req-123',
+    },
+  };
+
+  const mockMailgunResponse = {
+    id: 'mailgun-msg-123',
+    message: 'Queued. Thank you.',
+  };
+
+  beforeEach(() => {
+    // Create mock config service
+    configService = {
+      get: jest.fn(),
+    } as any;
+
+    // Manually instantiate service with mock config
+    service = new EmailProviderService(configService);
+
+    jest.clearAllMocks();
+
+    // Setup nodemailer mock
+    (nodemailer.createTransport as jest.Mock).mockReturnValue(mockSMTPTransporter);
+    mockSMTPTransporter.verify.mockResolvedValue(true);
+    mockSMTPTransporter.sendMail.mockResolvedValue({
+      messageId: 'smtp-msg-123',
+      accepted: ['test@example.com'],
+    });
+
+    // Setup SendGrid mock
+    (sgMail.send as jest.Mock).mockResolvedValue([mockSendGridResponse]);
+
+    // Setup AWS SES mock
+    const mockSES = {
+      sendEmail: jest.fn().mockReturnValue({
+        promise: jest.fn().mockResolvedValue(mockAWSSESResponse),
+      }),
+      getSendQuota: jest.fn().mockReturnValue({
+        promise: jest.fn().mockResolvedValue({
+          Max24HourSend: 50000,
+          MaxSendRate: 14,
+          SentLast24Hours: 1234,
+        }),
+      }),
+    };
+    (AWS.SES as unknown as jest.Mock).mockImplementation(() => mockSES);
+
+    // Setup Mailgun mock
+    const mockMailgun = {
+      messages: jest.fn().mockReturnValue({
+        send: jest.fn().mockResolvedValue(mockMailgunResponse),
+      }),
+      get: jest.fn().mockResolvedValue({ items: [{ name: 'test.com' }] }),
+    };
+    require('mailgun-js').mockReturnValue(mockMailgun);
+  });
+
+  describe('configure', () => {
+    it('should configure SMTP provider', async () => {
+      const config = {
+        provider: EmailProvider.SMTP,
+        host: 'smtp.test.com',
+        port: 587,
+        username: 'test@example.com',
+        password: 'password',
+        fromEmail: 'noreply@example.com',
+        fromEmail: 'noreply@example.com',
+        fromName: 'Test System',
+      };
+
+      await service.configure(config);
+
+      expect(nodemailer.createTransport).toHaveBeenCalledWith({
+        host: 'smtp.test.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: 'test@example.com',
+          pass: 'password',
+        },
+        tls: {
+          rejectUnauthorized: true,
+        },
+      });
+      expect(mockSMTPTransporter.verify).toHaveBeenCalled();
+    });
+
+    it('should configure SendGrid provider', async () => {
+      const config = {
+        provider: EmailProvider.SENDGRID,
+        apiKey: 'SG.test-api-key',
+        fromEmail: 'noreply@example.com',
+        fromEmail: 'noreply@example.com',
+        fromName: 'Test System',
+      };
+
+      await service.configure(config);
+
+      expect(sgMail.setApiKey).toHaveBeenCalledWith('SG.test-api-key');
+    });
+
+    it('should configure AWS SES provider', async () => {
+      const config = {
+        provider: EmailProvider.AWS_SES,
+        accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
+        secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+        fromEmail: 'noreply@example.com',
+        region: 'us-east-1',
+        fromEmail: 'noreply@example.com',
+      };
+
+      await service.configure(config);
+
+      expect(AWS.config.update).toHaveBeenCalledWith({
+        accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
+        secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+        fromEmail: 'noreply@example.com',
+        region: 'us-east-1',
+      });
+    });
+
+    it('should configure Mailgun provider', async () => {
+      const config = {
+        provider: EmailProvider.MAILGUN,
+        apiKey: 'key-test123',
+        domain: 'mg.example.com',
+        fromEmail: 'noreply@mg.example.com',
+        fromEmail: 'noreply@mg.example.com',
+      };
+
+      await service.configure(config);
+
+      const mailgun = require('mailgun-js');
+      expect(mailgun).toHaveBeenCalledWith({
+        apiKey: 'key-test123',
+        domain: 'mg.example.com',
+        fromEmail: 'noreply@mg.example.com',
+        host: 'api.mailgun.net',
+      });
+    });
+
+    it('should throw error for unsupported provider', async () => {
+      const config = {
+        provider: 'unsupported' as any,
+        fromEmail: 'test@example.com',
+      };
+
+      await expect(service.configure(config)).rejects.toThrow(
+        'Unsupported email provider: unsupported',
+      );
+    });
+
+    it('should throw error if SendGrid API key is missing', async () => {
+      const config = {
+        provider: EmailProvider.SENDGRID,
+        fromEmail: 'noreply@example.com',
+      };
+
+      await expect(service.configure(config)).rejects.toThrow(
+        'SendGrid API key is required',
+      );
+    });
+  });
+
+  describe('send', () => {
+    describe('SMTP', () => {
+      beforeEach(async () => {
+        await service.configure({
+          provider: EmailProvider.SMTP,
+          host: 'smtp.test.com',
+          port: 587,
+          username: 'test@example.com',
+          password: 'password',
+        fromEmail: 'noreply@example.com',
+          fromEmail: 'noreply@example.com',
+        });
+      });
+
+      it('should send email via SMTP', async () => {
+        const options = {
+          to: 'recipient@example.com',
+          subject: 'Test Email',
+          text: 'This is a test email',
+          html: '<p>This is a test email</p>',
+          tags: ['test', 'notification'],
+        };
+
+        const result = await service.send(options);
+
+        expect(mockSMTPTransporter.sendMail).toHaveBeenCalledWith({
+          from: 'noreply@example.com',
+          to: 'recipient@example.com',
+          subject: 'Test Email',
+          text: 'This is a test email',
+          html: '<p>This is a test email</p>',
+          cc: undefined,
+          bcc: undefined,
+          replyTo: undefined,
+          attachments: undefined,
+          headers: undefined,
+        });
+        expect(result).toEqual({
+          success: true,
+          messageId: 'smtp-msg-123',
+          provider: EmailProvider.SMTP,
+          channel: NotificationChannel.EMAIL,
+          response: {
+            messageId: 'smtp-msg-123',
+            accepted: ['test@example.com'],
+          },
+          timestamp: expect.any(Date),
+          metadata: {
+            duration: expect.any(Number),
+          },
+        });
+      });
+
+      it('should handle multiple recipients', async () => {
+        const options = {
+          to: ['user1@example.com', 'user2@example.com'],
+          subject: 'Group Email',
+          text: 'This is a group email',
+        };
+
+        await service.send(options);
+
+        expect(mockSMTPTransporter.sendMail).toHaveBeenCalledWith(
+          expect.objectContaining({
+            to: 'user1@example.com,user2@example.com',
+          }),
+        );
+      });
+
+      it('should handle attachments', async () => {
+        const options = {
+          to: 'recipient@example.com',
+          subject: 'Email with Attachment',
+          text: 'Please see attached',
+          attachments: [
+            {
+              filename: 'document.pdf',
+              content: Buffer.from('PDF content'),
+              contentType: 'application/pdf',
+              encoding: 'base64',
+            },
+          ],
+        };
+
+        await service.send(options);
+
+        expect(mockSMTPTransporter.sendMail).toHaveBeenCalledWith(
+          expect.objectContaining({
+            attachments: [
+              {
+                filename: 'document.pdf',
+                content: Buffer.from('PDF content'),
+                contentType: 'application/pdf',
+                encoding: 'base64',
+              },
+            ],
+          }),
+        );
+      });
+
+      it('should handle send failures', async () => {
+        mockSMTPTransporter.sendMail.mockRejectedValueOnce(
+          new Error('SMTP connection failed'),
+        );
+
+        const options = {
+          to: 'recipient@example.com',
+          subject: 'Test Email',
+          text: 'This will fail',
+        };
+
+        const result = await service.send(options);
+
+        expect(result).toEqual({
+          success: false,
+          provider: EmailProvider.SMTP,
+          channel: NotificationChannel.EMAIL,
+          error: 'SMTP connection failed',
+          timestamp: expect.any(Date),
+          metadata: {
+            duration: expect.any(Number),
+          },
+        });
+      });
+    });
+
+    describe('SendGrid', () => {
+      beforeEach(async () => {
+        await service.configure({
+          provider: EmailProvider.SENDGRID,
+          apiKey: 'SG.test-api-key',
+        fromEmail: 'noreply@example.com',
+          fromEmail: 'noreply@example.com',
+          fromName: 'Test System',
+        });
+      });
+
+      it('should send email via SendGrid', async () => {
+        const options = {
+          to: 'recipient@example.com',
+          subject: 'SendGrid Test',
+          text: 'Plain text content',
+          html: '<p>HTML content</p>',
+          customArgs: { userId: '123' },
+          trackingSettings: {
+            clickTracking: true,
+            openTracking: true,
+          },
+        };
+
+        const result = await service.send(options);
+
+        expect(sgMail.send).toHaveBeenCalledWith({
+          to: 'recipient@example.com',
+          from: {
+            email: 'noreply@example.com',
+            name: 'Test System',
+          },
+          subject: 'SendGrid Test',
+          text: 'Plain text content',
+          html: '<p>HTML content</p>',
+          cc: undefined,
+          bcc: undefined,
+          replyTo: undefined,
+          attachments: undefined,
+          customArgs: { userId: '123' },
+          trackingSettings: {
+            clickTracking: { enable: true },
+            openTracking: { enable: true },
+            subscriptionTracking: { enable: true },
+          },
+        });
+        expect(result.success).toBe(true);
+        expect(result.messageId).toBe('sendgrid-msg-123');
+      });
+
+      it('should handle attachments with base64 encoding', async () => {
+        const options = {
+          to: 'recipient@example.com',
+          subject: 'Email with Attachment',
+          text: 'See attachment',
+          attachments: [
+            {
+              filename: 'image.png',
+              content: 'base64ImageData',
+              contentType: 'image/png',
+            },
+          ],
+        };
+
+        await service.send(options);
+
+        expect(sgMail.send).toHaveBeenCalledWith(
+          expect.objectContaining({
+            attachments: [
+              {
+                filename: 'image.png',
+                content: expect.any(String),
+                type: 'image/png',
+                disposition: 'attachment',
+              },
+            ],
+          }),
+        );
+      });
+    });
+
+    describe('AWS SES', () => {
+      let mockSES: any;
+
+      beforeEach(async () => {
+        await service.configure({
+          provider: EmailProvider.AWS_SES,
+          accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
+          secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+        fromEmail: 'noreply@example.com',
+          region: 'us-east-1',
+          fromEmail: 'noreply@example.com',
+        });
+
+        mockSES = (service as any).transporter;
+      });
+
+      it('should send email via AWS SES', async () => {
+        const options = {
+          to: 'recipient@example.com',
+          subject: 'AWS SES Test',
+          text: 'Plain text',
+          html: '<p>HTML content</p>',
+          replyTo: 'reply@example.com',
+          tags: ['transactional', 'test'],
+        };
+
+        const result = await service.send(options);
+
+        expect(mockSES.sendEmail).toHaveBeenCalledWith({
+          Source: 'noreply@example.com',
+          Destination: {
+            ToAddresses: ['recipient@example.com'],
+            CcAddresses: [],
+            BccAddresses: [],
+          },
+          Message: {
+            Subject: {
+              Data: 'AWS SES Test',
+              Charset: 'UTF-8',
+            },
+            Body: {
+              Text: {
+                Data: 'Plain text',
+                Charset: 'UTF-8',
+              },
+              Html: {
+                Data: '<p>HTML content</p>',
+                Charset: 'UTF-8',
+              },
+            },
+          },
+          ReplyToAddresses: ['reply@example.com'],
+          Tags: [
+            { Name: 'transactional', Value: 'true' },
+            { Name: 'test', Value: 'true' },
+          ],
+        });
+        expect(result.success).toBe(true);
+        expect(result.messageId).toBe('ses-msg-123');
+      });
+
+      it('should handle multiple recipients with cc and bcc', async () => {
+        const options = {
+          to: ['user1@example.com', 'user2@example.com'],
+          cc: 'cc@example.com',
+          bcc: ['bcc1@example.com', 'bcc2@example.com'],
+          subject: 'Multi-recipient email',
+          text: 'Content',
+        };
+
+        await service.send(options);
+
+        expect(mockSES.sendEmail).toHaveBeenCalledWith(
+          expect.objectContaining({
+            Destination: {
+              ToAddresses: ['user1@example.com', 'user2@example.com'],
+              CcAddresses: ['cc@example.com'],
+              BccAddresses: ['bcc1@example.com', 'bcc2@example.com'],
+            },
+          }),
+        );
+      });
+    });
+
+    describe('Mailgun', () => {
+      let mockMailgun: any;
+
+      beforeEach(async () => {
+        await service.configure({
+          provider: EmailProvider.MAILGUN,
+          apiKey: 'key-test123',
+          domain: 'mg.example.com',
+        fromEmail: 'noreply@mg.example.com',
+          fromEmail: 'noreply@mg.example.com',
+        });
+
+        mockMailgun = (service as any).transporter;
+      });
+
+      it('should send email via Mailgun', async () => {
+        const options = {
+          to: 'recipient@example.com',
+          subject: 'Mailgun Test',
+          text: 'Plain text',
+          html: '<p>HTML content</p>',
+          headers: {
+            'X-Custom-Header': 'custom-value',
+          },
+          tags: ['notification', 'test'],
+        };
+
+        const result = await service.send(options);
+
+        expect(mockMailgun.messages().send).toHaveBeenCalledWith({
+          from: 'noreply@mg.example.com',
+          to: 'recipient@example.com',
+          subject: 'Mailgun Test',
+          text: 'Plain text',
+          html: '<p>HTML content</p>',
+          cc: undefined,
+          bcc: undefined,
+          'h:Reply-To': undefined,
+          attachment: undefined,
+          'h:X-Custom-Header': 'custom-value',
+          'o:tag': ['notification', 'test'],
+        });
+        expect(result.success).toBe(true);
+        expect(result.messageId).toBe('mailgun-msg-123');
+      });
+    });
+  });
+
+  describe('verify', () => {
+    it('should verify SMTP connection', async () => {
+      await service.configure({
+        provider: EmailProvider.SMTP,
+        host: 'smtp.test.com',
+        port: 587,
+        username: 'test@example.com',
+        password: 'password',
+        fromEmail: 'noreply@example.com',
+      });
+
+      const result = await service.verify();
+
+      expect(mockSMTPTransporter.verify).toHaveBeenCalled();
+      expect(result).toBe(true);
+    });
+
+    it('should verify SendGrid configuration', async () => {
+      await service.configure({
+        provider: EmailProvider.SENDGRID,
+        apiKey: 'SG.test-api-key',
+        fromEmail: 'noreply@example.com',
+      });
+
+      const result = await service.verify();
+
+      expect(result).toBe(true);
+    });
+
+    it('should verify AWS SES connection', async () => {
+      await service.configure({
+        provider: EmailProvider.AWS_SES,
+        accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
+        secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+        fromEmail: 'noreply@example.com',
+      });
+
+      const result = await service.verify();
+
+      const mockSES = (service as any).transporter;
+      expect(mockSES.getSendQuota).toHaveBeenCalled();
+      expect(result).toBe(true);
+    });
+
+    it('should handle verification failure', async () => {
+      await service.configure({
+        provider: EmailProvider.SMTP,
+        host: 'smtp.test.com',
+        port: 587,
+        username: 'test@example.com',
+        password: 'password',
+        fromEmail: 'noreply@example.com',
+      });
+
+      mockSMTPTransporter.verify.mockRejectedValueOnce(new Error('Connection failed'));
+
+      const result = await service.verify();
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('getStatus', () => {
+    it('should get SMTP provider status', async () => {
+      await service.configure({
+        provider: EmailProvider.SMTP,
+        host: 'smtp.test.com',
+        port: 587,
+        username: 'test@example.com',
+        password: 'password',
+        fromEmail: 'noreply@example.com',
+      });
+
+      const status = await service.getStatus();
+
+      expect(status).toEqual({
+        healthy: true,
+        lastChecked: expect.any(Date),
+        latency: expect.any(Number),
+        limits: {},
+      });
+    });
+
+    it('should get AWS SES provider status with limits', async () => {
+      await service.configure({
+        provider: EmailProvider.AWS_SES,
+        accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
+        secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+        fromEmail: 'noreply@example.com',
+      });
+
+      const status = await service.getStatus();
+
+      expect(status).toEqual({
+        healthy: true,
+        lastChecked: expect.any(Date),
+        latency: expect.any(Number),
+        limits: {
+          daily: 50000,
+          remaining: 48766,
+        },
+      });
+    });
+
+    it('should handle status check failure', async () => {
+      await service.configure({
+        provider: EmailProvider.SMTP,
+        host: 'smtp.test.com',
+        port: 587,
+        username: 'test@example.com',
+        password: 'password',
+        fromEmail: 'noreply@example.com',
+      });
+
+      mockSMTPTransporter.verify.mockRejectedValueOnce(new Error('Connection timeout'));
+
+      const status = await service.getStatus();
+
+      expect(status).toEqual({
+        healthy: false,
+        lastChecked: expect.any(Date),
+        latency: expect.any(Number),
+        error: 'Connection timeout',
+      });
+    });
+  });
+
+  describe('handleWebhook', () => {
+    it('should handle SendGrid webhook', async () => {
+      await service.configure({
+        provider: EmailProvider.SENDGRID,
+        apiKey: 'SG.test-api-key',
+        fromEmail: 'noreply@example.com',
+      });
+
+      const payload = [
+        {
+          event: 'delivered',
+          email: 'recipient@example.com',
+          sg_message_id: 'sendgrid-msg-123',
+          timestamp: 1234567890,
+        },
+        {
+          event: 'open',
+          email: 'recipient@example.com',
+          sg_message_id: 'sendgrid-msg-123',
+          timestamp: 1234567900,
+        },
+      ];
+
+      const headers = {
+        'x-twilio-email-event-webhook-signature': 'signature',
+      };
+
+      await service.handleWebhook(payload, headers);
+
+      // The method logs events, so we can't assert much here
+      // In a real implementation, this would update notification status
+      expect(true).toBe(true);
+    });
+
+    it('should handle Mailgun webhook', async () => {
+      await service.configure({
+        provider: EmailProvider.MAILGUN,
+        apiKey: 'key-test123',
+        domain: 'mg.example.com',
+        fromEmail: 'noreply@mg.example.com',
+      });
+
+      const payload = {
+        event: 'delivered',
+        recipient: 'recipient@example.com',
+        'message-id': 'mailgun-msg-123',
+        timestamp: '1234567890',
+      };
+
+      const headers = {
+        'webhook-signature': 'timestamp=1234567890,token=abc123,signature=def456',
+      };
+
+      await service.handleWebhook(payload, headers);
+
+      expect(true).toBe(true);
+    });
+
+    it('should warn for unsupported webhook provider', async () => {
+      await service.configure({
+        provider: EmailProvider.SMTP,
+        host: 'smtp.test.com',
+        port: 587,
+        username: 'test@example.com',
+        password: 'password',
+        fromEmail: 'noreply@example.com',
+      });
+
+      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+
+      await service.handleWebhook({}, {});
+
+      // Webhook handling not implemented for SMTP
+      expect(true).toBe(true);
+
+      consoleSpy.mockRestore();
+    });
+  });
+
+  describe('Provider Properties', () => {
+    it('should have correct provider properties', () => {
+      expect(service.name).toBe('email');
+      expect(service.channel).toBe(NotificationChannel.EMAIL);
+    });
+  });
+});

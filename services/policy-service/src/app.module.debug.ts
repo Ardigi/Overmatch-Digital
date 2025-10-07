@@ -1,0 +1,211 @@
+import { HttpModule } from '@nestjs/axios';
+import { type DynamicModule, Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import configuration from './config/configuration';
+import { ApiKeysModule } from './modules/api-keys/api-keys.module';
+import { AssessmentsModule } from './modules/assessments/assessments.module';
+import { AuditModule } from './modules/audit/audit.module';
+import { AuditService } from './modules/audit/audit.service';
+import { CacheModule } from './modules/cache/cache.module';
+import { ComplianceModule } from './modules/compliance/compliance.module';
+import { ControlsModule } from './modules/controls/controls.module';
+import { EventsModule } from './modules/events/events.module';
+import { FrameworksModule } from './modules/frameworks/frameworks.module';
+import { HealthModule } from './modules/health/health.module';
+import { MappingsModule } from './modules/mappings/mappings.module';
+import { MonitoringModule } from './modules/monitoring/monitoring.module';
+import { OpaModule } from './modules/opa/opa.module';
+import { PoliciesModule } from './modules/policies/policies.module';
+import { PolicyEngineModule } from './modules/policy-engine/policy-engine.module';
+import { RisksModule } from './modules/risks/risks.module';
+import { SearchModule } from './modules/search/search.module';
+import { AllExceptionsFilter } from './shared/filters/all-exceptions.filter';
+import { AuditInterceptor } from './shared/interceptors/audit.interceptor';
+import { SecurityHeadersInterceptor } from './shared/interceptors/security-headers.interceptor';
+
+@Module({})
+export class AppModule {
+  static async forRoot(): Promise<DynamicModule> {
+    const imports: any[] = [];
+    const providers: any[] = [];
+
+    try {
+      // Configuration - ConfigModule.forRoot() is now async
+      const configModule = await ConfigModule.forRoot({
+        isGlobal: true,
+        envFilePath: process.env.NODE_ENV === 'test' ? ['.env.test', '.env'] : '.env',
+        load: [configuration],
+      });
+      imports.push(configModule);
+
+      // Event Emitter
+      imports.push(EventEmitterModule.forRoot());
+
+      // Scheduler
+      imports.push(ScheduleModule.forRoot());
+
+      // Rate Limiting with multiple throttlers - Disable in test environment
+      if (process.env.NODE_ENV !== 'test') {
+        imports.push(
+          ThrottlerModule.forRootAsync({
+            imports: [ConfigModule],
+            inject: [ConfigService],
+            useFactory: (configService: ConfigService) => [
+              {
+                name: 'short',
+                ttl: configService.get('policyService.rateLimit.ttl', 60),
+                limit: configService.get('policyService.rateLimit.limit', 10),
+              },
+              {
+                name: 'medium',
+                ttl: 300, // 5 minutes
+                limit: 20,
+              },
+              {
+                name: 'long',
+                ttl: 900, // 15 minutes
+                limit: 100,
+              },
+            ],
+          })
+        );
+      } else {
+      }
+
+      // Database - Use appropriate config for test environment
+      if (process.env.NODE_ENV === 'test') {
+        // Import all entities explicitly for test mode
+        const { ALL_ENTITIES } = await import('./entities');
+
+        // For tests, use synchronous configuration with explicit values
+        const typeOrmModule = TypeOrmModule.forRoot({
+          type: 'postgres',
+          host: process.env.DB_HOST || '127.0.0.1',
+          port: parseInt(process.env.DB_PORT || '5433'),
+          username: process.env.DB_USERNAME || 'test_user',
+          password: process.env.DB_PASSWORD || 'test_pass',
+          database: process.env.DB_NAME || 'soc_policies_test',
+          entities: ALL_ENTITIES,
+          autoLoadEntities: false, // Use explicit entities in test mode
+          synchronize: true,
+          logging: false,
+          dropSchema: false,
+        });
+        imports.push(typeOrmModule);
+      } else {
+        // For non-test environments, use async configuration
+        imports.push(
+          TypeOrmModule.forRootAsync({
+            imports: [ConfigModule],
+            useFactory: (configService: ConfigService) => {
+              const dbConfig = configService.get('policyService.database');
+              return {
+                type: 'postgres',
+                host: dbConfig.host,
+                port: dbConfig.port,
+                username: dbConfig.username,
+                password: dbConfig.password,
+                database: dbConfig.database,
+                entities: [__dirname + '/**/*.entity{.ts,.js}'],
+                synchronize: dbConfig.synchronize,
+                logging: dbConfig.logging,
+              };
+            },
+            inject: [ConfigService],
+          })
+        );
+      }
+
+      // HTTP
+      imports.push(
+        HttpModule.register({
+          timeout: 5000,
+          maxRedirects: 5,
+        })
+      );
+
+      // Core Modules
+      imports.push(CacheModule);
+      imports.push(SearchModule);
+      imports.push(OpaModule);
+      imports.push(AuditModule);
+      imports.push(ApiKeysModule);
+      imports.push(MonitoringModule);
+
+      // Feature Modules
+      imports.push(PoliciesModule);
+      imports.push(ComplianceModule);
+      imports.push(ControlsModule);
+      imports.push(FrameworksModule);
+      imports.push(RisksModule);
+      imports.push(AssessmentsModule);
+      imports.push(MappingsModule);
+      imports.push(PolicyEngineModule);
+
+      // Only skip EventsModule if Kafka is explicitly disabled
+      if (process.env.DISABLE_KAFKA !== 'true') {
+        imports.push(EventsModule);
+      }
+
+      imports.push(HealthModule);
+
+      // Global Guards - Only add ThrottlerGuard in non-test environments
+      if (process.env.NODE_ENV !== 'test') {
+        providers.push({
+          provide: APP_GUARD,
+          useClass: ThrottlerGuard,
+        });
+      } else {
+      }
+
+      // Global Filters
+      providers.push({
+        provide: APP_FILTER,
+        useClass: AllExceptionsFilter,
+      });
+
+      // Global Interceptors
+      providers.push({
+        provide: APP_INTERCEPTOR,
+        useClass: SecurityHeadersInterceptor,
+      });
+
+      // AuditInterceptor - Skip in test environment to prevent WeakMap circular dependency issues
+      if (process.env.NODE_ENV !== 'test') {
+        providers.push({
+          provide: APP_INTERCEPTOR,
+          useFactory: (auditService: AuditService) => new AuditInterceptor(auditService),
+          inject: [AuditService],
+        });
+      } else {
+      }
+
+      // Debug: Check for undefined values in imports
+      const validatedImports = [];
+      imports.forEach((module, index) => {
+        if (module === undefined || module === null) {
+          console.error(`[AppModule] ERROR: Import at index ${index} is ${module} - skipping`);
+        } else {
+          validatedImports.push(module);
+        }
+      });
+
+      const result = {
+        module: AppModule,
+        imports: validatedImports,
+        providers,
+      };
+
+      return result;
+    } catch (error) {
+      console.error('[AppModule] Error during module initialization:', error);
+      console.error('[AppModule] Stack trace:', error.stack);
+      throw error;
+    }
+  }
+}

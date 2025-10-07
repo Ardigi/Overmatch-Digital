@@ -1,0 +1,1661 @@
+{
+  "timestamp": "2025-08-08T03:15:02.612Z",
+  "status": "FAIL",
+  "bypassCount": 228,
+  "duration": 92,
+  "bypasses": [
+    {
+      "file": "src\\app.module.debug.ts",
+      "line": 34,
+      "pattern": "type any",
+      "content": "const imports: any[] = [];",
+      "match": ": any"
+    },
+    {
+      "file": "src\\app.module.debug.ts",
+      "line": 35,
+      "pattern": "type any",
+      "content": "const providers: any[] = [];",
+      "match": ": any"
+    },
+    {
+      "file": "src\\app.module.debug.ts",
+      "line": 34,
+      "pattern": "any[]",
+      "content": "const imports: any[] = [];",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\app.module.debug.ts",
+      "line": 35,
+      "pattern": "any[]",
+      "content": "const providers: any[] = [];",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\app.module.ts",
+      "line": 36,
+      "pattern": "type any",
+      "content": "const imports: any[] = [];",
+      "match": ": any"
+    },
+    {
+      "file": "src\\app.module.ts",
+      "line": 37,
+      "pattern": "type any",
+      "content": "const providers: any[] = [];",
+      "match": ": any"
+    },
+    {
+      "file": "src\\app.module.ts",
+      "line": 36,
+      "pattern": "any[]",
+      "content": "const imports: any[] = [];",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\app.module.ts",
+      "line": 37,
+      "pattern": "any[]",
+      "content": "const providers: any[] = [];",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\audit\\audit.controller.ts",
+      "line": 156,
+      "pattern": "any[]",
+      "content": "): Promise<any[]> {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\audit\\audit.service.ts",
+      "line": 280,
+      "pattern": "any[]",
+      "content": "async detectSuspiciousActivity(organizationId: string): Promise<any[]> {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\audit\\entities\\audit-log.entity.ts",
+      "line": 43,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\cache\\types\\cache.types.ts",
+      "line": 21,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\cache\\types\\cache.types.ts",
+      "line": 30,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 337,
+      "pattern": "type any",
+      "content": "Object.values(coverageByFramework).forEach((fw: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 433,
+      "pattern": "type any",
+      "content": "sum + Object.values(mapping.frameworks).reduce((fwSum: number, fw: any) =>",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 652,
+      "pattern": "type any",
+      "content": "async bulkCreate(mappings: CreateMappingDto[]): Promise<{ success: number; failed: number; errors: any[] }> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 694,
+      "pattern": "type any",
+      "content": "const whereClause: any = { deletedAt: IsNull() };",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 743,
+      "pattern": "type any",
+      "content": "const whereClause: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 853,
+      "pattern": "type any",
+      "content": "async importMappings(data: string, format: string): Promise<{ imported: number; errors: any[] }> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 894,
+      "pattern": "type any",
+      "content": "const whereClause: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 1020,
+      "pattern": "type any",
+      "content": "const whereClause: any = { deletedAt: IsNull() };",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 189,
+      "pattern": "any[]",
+      "content": "async suggestMappings(policyId: string, frameworkId?: string): Promise<any[]> {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 652,
+      "pattern": "any[]",
+      "content": "async bulkCreate(mappings: CreateMappingDto[]): Promise<{ success: number; failed: number; errors: any[] }> {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+      "line": 853,
+      "pattern": "any[]",
+      "content": "async importMappings(data: string, format: string): Promise<{ imported: number; errors: any[] }> {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\compliance\\controls.controller.ts",
+      "line": 56,
+      "pattern": "type any",
+      "content": "findAll(@Query() query: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\controls.controller.ts",
+      "line": 130,
+      "pattern": "type any",
+      "content": "evidence?: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\controls.controller.ts",
+      "line": 194,
+      "pattern": "type any",
+      "content": "@Body() controls: any[],",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\controls.controller.ts",
+      "line": 194,
+      "pattern": "any[]",
+      "content": "@Body() controls: any[],",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\compliance\\controls.service.ts",
+      "line": 100,
+      "pattern": "type any",
+      "content": "async findAll(query: any = {}): Promise<{ items: Control[]; total: number }> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\controls.service.ts",
+      "line": 250,
+      "pattern": "type any",
+      "content": "evidence?: any,",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\controls.service.ts",
+      "line": 436,
+      "pattern": "type any",
+      "content": "async bulkImportControls(frameworkId: string, controls: any[], user: CurrentUserData): Promise<any> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\controls.service.ts",
+      "line": 436,
+      "pattern": "any[]",
+      "content": "async bulkImportControls(frameworkId: string, controls: any[], user: CurrentUserData): Promise<any> {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\compliance\\dto\\create-framework.dto.ts",
+      "line": 90,
+      "pattern": "type any",
+      "content": "complianceRequirements?: any[];",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\dto\\create-framework.dto.ts",
+      "line": 91,
+      "pattern": "type any",
+      "content": "auditGuidance?: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\dto\\create-framework.dto.ts",
+      "line": 90,
+      "pattern": "any[]",
+      "content": "complianceRequirements?: any[];",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\compliance\\entities\\control.entity.ts",
+      "line": 412,
+      "pattern": "as any",
+      "content": "type: evidence.type as any,",
+      "match": " as any"
+    },
+    {
+      "file": "src\\modules\\compliance\\entities\\control.entity.ts",
+      "line": 25,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\compliance\\frameworks.controller.ts",
+      "line": 52,
+      "pattern": "type any",
+      "content": "findAll(@Query() query: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\frameworks.controller.ts",
+      "line": 112,
+      "pattern": "type any",
+      "content": "import(@Body() frameworkData: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\frameworks.service.ts",
+      "line": 94,
+      "pattern": "type any",
+      "content": "async findAll(query: any = {}): Promise<{ items: ComplianceFramework[]; total: number }> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\frameworks.service.ts",
+      "line": 277,
+      "pattern": "type any",
+      "content": "async importFramework(frameworkData: any): Promise<ComplianceFramework> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\compliance\\frameworks.service.ts",
+      "line": 258,
+      "pattern": "any[]",
+      "content": "async findCrossMappings(frameworkId: string): Promise<any[]> {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\controls\\entities\\control.entity.ts",
+      "line": 525,
+      "pattern": "type any",
+      "content": "addTestResult(result: any): void {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\interceptors\\event-sanitization.interceptor.ts",
+      "line": 36,
+      "pattern": "type any",
+      "content": "private sanitizeEventMetadata(metadata: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\interceptors\\event-sanitization.interceptor.ts",
+      "line": 36,
+      "pattern": "type any",
+      "content": "private sanitizeEventMetadata(metadata: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\interceptors\\event-sanitization.interceptor.ts",
+      "line": 39,
+      "pattern": "type any",
+      "content": "const sanitized: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\kafka-consumer.service.ts",
+      "line": 19,
+      "pattern": "type any",
+      "content": "metadata?: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\kafka-consumer.service.ts",
+      "line": 71,
+      "pattern": "type any",
+      "content": "private async handleMessage(topic: string, message: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\kafka-consumer.service.ts",
+      "line": 389,
+      "pattern": "type any",
+      "content": "private sanitizeEvent(event: any): ComplianceEvent {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\kafka-consumer.service.ts",
+      "line": 403,
+      "pattern": "type any",
+      "content": "private sanitizeMetadata(metadata: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\kafka-consumer.service.ts",
+      "line": 403,
+      "pattern": "type any",
+      "content": "private sanitizeMetadata(metadata: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\events\\kafka-consumer.service.ts",
+      "line": 404,
+      "pattern": "type any",
+      "content": "const sanitized: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\frameworks\\entities\\framework.entity.ts",
+      "line": 414,
+      "pattern": "type any",
+      "content": "getMappingTo(targetFramework: string): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\health\\health.controller.ts",
+      "line": 113,
+      "pattern": "type any",
+      "content": "async detailed(): Promise<HealthCheckResult & { metadata: any }> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\opa\\opa.service.ts",
+      "line": 20,
+      "pattern": "type any",
+      "content": "result: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\opa\\opa.service.ts",
+      "line": 202,
+      "pattern": "type any",
+      "content": "async pushData(path: string, data: any): Promise<void> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\opa\\opa.service.ts",
+      "line": 322,
+      "pattern": "type any",
+      "content": "private isRetryableError(error: any): boolean {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\opa\\opa.service.ts",
+      "line": 336,
+      "pattern": "type any",
+      "content": "private handleOpaError(error: any, operation: string): never {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policies\\policies.controller.ts",
+      "line": 283,
+      "pattern": "type any",
+      "content": "@Query() filters: any,",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policies\\policies.service.ts",
+      "line": 756,
+      "pattern": "type any",
+      "content": "exception: any,",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policies\\policies.service.ts",
+      "line": 1215,
+      "pattern": "type any",
+      "content": "private async calculateMetrics(queryBuilder: any): Promise<PolicyMetricsResult> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policies\\types\\policy.types.ts",
+      "line": 3,
+      "pattern": "Record<string, any>",
+      "content": "* These replace all Record<string, any> with proper type safety",
+      "match": "Record<string, any>"
+    },
+    {
+      "file": "src\\modules\\policies\\types\\policy.types.ts",
+      "line": 106,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 74,
+      "pattern": "type any",
+      "content": "private buildEvaluationContext(context: PolicyContext): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 95,
+      "pattern": "type any",
+      "content": "contains: (array: any[], value: any) => array && array.includes(value),",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 95,
+      "pattern": "type any",
+      "content": "contains: (array: any[], value: any) => array && array.includes(value),",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 101,
+      "pattern": "type any",
+      "content": "private async evaluateCondition(condition: string, context: any): Promise<any> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 147,
+      "pattern": "type any",
+      "content": "private safeEvaluateExpression(expression: string, context: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 147,
+      "pattern": "type any",
+      "content": "private safeEvaluateExpression(expression: string, context: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 192,
+      "pattern": "type any",
+      "content": "private customSafeEvaluator(expression: string, context: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 192,
+      "pattern": "type any",
+      "content": "private customSafeEvaluator(expression: string, context: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 249,
+      "pattern": "type any",
+      "content": "private getValueFromPath(obj: any, path: string): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 249,
+      "pattern": "type any",
+      "content": "private getValueFromPath(obj: any, path: string): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 261,
+      "pattern": "type any",
+      "content": "private parseValue(value: string): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 314,
+      "pattern": "type any",
+      "content": "context: any",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+      "line": 95,
+      "pattern": "any[]",
+      "content": "contains: (array: any[], value: any) => array && array.includes(value),",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\interfaces\\policy-engine.interface.ts",
+      "line": 60,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\interfaces\\policy-engine.interface.ts",
+      "line": 81,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\parsers\\policy-language.parser.ts",
+      "line": 142,
+      "pattern": "type any",
+      "content": "private parseValue(value: string): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\policy-engine\\policy-engine.controller.ts",
+      "line": 132,
+      "pattern": "type any",
+      "content": "@Request() req: any,",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\redis\\redis.service.ts",
+      "line": 56,
+      "pattern": "type any",
+      "content": "async set(key: string, value: any, ttl?: number): Promise<void> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\redis\\redis.service.ts",
+      "line": 128,
+      "pattern": "type any",
+      "content": "async hset(key: string, field: string, value: any): Promise<number> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\risks\\entities\\risk.entity.ts",
+      "line": 500,
+      "pattern": "type any",
+      "content": "addIncident(incident: any): void {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\risks\\entities\\risk.entity.ts",
+      "line": 513,
+      "pattern": "type any",
+      "content": "addAuditEntry(action: string, performedBy: string, changes?: any): void {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 86,
+      "pattern": "type any",
+      "content": ".filter((item: any) => item.index?.error)",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 87,
+      "pattern": "type any",
+      "content": ".map((item: any) => item.index.error);",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 159,
+      "pattern": "type any",
+      "content": "return suggestions.map((option: any) => option.text);",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 259,
+      "pattern": "type any",
+      "content": "return response.hits.hits.map((hit: any) => ({",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 269,
+      "pattern": "type any",
+      "content": "async indexFramework(framework: any): Promise<void> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 293,
+      "pattern": "type any",
+      "content": "async indexControl(control: any): Promise<void> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 436,
+      "pattern": "type any",
+      "content": "private transformPolicyToDocument(policy: Policy): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 451,
+      "pattern": "type any",
+      "content": "private extractContentText(content: any): string {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 455,
+      "pattern": "type any",
+      "content": ".map((section: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 459,
+      "pattern": "type any",
+      "content": "' ' + section.subsections.map((sub: any) => `${sub.title} ${sub.content}`).join(' ');",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 466,
+      "pattern": "type any",
+      "content": "private buildSearchQuery(options: PolicySearchOptions): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 467,
+      "pattern": "type any",
+      "content": "const query: any = {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 512,
+      "pattern": "type any",
+      "content": "const rangeQuery: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 526,
+      "pattern": "type any",
+      "content": "const searchBody: any = {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 563,
+      "pattern": "type any",
+      "content": "private parseSearchResponse(response: any, options: PolicySearchOptions): SearchResult<any> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\search\\search.service.ts",
+      "line": 564,
+      "pattern": "type any",
+      "content": "const items = response.hits.hits.map((hit: any) => ({",
+      "match": ": any"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 3,
+      "pattern": "Record<string, any>",
+      "content": "* These types replace ALL Record<string, any> instances for enterprise-grade type safety",
+      "match": "Record<string, any>"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 17,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 26,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 33,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 138,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 154,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 162,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 183,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 191,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 199,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\modules\\shared\\types\\index.ts",
+      "line": 266,
+      "pattern": "[key: string]: unknown",
+      "content": "[key: string]: unknown;",
+      "match": "[key: string]: unknown"
+    },
+    {
+      "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+      "line": 8,
+      "pattern": "type any",
+      "content": "fallback?: (...args: any[]) => any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+      "line": 110,
+      "pattern": "type any",
+      "content": "return (target: any, propertyName: string, descriptor: PropertyDescriptor) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+      "line": 114,
+      "pattern": "type any",
+      "content": "descriptor.value = async function (...args: any[]) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+      "line": 8,
+      "pattern": "any[]",
+      "content": "fallback?: (...args: any[]) => any;",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+      "line": 114,
+      "pattern": "any[]",
+      "content": "descriptor.value = async function (...args: any[]) {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\shared\\decorators\\rate-limit.decorator.ts",
+      "line": 20,
+      "pattern": "type any",
+      "content": "skipIf?: (request: any) => boolean;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\rate-limit.decorator.ts",
+      "line": 34,
+      "pattern": "type any",
+      "content": "return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\retry.decorator.ts",
+      "line": 8,
+      "pattern": "type any",
+      "content": "retryCondition?: (error: any) => boolean;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\retry.decorator.ts",
+      "line": 9,
+      "pattern": "type any",
+      "content": "onRetry?: (error: any, attempt: number) => void;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\retry.decorator.ts",
+      "line": 12,
+      "pattern": "type any",
+      "content": "const defaultRetryCondition = (error: any): boolean => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\retry.decorator.ts",
+      "line": 48,
+      "pattern": "type any",
+      "content": "return (target: any, propertyName: string, descriptor: PropertyDescriptor) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\retry.decorator.ts",
+      "line": 51,
+      "pattern": "type any",
+      "content": "descriptor.value = async function (...args: any[]) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\retry.decorator.ts",
+      "line": 52,
+      "pattern": "type any",
+      "content": "let lastError: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\decorators\\retry.decorator.ts",
+      "line": 51,
+      "pattern": "any[]",
+      "content": "descriptor.value = async function (...args: any[]) {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\shared\\exceptions\\business.exception.ts",
+      "line": 56,
+      "pattern": "type any",
+      "content": "details?: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\exceptions\\business.exception.ts",
+      "line": 150,
+      "pattern": "type any",
+      "content": "constructor(service: string, operation: string, details?: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\exceptions\\business.exception.ts",
+      "line": 163,
+      "pattern": "type any",
+      "content": "constructor(field: string, message: string, value?: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\all-exceptions.filter.ts",
+      "line": 21,
+      "pattern": "type any",
+      "content": "details?: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\all-exceptions.filter.ts",
+      "line": 42,
+      "pattern": "type any",
+      "content": "let details: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\all-exceptions.filter.ts",
+      "line": 55,
+      "pattern": "type any",
+      "content": "details?: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 27,
+      "pattern": "type any",
+      "content": "value?: any;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 28,
+      "pattern": "type any",
+      "content": "children?: any[];",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 69,
+      "pattern": "type any",
+      "content": "private formatValidationErrors(errors: any[]): any[] {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 69,
+      "pattern": "type any",
+      "content": "private formatValidationErrors(errors: any[]): any[] {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 82,
+      "pattern": "type any",
+      "content": "private formatError(error: ValidationError): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 83,
+      "pattern": "type any",
+      "content": "const formatted: any = {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 28,
+      "pattern": "any[]",
+      "content": "children?: any[];",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 69,
+      "pattern": "any[]",
+      "content": "private formatValidationErrors(errors: any[]): any[] {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\shared\\filters\\validation-exception.filter.ts",
+      "line": 69,
+      "pattern": "any[]",
+      "content": "private formatValidationErrors(errors: any[]): any[] {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\shared\\guards\\api-key.guard.ts",
+      "line": 33,
+      "pattern": "type any",
+      "content": "handleRequest(err: any, user: any, info: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\guards\\api-key.guard.ts",
+      "line": 33,
+      "pattern": "type any",
+      "content": "handleRequest(err: any, user: any, info: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\guards\\api-key.guard.ts",
+      "line": 33,
+      "pattern": "type any",
+      "content": "handleRequest(err: any, user: any, info: any) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\guards\\authorization.guard.ts",
+      "line": 66,
+      "pattern": "type any",
+      "content": "private extractUserContext(request: any): UserContext {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\interceptors\\resource-ownership.interceptor.ts",
+      "line": 68,
+      "pattern": "type any",
+      "content": "private isAdmin(user: any): boolean {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 6,
+      "pattern": "type any",
+      "content": "transform(value: any, metadata: ArgumentMetadata) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 26,
+      "pattern": "type any",
+      "content": "private sanitizeObject(obj: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 26,
+      "pattern": "type any",
+      "content": "private sanitizeObject(obj: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 36,
+      "pattern": "type any",
+      "content": "const sanitized: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 91,
+      "pattern": "type any",
+      "content": "transform(value: any, metadata: ArgumentMetadata) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 105,
+      "pattern": "type any",
+      "content": "private sanitizeObjectHtml(obj: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 105,
+      "pattern": "type any",
+      "content": "private sanitizeObjectHtml(obj: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 110,
+      "pattern": "type any",
+      "content": "const sanitized: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+      "line": 128,
+      "pattern": "type any",
+      "content": "transform(value: any, metadata: ArgumentMetadata) {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\services\\authorization.service.ts",
+      "line": 116,
+      "pattern": "type any",
+      "content": "queryBuilder: any,",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\strategies\\api-key.strategy.ts",
+      "line": 26,
+      "pattern": "type any",
+      "content": "async (apiKey: string, done: any, req: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\strategies\\api-key.strategy.ts",
+      "line": 26,
+      "pattern": "type any",
+      "content": "async (apiKey: string, done: any, req: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\strategies\\api-key.strategy.ts",
+      "line": 32,
+      "pattern": "type any",
+      "content": "async validate(apiKey: string, done: any, req: any): Promise<any> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\strategies\\api-key.strategy.ts",
+      "line": 32,
+      "pattern": "type any",
+      "content": "async validate(apiKey: string, done: any, req: any): Promise<any> {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 75,
+      "pattern": "as any",
+      "content": "let sanitized = (sanitizeHtml as any)(content, options);",
+      "match": " as any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 156,
+      "pattern": "type any",
+      "content": "static sanitizeJson(json: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 156,
+      "pattern": "type any",
+      "content": "static sanitizeJson(json: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 166,
+      "pattern": "type any",
+      "content": "const sanitized: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 185,
+      "pattern": "type any",
+      "content": "static sanitizePolicyContent(content: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 185,
+      "pattern": "type any",
+      "content": "static sanitizePolicyContent(content: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 251,
+      "pattern": "type any",
+      "content": "static sanitizeNumber(value: any, min?: number, max?: number): number {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 272,
+      "pattern": "type any",
+      "content": "static sanitizeBoolean(value: any): boolean {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 283,
+      "pattern": "type any",
+      "content": "static sanitizeDate(date: any): Date {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 305,
+      "pattern": "type any",
+      "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 305,
+      "pattern": "type any",
+      "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 320,
+      "pattern": "type any",
+      "content": "static sanitizeEnum<T>(value: any, enumType: any): T {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 320,
+      "pattern": "type any",
+      "content": "static sanitizeEnum<T>(value: any, enumType: any): T {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 333,
+      "pattern": "type any",
+      "content": "static sanitizeObjectKeys(obj: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 333,
+      "pattern": "type any",
+      "content": "static sanitizeObjectKeys(obj: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 337,
+      "pattern": "type any",
+      "content": "const sanitized: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\sanitization.util.ts",
+      "line": 305,
+      "pattern": "any[]",
+      "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 45,
+      "pattern": "type any",
+      "content": "static sanitizeJson(json: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 45,
+      "pattern": "type any",
+      "content": "static sanitizeJson(json: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 49,
+      "pattern": "type any",
+      "content": "static sanitizePolicyContent(content: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 49,
+      "pattern": "type any",
+      "content": "static sanitizePolicyContent(content: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 63,
+      "pattern": "type any",
+      "content": "static sanitizeNumber(value: any, min?: number, max?: number): number {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 81,
+      "pattern": "type any",
+      "content": "static sanitizeBoolean(value: any): boolean {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 89,
+      "pattern": "type any",
+      "content": "static sanitizeDate(date: any): Date {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 99,
+      "pattern": "type any",
+      "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 99,
+      "pattern": "type any",
+      "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 111,
+      "pattern": "type any",
+      "content": "static sanitizeEnum<T>(value: any, enumType: any): T {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 111,
+      "pattern": "type any",
+      "content": "static sanitizeEnum<T>(value: any, enumType: any): T {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 121,
+      "pattern": "type any",
+      "content": "static sanitizeObjectKeys(obj: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 121,
+      "pattern": "type any",
+      "content": "static sanitizeObjectKeys(obj: any): any {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 125,
+      "pattern": "type any",
+      "content": "const sanitized: any = {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+      "line": 99,
+      "pattern": "any[]",
+      "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+      "match": "any[]"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\terminus.ts",
+      "line": 24,
+      "pattern": "type any",
+      "content": "() => (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\terminus.ts",
+      "line": 29,
+      "pattern": "type any",
+      "content": "up: (key: string, data?: any) => ({ [key]: { status: 'up', ...data } }),",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\terminus.ts",
+      "line": 30,
+      "pattern": "type any",
+      "content": "down: (key: string, data?: any) => ({ [key]: { status: 'down', ...data } }),",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 20,
+      "pattern": "type any",
+      "content": "export const InjectRepository = (entity: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 21,
+      "pattern": "type any",
+      "content": "return (target: any, propertyName: string, parameterIndex?: number) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 24,
+      "pattern": "type any",
+      "content": "export const InjectDataSource = (dataSource?: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 25,
+      "pattern": "type any",
+      "content": "return (target: any, propertyName: string, parameterIndex?: number) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 28,
+      "pattern": "type any",
+      "content": "export const InjectEntityManager = (dataSource?: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 29,
+      "pattern": "type any",
+      "content": "return (target: any, propertyName: string, parameterIndex?: number) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 32,
+      "pattern": "type any",
+      "content": "export const getRepositoryToken = (entity: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 36,
+      "pattern": "type any",
+      "content": "export const getDataSourceToken = (dataSource?: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+      "line": 40,
+      "pattern": "type any",
+      "content": "export const getEntityManagerToken = (dataSource?: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\sanitize-html.ts",
+      "line": 5,
+      "pattern": "as any",
+      "content": "(sanitizeHtml as any).defaults = {",
+      "match": " as any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 7,
+      "pattern": "type any",
+      "content": "export const Entity = (name?: string) => (target: any) => {",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 11,
+      "pattern": "type any",
+      "content": "export const Column = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 12,
+      "pattern": "type any",
+      "content": "export const PrimaryGeneratedColumn = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 13,
+      "pattern": "type any",
+      "content": "export const ManyToOne = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 14,
+      "pattern": "type any",
+      "content": "export const OneToMany = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 15,
+      "pattern": "type any",
+      "content": "export const JoinColumn = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 16,
+      "pattern": "type any",
+      "content": "export const CreateDateColumn = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 17,
+      "pattern": "type any",
+      "content": "export const UpdateDateColumn = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 18,
+      "pattern": "type any",
+      "content": "export const DeleteDateColumn = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 19,
+      "pattern": "type any",
+      "content": "export const Index = () => (target: any, key?: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 20,
+      "pattern": "type any",
+      "content": "export const Unique = () => (target: any, key?: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 21,
+      "pattern": "type any",
+      "content": "export const BeforeInsert = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 22,
+      "pattern": "type any",
+      "content": "export const BeforeUpdate = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 23,
+      "pattern": "type any",
+      "content": "export const ManyToMany = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 24,
+      "pattern": "type any",
+      "content": "export const JoinTable = () => (target: any, key: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 25,
+      "pattern": "type any",
+      "content": "export const Check = () => (target: any, key?: string) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 35,
+      "pattern": "type any",
+      "content": "export const In = jest.fn((values: any[]) => ({ in: values }));",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 38,
+      "pattern": "type any",
+      "content": "export const Between = jest.fn((from: any, to: any) => ({ from, to }));",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 38,
+      "pattern": "type any",
+      "content": "export const Between = jest.fn((from: any, to: any) => ({ from, to }));",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 39,
+      "pattern": "type any",
+      "content": "export const LessThanOrEqual = jest.fn((value: any) => ({ lessThanOrEqual: value }));",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 42,
+      "pattern": "type any",
+      "content": "export const InjectRepository = (entity: any) => (target: any, key: string, index: number) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 42,
+      "pattern": "type any",
+      "content": "export const InjectRepository = (entity: any) => (target: any, key: string, index: number) => {};",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 43,
+      "pattern": "type any",
+      "content": "export const getRepositoryToken = (entity: any) => `${entity.name}Repository`;",
+      "match": ": any"
+    },
+    {
+      "file": "src\\__mocks__\\typeorm.ts",
+      "line": 35,
+      "pattern": "any[]",
+      "content": "export const In = jest.fn((values: any[]) => ({ in: values }));",
+      "match": "any[]"
+    }
+  ],
+  "bypasssByPattern": {
+    "type any": 183,
+    "any[]": 23,
+    "[key: string]: unknown": 17,
+    "as any": 3,
+    "Record<string, any>": 2
+  },
+  "bypasssByFile": {
+    "src\\app.module.debug.ts": 4,
+    "src\\app.module.ts": 4,
+    "src\\modules\\audit\\audit.controller.ts": 1,
+    "src\\modules\\audit\\audit.service.ts": 1,
+    "src\\modules\\audit\\entities\\audit-log.entity.ts": 1,
+    "src\\modules\\cache\\types\\cache.types.ts": 2,
+    "src\\modules\\compliance\\compliance-mapping.service.ts": 11,
+    "src\\modules\\compliance\\controls.controller.ts": 4,
+    "src\\modules\\compliance\\controls.service.ts": 4,
+    "src\\modules\\compliance\\dto\\create-framework.dto.ts": 3,
+    "src\\modules\\compliance\\entities\\control.entity.ts": 2,
+    "src\\modules\\compliance\\frameworks.controller.ts": 2,
+    "src\\modules\\compliance\\frameworks.service.ts": 3,
+    "src\\modules\\controls\\entities\\control.entity.ts": 1,
+    "src\\modules\\events\\interceptors\\event-sanitization.interceptor.ts": 3,
+    "src\\modules\\events\\kafka-consumer.service.ts": 6,
+    "src\\modules\\frameworks\\entities\\framework.entity.ts": 1,
+    "src\\modules\\health\\health.controller.ts": 1,
+    "src\\modules\\opa\\opa.service.ts": 4,
+    "src\\modules\\policies\\policies.controller.ts": 1,
+    "src\\modules\\policies\\policies.service.ts": 2,
+    "src\\modules\\policies\\types\\policy.types.ts": 2,
+    "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts": 13,
+    "src\\modules\\policy-engine\\interfaces\\policy-engine.interface.ts": 2,
+    "src\\modules\\policy-engine\\parsers\\policy-language.parser.ts": 1,
+    "src\\modules\\policy-engine\\policy-engine.controller.ts": 1,
+    "src\\modules\\redis\\redis.service.ts": 2,
+    "src\\modules\\risks\\entities\\risk.entity.ts": 2,
+    "src\\modules\\search\\search.service.ts": 16,
+    "src\\modules\\shared\\types\\index.ts": 11,
+    "src\\shared\\decorators\\circuit-breaker.decorator.ts": 5,
+    "src\\shared\\decorators\\rate-limit.decorator.ts": 2,
+    "src\\shared\\decorators\\retry.decorator.ts": 7,
+    "src\\shared\\exceptions\\business.exception.ts": 3,
+    "src\\shared\\filters\\all-exceptions.filter.ts": 3,
+    "src\\shared\\filters\\validation-exception.filter.ts": 9,
+    "src\\shared\\guards\\api-key.guard.ts": 3,
+    "src\\shared\\guards\\authorization.guard.ts": 1,
+    "src\\shared\\interceptors\\resource-ownership.interceptor.ts": 1,
+    "src\\shared\\pipes\\sanitization.pipe.ts": 9,
+    "src\\shared\\services\\authorization.service.ts": 1,
+    "src\\shared\\strategies\\api-key.strategy.ts": 4,
+    "src\\shared\\utils\\sanitization.util.ts": 17,
+    "src\\shared\\utils\\__mocks__\\sanitization.util.ts": 15,
+    "src\\__mocks__\\@nestjs\\terminus.ts": 3,
+    "src\\__mocks__\\@nestjs\\typeorm.ts": 9,
+    "src\\__mocks__\\sanitize-html.ts": 1,
+    "src\\__mocks__\\typeorm.ts": 24
+  }
+}

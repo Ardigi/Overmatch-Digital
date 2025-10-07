@@ -1,0 +1,25 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "../..",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^src/(.*)$": "<rootDir>/src/$1",
+    "^@soc-compliance/monitoring$": "<rootDir>/../../packages/monitoring/dist/index.js",
+    "^@soc-compliance/auth-common$": "<rootDir>/../../packages/auth-common/dist/index.js",
+    "^@soc-compliance/events$": "<rootDir>/../../shared/events/dist/index.js",
+    "^@soc-compliance/contracts$": "<rootDir>/../../shared/contracts/dist/index.js"
+  },
+  "testTimeout": 30000,
+  "moduleDirectories": ["node_modules", "src"],
+  "modulePathIgnorePatterns": ["<rootDir>/dist"],
+  "transformIgnorePatterns": ["node_modules/(?!(typeorm)/)"],
+  "clearMocks": true,
+  "resetMocks": false,
+  "restoreMocks": false,
+  "unmockedModulePathPatterns": ["typeorm", "@nestjs/typeorm"]
+}

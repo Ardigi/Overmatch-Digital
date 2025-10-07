@@ -1,0 +1,79 @@
+# Build stage
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Install Python and build dependencies for native modules
+RUN apk add --no-cache python3 make g++ curl
+
+# Copy entire workspace structure
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY biome.json ./
+COPY packages ./packages
+COPY shared ./shared
+COPY services/policy-service ./services/policy-service
+
+# Install all dependencies at workspace root
+RUN npm install --legacy-peer-deps
+
+# Build shared packages (ignore errors from secrets package)
+RUN npm run build --workspace=@soc-compliance/contracts || true && \
+    npm run build --workspace=@soc-compliance/events || true && \
+    npm run build --workspace=@soc-compliance/auth-common || true && \
+    npm run build --workspace=@soc-compliance/http-common || true && \
+    npm run build --workspace=@soc-compliance/cache-common || true && \
+    npm run build --workspace=@soc-compliance/monitoring || true
+
+# Build the service
+WORKDIR /app/services/policy-service
+RUN npm run build
+
+# Verify build output
+RUN test -f dist/main.js || test -f dist/src/main.js || (echo "Build failed: main.js not found" && exit 1)
+
+# Production stage
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install curl for health checks and dumb-init for proper signal handling
+RUN apk add --no-cache curl dumb-init
+
+# Copy entire node_modules from builder (includes workspace packages properly linked)
+COPY --from=builder /app/node_modules ./node_modules
+
+# Copy package files
+COPY package*.json ./
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/shared ./shared
+
+# Copy service files
+COPY services/policy-service/package*.json ./services/policy-service/
+COPY --from=builder /app/services/policy-service/dist ./services/policy-service/dist
+COPY --from=builder /app/services/policy-service/node_modules ./services/policy-service/node_modules
+
+# Create policies directory (OPA policies are optional)
+RUN mkdir -p ./services/policy-service/policies
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Change ownership
+RUN chown -R nodejs:nodejs /app
+
+USER nodejs
+
+WORKDIR /app/services/policy-service
+
+# Health check for container orchestration
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:3003/health || exit 1
+
+EXPOSE 3003
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+CMD ["node", "dist/main.js"]

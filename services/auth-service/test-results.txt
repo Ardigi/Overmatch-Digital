@@ -1,0 +1,1465 @@
+
+> @soc-compliance/auth-service@1.0.0 test
+> jest
+
+FAIL src/modules/auth/integration/database.integration.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+  ● Auth Database Integration (REAL) › Database Connectivity Requirements › should require active database connection
+
+    Failed to create query runner
+
+    [0m [90m 42 |[39m     [36mconst[39m queryRunner [33m=[39m dataSource[33m.[39mcreateQueryRunner()[33m;[39m
+     [90m 43 |[39m     [36mif[39m ([33m![39mqueryRunner) {
+    [31m[1m>[22m[39m[90m 44 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m([32m'Failed to create query runner'[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 45 |[39m     }
+     [90m 46 |[39m     [36mtry[39m {
+     [90m 47 |[39m       [36mreturn[39m [36mawait[39m queryRunner[33m.[39mquery(query[33m,[39m parameters)[33m;[39m[0m
+
+      at executeQuery (src/modules/auth/integration/database.integration.spec.ts:44:13)
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:109:28)
+
+  ● Auth Database Integration (REAL) › Database Connectivity Requirements › should have all required tables and columns
+
+    Failed to create query runner
+
+    [0m [90m 42 |[39m     [36mconst[39m queryRunner [33m=[39m dataSource[33m.[39mcreateQueryRunner()[33m;[39m
+     [90m 43 |[39m     [36mif[39m ([33m![39mqueryRunner) {
+    [31m[1m>[22m[39m[90m 44 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m([32m'Failed to create query runner'[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 45 |[39m     }
+     [90m 46 |[39m     [36mtry[39m {
+     [90m 47 |[39m       [36mreturn[39m [36mawait[39m queryRunner[33m.[39mquery(query[33m,[39m parameters)[33m;[39m[0m
+
+      at executeQuery (src/modules/auth/integration/database.integration.spec.ts:44:13)
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:127:33)
+
+  ● Auth Database Integration (REAL) › Database Connectivity Requirements › should enforce database constraints
+
+    expect(received).rejects.toThrow()
+
+    Matcher error: received value must be a promise or a function returning a promise
+
+    Received has value: undefined
+
+    [0m [90m 172 |[39m       [36mawait[39m expect(
+     [90m 173 |[39m         userRepository[33m.[39msave(user2)
+    [31m[1m>[22m[39m[90m 174 |[39m       )[33m.[39mrejects[33m.[39mtoThrow()[33m;[39m
+     [90m     |[39m                 [31m[1m^[22m[39m
+     [90m 175 |[39m     })[33m;[39m
+     [90m 176 |[39m   })[33m;[39m
+     [90m 177 |[39m[0m
+
+      at Object.toThrow (../../node_modules/expect/build/index.js:204:13)
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:174:17)
+
+  ● Auth Database Integration (REAL) › Real Authentication Operations › should create, authenticate, and manage user lifecycle
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+    [0m [90m 250 |[39m         relations[33m:[39m [[32m'organization'[39m][33m,[39m
+     [90m 251 |[39m       })[33m;[39m
+    [31m[1m>[22m[39m[90m 252 |[39m       expect(createdUser)[33m.[39mtoBeDefined()[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 253 |[39m       expect(createdUser[33m![39m[33m.[39memail)[33m.[39mtoBe([32m'test.user@example.com'[39m)[33m;[39m
+     [90m 254 |[39m       expect(createdUser[33m![39m[33m.[39morganization[33m.[39mname)[33m.[39mtoBe([32m'Integration Test Organization'[39m)[33m;[39m
+     [90m 255 |[39m       expect(createdUser[33m![39m[33m.[39mfullName)[33m.[39mtoBe([32m'Test User'[39m)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:252:27)
+
+  ● Auth Database Integration (REAL) › Real Authentication Operations › should handle MFA setup and validation with real database
+
+    TypeError: Cannot set properties of undefined (setting 'mfaEnabled')
+
+    [0m [90m 343 |[39m       [36mconst[39m backupCodes [33m=[39m [33mJSON[39m[33m.[39mstringify([[32m'123456'[39m[33m,[39m [32m'789012'[39m[33m,[39m [32m'345678'[39m])[33m;[39m
+     [90m 344 |[39m
+    [31m[1m>[22m[39m[90m 345 |[39m       testUser[33m.[39mmfaEnabled [33m=[39m [36mtrue[39m[33m;[39m
+     [90m     |[39m                          [31m[1m^[22m[39m
+     [90m 346 |[39m       testUser[33m.[39mmfaSecret [33m=[39m mfaSecret[33m;[39m
+     [90m 347 |[39m       testUser[33m.[39mmfaBackupCodes [33m=[39m backupCodes[33m;[39m
+     [90m 348 |[39m       [36mawait[39m userRepository[33m.[39msave(testUser)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:345:26)
+
+  ● Auth Database Integration (REAL) › Real Authentication Operations › should handle password reset flow with database operations
+
+    TypeError: Cannot set properties of undefined (setting 'resetPasswordToken')
+
+    [0m [90m 384 |[39m       [36mconst[39m resetExpires [33m=[39m [36mnew[39m [33mDate[39m([33mDate[39m[33m.[39mnow() [33m+[39m [35m15[39m [33m*[39m [35m60[39m [33m*[39m [35m1000[39m)[33m;[39m [90m// 15 minutes[39m
+     [90m 385 |[39m
+    [31m[1m>[22m[39m[90m 386 |[39m       testUser[33m.[39mresetPasswordToken [33m=[39m resetToken[33m;[39m
+     [90m     |[39m                                  [31m[1m^[22m[39m
+     [90m 387 |[39m       testUser[33m.[39mresetPasswordExpires [33m=[39m resetExpires[33m;[39m
+     [90m 388 |[39m       [36mawait[39m userRepository[33m.[39msave(testUser)[33m;[39m
+     [90m 389 |[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:386:34)
+
+  ● Auth Database Integration (REAL) › Complex Authentication Queries › should perform complex user analytics queries
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 457 |[39m         [90m// Create login events[39m
+     [90m 458 |[39m         loginEvents[33m.[39mpush(loginEventRepository[33m.[39mcreate({
+    [31m[1m>[22m[39m[90m 459 |[39m           userId[33m:[39m user[33m.[39mid[33m,[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 460 |[39m           organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+     [90m 461 |[39m           email[33m:[39m user[33m.[39memail[33m,[39m
+     [90m 462 |[39m           ipAddress[33m:[39m [32m`192.168.1.${100 + i}`[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:459:24)
+
+  ● Auth Database Integration (REAL) › Complex Authentication Queries › should handle login analytics with date ranges
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 457 |[39m         [90m// Create login events[39m
+     [90m 458 |[39m         loginEvents[33m.[39mpush(loginEventRepository[33m.[39mcreate({
+    [31m[1m>[22m[39m[90m 459 |[39m           userId[33m:[39m user[33m.[39mid[33m,[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 460 |[39m           organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+     [90m 461 |[39m           email[33m:[39m user[33m.[39memail[33m,[39m
+     [90m 462 |[39m           ipAddress[33m:[39m [32m`192.168.1.${100 + i}`[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:459:24)
+
+  ● Auth Database Integration (REAL) › Complex Authentication Queries › should test full-text search on user profiles
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 457 |[39m         [90m// Create login events[39m
+     [90m 458 |[39m         loginEvents[33m.[39mpush(loginEventRepository[33m.[39mcreate({
+    [31m[1m>[22m[39m[90m 459 |[39m           userId[33m:[39m user[33m.[39mid[33m,[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 460 |[39m           organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+     [90m 461 |[39m           email[33m:[39m user[33m.[39memail[33m,[39m
+     [90m 462 |[39m           ipAddress[33m:[39m [32m`192.168.1.${100 + i}`[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:459:24)
+
+  ● Auth Database Integration (REAL) › Complex Authentication Queries › should handle concurrent user authentication operations
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 457 |[39m         [90m// Create login events[39m
+     [90m 458 |[39m         loginEvents[33m.[39mpush(loginEventRepository[33m.[39mcreate({
+    [31m[1m>[22m[39m[90m 459 |[39m           userId[33m:[39m user[33m.[39mid[33m,[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 460 |[39m           organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+     [90m 461 |[39m           email[33m:[39m user[33m.[39memail[33m,[39m
+     [90m 462 |[39m           ipAddress[33m:[39m [32m`192.168.1.${100 + i}`[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:459:24)
+
+  ● Auth Database Integration (REAL) › Organization and Role Management › should handle hierarchical organization structure
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 594 |[39m         type[33m:[39m [33mOrganizationType[39m[33m.[39m[33mCLIENT[39m[33m,[39m
+     [90m 595 |[39m         status[33m:[39m [33mOrganizationStatus[39m[33m.[39m[33mACTIVE[39m[33m,[39m
+    [31m[1m>[22m[39m[90m 596 |[39m         parentOrganizationId[33m:[39m mspOrg[33m.[39mid[33m,[39m
+     [90m     |[39m                                      [31m[1m^[22m[39m
+     [90m 597 |[39m       })[33m;[39m
+     [90m 598 |[39m       [36mawait[39m organizationRepository[33m.[39msave(clientOrg)[33m;[39m
+     [90m 599 |[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:596:38)
+
+  ● Auth Database Integration (REAL) › Organization and Role Management › should handle role-based access control with database
+
+    TypeError: Cannot read properties of undefined (reading 'name')
+
+    [0m [90m 642 |[39m         description[33m:[39m [32m'Administrator role'[39m[33m,[39m
+     [90m 643 |[39m         organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+    [31m[1m>[22m[39m[90m 644 |[39m         permissions[33m:[39m [readPermission[33m.[39mname[33m,[39m writePermission[33m.[39mname][33m,[39m
+     [90m     |[39m                                      [31m[1m^[22m[39m
+     [90m 645 |[39m         isActive[33m:[39m [36mtrue[39m[33m,[39m
+     [90m 646 |[39m       })[33m;[39m
+     [90m 647 |[39m       [36mawait[39m roleRepository[33m.[39msave(adminRole)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:644:38)
+
+PASS src/modules/auth/email-verification.service.unit.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS test/simple.test.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/permission.service.unit.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/permission.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/password-policy.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/refresh-token.service.unit.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/refresh-token.service.spec.ts
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/email-verification.service.spec.ts (5.308 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+[32m[Nest] 20560  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[EmailVerificationService] [39m[32mEmail verification requested for user test@example.com[39m
+[32m[Nest] 20560  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[EmailVerificationService] [39m[32mEmail verification requested for user test@example.com[39m
+[32m[Nest] 20560  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[EmailVerificationService] [39m[32mEmail verified for user test@example.com[39m
+[32m[Nest] 20560  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[EmailVerificationService] [39m[32mEmail verified for user test@example.com[39m
+PASS src/modules/auth/mfa.spec.ts (5.442 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/soc2-security-controls.spec.ts (5.414 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/anomaly-detection.integration.spec.ts (5.407 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/anomaly-detection.service.spec.ts (5.389 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/forgot-password.service.spec.ts (5.462 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+PASS src/modules/auth/forgot-password.service.unit.spec.ts (5.542 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+FAIL src/modules/auth/auth.service.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/auth.service.spec.ts:7:1)
+
+[32m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[32m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[33m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [33m   WARN[39m [38;5;3m[ForgotPasswordService] [39m[33mPassword reset requested for non-existent email: nonexistent@example.com[39m
+[33m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [33m   WARN[39m [38;5;3m[ForgotPasswordService] [39m[33mPassword reset requested for inactive user: test@example.com[39m
+[32m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[32m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[33m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [33m   WARN[39m [38;5;3m[ForgotPasswordService] [39m[33mPassword reset requested for non-existent email: nonexistent@example.com[39m
+[33m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [33m   WARN[39m [38;5;3m[ForgotPasswordService] [39m[33mPassword reset requested for inactive user: test@example.com[39m
+[32m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[32m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset requested for user test@example.com[39m
+[32m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword changed for user test@example.com[39m
+[32m[Nest] 22920  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword changed for user test@example.com[39m
+[32m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword reset completed for user test@example.com[39m
+[32m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword changed for user test@example.com[39m
+[32m[Nest] 9692  - [39m10/06/2025, 11:41:03 PM [32m    LOG[39m [38;5;3m[ForgotPasswordService] [39m[32mPassword changed for user test@example.com[39m
+PASS src/modules/auth/jwt-security.spec.ts (5.653 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+FAIL src/modules/auth/integration/service-communication.integration.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/integration/service-communication.integration.spec.ts:29:1)
+
+FAIL src/modules/auth/auth.session.integration.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/auth.session.integration.spec.ts:10:1)
+
+FAIL src/modules/auth/auth.controller.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/auth.controller.ts:26:1)
+      at Object.<anonymous> (src/modules/auth/auth.controller.spec.ts:9:1)
+
+FAIL src/modules/auth/auth.controller.owasp.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/auth.controller.ts:26:1)
+      at Object.<anonymous> (src/modules/auth/auth.controller.owasp.spec.ts:6:1)
+
+PASS src/modules/auth/password-reset.spec.ts (9.812 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+FAIL src/modules/auth/integration/redis-cache.integration.spec.ts (16.135 s)
+  ● Console
+
+    console.log
+      Integration test setup completed for auth-service
+
+      at Object.<anonymous> (test/integration-setup.ts:77:9)
+
+  ● Auth Redis Cache Integration (REAL) › Redis Connectivity Requirements › should require active Redis connection (no graceful degradation)
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Redis Connectivity Requirements › should fail fast when Redis operations fail
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Real Session Management with Redis › should create, retrieve, and manage session lifecycle
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Real Session Management with Redis › should handle concurrent session limits with real Redis
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Real Session Management with Redis › should handle session expiration with real TTL
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Device Management with Redis › should track and manage device information
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should cache user authentication data
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should handle rate limiting counters
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should handle password reset token caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should handle email verification token caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should handle MFA token caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Session Analytics and Management › should provide session statistics
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Session Analytics and Management › should handle bulk session operations
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Session Analytics and Management › should detect session anomalies
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Redis Performance and Concurrency › should handle concurrent Redis operations
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Redis Performance and Concurrency › should handle Redis connection pool limits
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+Summary of all failing tests
+FAIL src/modules/auth/integration/database.integration.spec.ts
+  ● Auth Database Integration (REAL) › Database Connectivity Requirements › should require active database connection
+
+    Failed to create query runner
+
+    [0m [90m 42 |[39m     [36mconst[39m queryRunner [33m=[39m dataSource[33m.[39mcreateQueryRunner()[33m;[39m
+     [90m 43 |[39m     [36mif[39m ([33m![39mqueryRunner) {
+    [31m[1m>[22m[39m[90m 44 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m([32m'Failed to create query runner'[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 45 |[39m     }
+     [90m 46 |[39m     [36mtry[39m {
+     [90m 47 |[39m       [36mreturn[39m [36mawait[39m queryRunner[33m.[39mquery(query[33m,[39m parameters)[33m;[39m[0m
+
+      at executeQuery (src/modules/auth/integration/database.integration.spec.ts:44:13)
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:109:28)
+
+  ● Auth Database Integration (REAL) › Database Connectivity Requirements › should have all required tables and columns
+
+    Failed to create query runner
+
+    [0m [90m 42 |[39m     [36mconst[39m queryRunner [33m=[39m dataSource[33m.[39mcreateQueryRunner()[33m;[39m
+     [90m 43 |[39m     [36mif[39m ([33m![39mqueryRunner) {
+    [31m[1m>[22m[39m[90m 44 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m([32m'Failed to create query runner'[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 45 |[39m     }
+     [90m 46 |[39m     [36mtry[39m {
+     [90m 47 |[39m       [36mreturn[39m [36mawait[39m queryRunner[33m.[39mquery(query[33m,[39m parameters)[33m;[39m[0m
+
+      at executeQuery (src/modules/auth/integration/database.integration.spec.ts:44:13)
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:127:33)
+
+  ● Auth Database Integration (REAL) › Database Connectivity Requirements › should enforce database constraints
+
+    expect(received).rejects.toThrow()
+
+    Matcher error: received value must be a promise or a function returning a promise
+
+    Received has value: undefined
+
+    [0m [90m 172 |[39m       [36mawait[39m expect(
+     [90m 173 |[39m         userRepository[33m.[39msave(user2)
+    [31m[1m>[22m[39m[90m 174 |[39m       )[33m.[39mrejects[33m.[39mtoThrow()[33m;[39m
+     [90m     |[39m                 [31m[1m^[22m[39m
+     [90m 175 |[39m     })[33m;[39m
+     [90m 176 |[39m   })[33m;[39m
+     [90m 177 |[39m[0m
+
+      at Object.toThrow (../../node_modules/expect/build/index.js:204:13)
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:174:17)
+
+  ● Auth Database Integration (REAL) › Real Authentication Operations › should create, authenticate, and manage user lifecycle
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+    [0m [90m 250 |[39m         relations[33m:[39m [[32m'organization'[39m][33m,[39m
+     [90m 251 |[39m       })[33m;[39m
+    [31m[1m>[22m[39m[90m 252 |[39m       expect(createdUser)[33m.[39mtoBeDefined()[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 253 |[39m       expect(createdUser[33m![39m[33m.[39memail)[33m.[39mtoBe([32m'test.user@example.com'[39m)[33m;[39m
+     [90m 254 |[39m       expect(createdUser[33m![39m[33m.[39morganization[33m.[39mname)[33m.[39mtoBe([32m'Integration Test Organization'[39m)[33m;[39m
+     [90m 255 |[39m       expect(createdUser[33m![39m[33m.[39mfullName)[33m.[39mtoBe([32m'Test User'[39m)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:252:27)
+
+  ● Auth Database Integration (REAL) › Real Authentication Operations › should handle MFA setup and validation with real database
+
+    TypeError: Cannot set properties of undefined (setting 'mfaEnabled')
+
+    [0m [90m 343 |[39m       [36mconst[39m backupCodes [33m=[39m [33mJSON[39m[33m.[39mstringify([[32m'123456'[39m[33m,[39m [32m'789012'[39m[33m,[39m [32m'345678'[39m])[33m;[39m
+     [90m 344 |[39m
+    [31m[1m>[22m[39m[90m 345 |[39m       testUser[33m.[39mmfaEnabled [33m=[39m [36mtrue[39m[33m;[39m
+     [90m     |[39m                          [31m[1m^[22m[39m
+     [90m 346 |[39m       testUser[33m.[39mmfaSecret [33m=[39m mfaSecret[33m;[39m
+     [90m 347 |[39m       testUser[33m.[39mmfaBackupCodes [33m=[39m backupCodes[33m;[39m
+     [90m 348 |[39m       [36mawait[39m userRepository[33m.[39msave(testUser)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:345:26)
+
+  ● Auth Database Integration (REAL) › Real Authentication Operations › should handle password reset flow with database operations
+
+    TypeError: Cannot set properties of undefined (setting 'resetPasswordToken')
+
+    [0m [90m 384 |[39m       [36mconst[39m resetExpires [33m=[39m [36mnew[39m [33mDate[39m([33mDate[39m[33m.[39mnow() [33m+[39m [35m15[39m [33m*[39m [35m60[39m [33m*[39m [35m1000[39m)[33m;[39m [90m// 15 minutes[39m
+     [90m 385 |[39m
+    [31m[1m>[22m[39m[90m 386 |[39m       testUser[33m.[39mresetPasswordToken [33m=[39m resetToken[33m;[39m
+     [90m     |[39m                                  [31m[1m^[22m[39m
+     [90m 387 |[39m       testUser[33m.[39mresetPasswordExpires [33m=[39m resetExpires[33m;[39m
+     [90m 388 |[39m       [36mawait[39m userRepository[33m.[39msave(testUser)[33m;[39m
+     [90m 389 |[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:386:34)
+
+  ● Auth Database Integration (REAL) › Complex Authentication Queries › should perform complex user analytics queries
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 457 |[39m         [90m// Create login events[39m
+     [90m 458 |[39m         loginEvents[33m.[39mpush(loginEventRepository[33m.[39mcreate({
+    [31m[1m>[22m[39m[90m 459 |[39m           userId[33m:[39m user[33m.[39mid[33m,[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 460 |[39m           organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+     [90m 461 |[39m           email[33m:[39m user[33m.[39memail[33m,[39m
+     [90m 462 |[39m           ipAddress[33m:[39m [32m`192.168.1.${100 + i}`[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:459:24)
+
+  ● Auth Database Integration (REAL) › Complex Authentication Queries › should handle login analytics with date ranges
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 457 |[39m         [90m// Create login events[39m
+     [90m 458 |[39m         loginEvents[33m.[39mpush(loginEventRepository[33m.[39mcreate({
+    [31m[1m>[22m[39m[90m 459 |[39m           userId[33m:[39m user[33m.[39mid[33m,[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 460 |[39m           organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+     [90m 461 |[39m           email[33m:[39m user[33m.[39memail[33m,[39m
+     [90m 462 |[39m           ipAddress[33m:[39m [32m`192.168.1.${100 + i}`[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:459:24)
+
+  ● Auth Database Integration (REAL) › Complex Authentication Queries › should test full-text search on user profiles
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 457 |[39m         [90m// Create login events[39m
+     [90m 458 |[39m         loginEvents[33m.[39mpush(loginEventRepository[33m.[39mcreate({
+    [31m[1m>[22m[39m[90m 459 |[39m           userId[33m:[39m user[33m.[39mid[33m,[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 460 |[39m           organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+     [90m 461 |[39m           email[33m:[39m user[33m.[39memail[33m,[39m
+     [90m 462 |[39m           ipAddress[33m:[39m [32m`192.168.1.${100 + i}`[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:459:24)
+
+  ● Auth Database Integration (REAL) › Complex Authentication Queries › should handle concurrent user authentication operations
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 457 |[39m         [90m// Create login events[39m
+     [90m 458 |[39m         loginEvents[33m.[39mpush(loginEventRepository[33m.[39mcreate({
+    [31m[1m>[22m[39m[90m 459 |[39m           userId[33m:[39m user[33m.[39mid[33m,[39m
+     [90m     |[39m                        [31m[1m^[22m[39m
+     [90m 460 |[39m           organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+     [90m 461 |[39m           email[33m:[39m user[33m.[39memail[33m,[39m
+     [90m 462 |[39m           ipAddress[33m:[39m [32m`192.168.1.${100 + i}`[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:459:24)
+
+  ● Auth Database Integration (REAL) › Organization and Role Management › should handle hierarchical organization structure
+
+    TypeError: Cannot read properties of undefined (reading 'id')
+
+    [0m [90m 594 |[39m         type[33m:[39m [33mOrganizationType[39m[33m.[39m[33mCLIENT[39m[33m,[39m
+     [90m 595 |[39m         status[33m:[39m [33mOrganizationStatus[39m[33m.[39m[33mACTIVE[39m[33m,[39m
+    [31m[1m>[22m[39m[90m 596 |[39m         parentOrganizationId[33m:[39m mspOrg[33m.[39mid[33m,[39m
+     [90m     |[39m                                      [31m[1m^[22m[39m
+     [90m 597 |[39m       })[33m;[39m
+     [90m 598 |[39m       [36mawait[39m organizationRepository[33m.[39msave(clientOrg)[33m;[39m
+     [90m 599 |[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:596:38)
+
+  ● Auth Database Integration (REAL) › Organization and Role Management › should handle role-based access control with database
+
+    TypeError: Cannot read properties of undefined (reading 'name')
+
+    [0m [90m 642 |[39m         description[33m:[39m [32m'Administrator role'[39m[33m,[39m
+     [90m 643 |[39m         organizationId[33m:[39m [33mTEST_ORG_ID[39m[33m,[39m
+    [31m[1m>[22m[39m[90m 644 |[39m         permissions[33m:[39m [readPermission[33m.[39mname[33m,[39m writePermission[33m.[39mname][33m,[39m
+     [90m     |[39m                                      [31m[1m^[22m[39m
+     [90m 645 |[39m         isActive[33m:[39m [36mtrue[39m[33m,[39m
+     [90m 646 |[39m       })[33m;[39m
+     [90m 647 |[39m       [36mawait[39m roleRepository[33m.[39msave(adminRole)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/database.integration.spec.ts:644:38)
+
+FAIL src/modules/auth/auth.service.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/auth.service.spec.ts:7:1)
+
+FAIL src/modules/auth/integration/service-communication.integration.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/integration/service-communication.integration.spec.ts:29:1)
+
+FAIL src/modules/auth/auth.session.integration.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/auth.session.integration.spec.ts:10:1)
+
+FAIL src/modules/auth/auth.controller.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/auth.controller.ts:26:1)
+      at Object.<anonymous> (src/modules/auth/auth.controller.spec.ts:9:1)
+
+FAIL src/modules/auth/auth.controller.owasp.spec.ts
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\node_modules\jose\dist\webapi\index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){export { compactDecrypt } from './jwe/compact/decrypt.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Unexpected token 'export'
+
+    [0m [90m 2 |[39m [36mimport[39m { [33mConfigService[39m } [36mfrom[39m [32m'@nestjs/config'[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33m*[39m [36mas[39m jwt [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m jwksClient [33m=[39m require([32m'jwks-rsa'[39m)[33m;[39m
+     [90m   |[39m                    [31m[1m^[22m[39m
+     [90m 5 |[39m [90m// Type imports are safe - they're removed at runtime[39m
+     [90m 6 |[39m [36mimport[39m type [33mUserRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/userRepresentation'[39m[33m;[39m
+     [90m 7 |[39m [36mimport[39m type [33mRoleRepresentation[39m [36mfrom[39m [32m'@keycloak/keycloak-admin-client/lib/defs/roleRepresentation'[39m[33m;[39m[0m
+
+      at Runtime.createScriptFromCode (../../node_modules/jest-runtime/build/index.js:1505:14)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/utils.js:1:116)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/JwksClient.js:2:33)
+      at Object.<anonymous> (../../node_modules/jwks-rsa/src/index.js:1:126)
+      at Object.<anonymous> (src/modules/keycloak/keycloak.service.ts:4:20)
+      at Object.<anonymous> (src/modules/auth/auth.service.ts:29:1)
+      at Object.<anonymous> (src/modules/auth/auth.controller.ts:26:1)
+      at Object.<anonymous> (src/modules/auth/auth.controller.owasp.spec.ts:6:1)
+
+FAIL src/modules/auth/integration/redis-cache.integration.spec.ts (16.135 s)
+  ● Auth Redis Cache Integration (REAL) › Redis Connectivity Requirements › should require active Redis connection (no graceful degradation)
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Redis Connectivity Requirements › should fail fast when Redis operations fail
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Real Session Management with Redis › should create, retrieve, and manage session lifecycle
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Real Session Management with Redis › should handle concurrent session limits with real Redis
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Real Session Management with Redis › should handle session expiration with real TTL
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Device Management with Redis › should track and manage device information
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should cache user authentication data
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should handle rate limiting counters
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should handle password reset token caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should handle email verification token caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Authentication Caching Operations › should handle MFA token caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Session Analytics and Management › should provide session statistics
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Session Analytics and Management › should handle bulk session operations
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Session Analytics and Management › should detect session anomalies
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Redis Performance and Concurrency › should handle concurrent Redis operations
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+  ● Auth Redis Cache Integration (REAL) › Redis Performance and Concurrency › should handle Redis connection pool limits
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 46 |[39m     } [36mcatch[39m (error) {
+     [90m 47 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 48 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 49 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 50 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 51 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/auth/integration/redis-cache.integration.spec.ts:48:13)
+
+
+Test Suites: 7 failed, 16 passed, 23 total
+Tests:       28 failed, 333 passed, 361 total
+Snapshots:   0 total
+Time:        18.001 s
+Ran all test suites.
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service
+npm error workspace @soc-compliance/auth-service@1.0.0
+npm error location C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\auth-service
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c jest

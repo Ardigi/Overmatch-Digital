@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # PostgreSQL for testing
+  postgres-test:
+    image: postgres:15-alpine
+    container_name: control-service-postgres-test
+    environment:
+      POSTGRES_USER: soc_user
+      POSTGRES_PASSWORD: soc_pass
+      POSTGRES_DB: soc_controls_test
+    ports:
+      - "5433:5432"  # Different port to avoid conflict
+    volumes:
+      - postgres-test-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U soc_user -d soc_controls_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis for testing
+  redis-test:
+    image: redis:7-alpine
+    container_name: control-service-redis-test
+    command: redis-server --requirepass soc_redis_pass
+    ports:
+      - "6380:6379"  # Different port to avoid conflict
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-test-data:

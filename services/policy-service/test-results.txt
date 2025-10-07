@@ -1,0 +1,53 @@
+
+> @soc-compliance/policy-service@1.0.0 test
+> jest --config jest.config.unit.js
+
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:test-key[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache miss for key: policy-service:non-existent[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:test-key[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:test-key[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache miss for key: policy-service:test-key[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:test-key, TTL: 3600s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:test-key, TTL: 1800s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache miss for key: policy-service:tag:tag1[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:tag:tag1, TTL: 86400s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache miss for key: policy-service:tag:tag2[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:tag:tag2, TTL: 86400s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:test-key, TTL: 3600s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:test-key, TTL: 3600s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache deleted for key: policy-service:test-key[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache deleted for key: policy-service:non-existent[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:tag:tag1[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:tag:tag2[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache deleted for tags: tag1, tag2[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache deleted for tags: [39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache miss for key: policy-service:tag:empty-tag[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache deleted for tags: empty-tag[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:key1, TTL: 1800s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:key2, TTL: 3600s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:key1[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache miss for key: policy-service:key2[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:key3[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:key1[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:framework:soc2, TTL: 3600s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:framework:iso27001, TTL: 3600s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mWarmed cache with 2 items[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:test-key[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache set for key: policy-service:test-key, TTL: 7200s[39m
+[95m[Nest] 32600  - [39m08/07/2025, 6:39:34 PM [95m  DEBUG[39m [38;5;3m[CacheService] [39m[95mCache hit for key: policy-service:tag:tag1[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:35 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.created event for policy policy-123[39m
+[32m[Nest] 7972  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.archived event for policy policy-1754609976051-0.0743413327045459[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.created event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.created event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.created event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.updated event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.updated event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.updated event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.archived event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.approved event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.published event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.published event for policy policy-123[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mChecking policy lifecycle[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mChecking policy lifecycle[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mChecking policy lifecycle[39m
+[32m[Nest] 22168  - [39m08/07/2025, 6:39:36 PM [32m    LOG[39m [38;5;3m[PoliciesService] [39m[32mEmitted policy.needs_review event for policy policy-123[39m

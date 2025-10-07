@@ -1,0 +1,46 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "..",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^@shared/(.*)$": "<rootDir>/../../shared/$1",
+    "^@soc-compliance/auth-common": "<rootDir>/../../packages/auth-common",
+    "^@soc-compliance/contracts": "<rootDir>/../../shared/contracts",
+    "^@soc-compliance/events": "<rootDir>/../../shared/events"
+  },
+  "collectCoverageFrom": [
+    "src/**/*.ts",
+    "!src/**/*.spec.ts",
+    "!src/**/*.interface.ts",
+    "!src/**/index.ts",
+    "!src/main.ts",
+    "!src/**/__mocks__/**"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "branches": 85,
+      "functions": 85,
+      "lines": 85,
+      "statements": 85
+    }
+  },
+  "testTimeout": 30000,
+  "maxWorkers": 1,
+  "globals": {
+    "ts-jest": {
+      "tsconfig": {
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true
+      }
+    }
+  },
+  "testEnvironmentOptions": {
+    "NODE_ENV": "test",
+    "SECURITY_TESTING": "true"
+  }
+}

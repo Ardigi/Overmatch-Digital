@@ -1,0 +1,2063 @@
+{
+  "typescript": {
+    "success": false,
+    "errorCount": 414,
+    "message": "TypeScript compilation failed with 414 errors",
+    "errors": [
+      "src/modules/compliance/__tests__/compliance-mapping.controller.spec.ts(231,21): error TS2339: Property 'meta' does not exist on type '{ data: ComplianceMapping[]; total: number; page: number; limit: number; }'.\r",
+      "src/modules/compliance/__tests__/compliance-mapping.controller.spec.ts(232,21): error TS2339: Property 'meta' does not exist on type '{ data: ComplianceMapping[]; total: number; page: number; limit: number; }'.\r",
+      "src/modules/compliance/__tests__/compliance-mapping.controller.spec.ts(394,23): error TS2339: Property 'results' does not exist on type '{ success: number; failed: number; errors: any[]; }'.\r",
+      "src/modules/compliance/__tests__/compliance-mapping.controller.spec.ts(547,21): error TS2339: Property 'errors' does not exist on type '{ valid: boolean; issues: string[]; }'.\r",
+      "src/modules/compliance/__tests__/compliance-mapping.controller.spec.ts(758,21): error TS2339: Property 'failed' does not exist on type 'void'.\r",
+      "src/modules/compliance/__tests__/compliance-mapping.controller.spec.ts(759,21): error TS2339: Property 'results' does not exist on type 'void'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(124,39): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(135,31): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(143,31): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(237,57): error TS2561: Object literal may only specify known properties, but 'maxRiskScore' does not exist in type 'QueryControlDto'. Did you mean to write 'minRiskScore'?\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(273,21): error TS2339: Property 'meta' does not exist on type '{ items: Control[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(274,21): error TS2339: Property 'meta' does not exist on type '{ items: Control[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(299,39): error TS2339: Property 'findByControlId' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(302,22): error TS2339: Property 'findByControlId' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(308,24): error TS2339: Property 'findByControlId' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(310,22): error TS2339: Property 'findByControlId' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(325,39): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(337,20): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(344,31): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(352,24): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(362,31): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(399,39): error TS2339: Property 'getStatistics' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(402,22): error TS2339: Property 'getControlStatistics' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(433,39): error TS2551: Property 'getImplementationStatus' does not exist on type 'ControlsController'. Did you mean 'updateImplementationStatus'?\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(436,22): error TS2551: Property 'getImplementationStatus' does not exist on type 'ControlsService'. Did you mean 'updateImplementationStatus'?\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(475,39): error TS2339: Property 'getTestResults' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(478,22): error TS2339: Property 'getControlTestResults' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(500,39): error TS2339: Property 'scheduleTest' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(503,22): error TS2339: Property 'scheduleTest' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(526,39): error TS2339: Property 'recordTestResult' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(529,22): error TS2339: Property 'recordTestResult' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(542,20): error TS2339: Property 'recordTestResult' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(574,39): error TS2339: Property 'getEvidence' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(577,22): error TS2339: Property 'getControlEvidence' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(597,39): error TS2339: Property 'attachEvidence' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(600,22): error TS2339: Property 'attachEvidence' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(608,39): error TS2339: Property 'removeEvidence' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(611,22): error TS2339: Property 'removeEvidence' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(635,39): error TS2339: Property 'bulkUpdate' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(638,22): error TS2339: Property 'bulkOperation' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(660,39): error TS2339: Property 'bulkUpdate' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(682,39): error TS2339: Property 'export' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(685,22): error TS2339: Property 'exportControls' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(715,39): error TS2339: Property 'import' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(718,22): error TS2551: Property 'importControls' does not exist on type 'ControlsService'. Did you mean 'bulkImportControls'?\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(730,31): error TS2339: Property 'import' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(745,39): error TS2339: Property 'validateControl' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(748,22): error TS2339: Property 'validateControl' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(761,39): error TS2339: Property 'validateControl' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(800,39): error TS2339: Property 'getControlGaps' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(803,22): error TS2339: Property 'getControlGaps' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(849,39): error TS2339: Property 'getRiskAssessment' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(852,22): error TS2339: Property 'getControlRiskAssessment' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(861,24): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(870,24): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(879,24): error TS2339: Property 'recordTestResult' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(881,22): error TS2339: Property 'recordTestResult' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(912,31): error TS2339: Property 'scheduleTest' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.controller.spec.ts(928,20): error TS2339: Property 'attachEvidence' does not exist on type 'ControlsController'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(167,11): error TS2741: Property 'identifier' is missing in type '{ controlId: string; title: string; description: string; type: ControlType.PREVENTIVE; priority: ControlPriority.HIGH; frequency: ControlFrequency.CONTINUOUS; frameworkId: string; category: string; }' but required in type 'CreateControlDto'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(193,36): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(203,39): error TS2339: Property 'organizationId' does not exist on type '{ id: string; identifier: string; }'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(219,28): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(227,28): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(239,21): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(338,57): error TS2561: Object literal may only specify known properties, but 'maxRiskScore' does not exist in type 'QueryControlDto'. Did you mean to write 'minRiskScore'?\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(369,21): error TS2339: Property 'meta' does not exist on type '{ items: Control[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(370,21): error TS2339: Property 'meta' does not exist on type '{ items: Control[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(371,21): error TS2339: Property 'meta' does not exist on type '{ items: Control[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(372,21): error TS2339: Property 'meta' does not exist on type '{ items: Control[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(373,21): error TS2339: Property 'meta' does not exist on type '{ items: Control[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(416,36): error TS2339: Property 'findByControlId' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(428,28): error TS2339: Property 'findByControlId' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(445,36): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(465,17): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(473,21): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(487,21): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(494,28): error TS2339: Property 'removeControl' does not exist on type 'SearchService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(509,28): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(530,36): error TS2339: Property 'getControlStatistics' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(556,36): error TS2551: Property 'getImplementationStatus' does not exist on type 'ControlsService'. Did you mean 'updateImplementationStatus'?\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(591,36): error TS2339: Property 'getControlTestResults' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(620,36): error TS2339: Property 'scheduleTest' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(642,28): error TS2339: Property 'scheduleTest' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(662,36): error TS2339: Property 'recordTestResult' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(698,36): error TS2339: Property 'getControlEvidence' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(726,36): error TS2339: Property 'attachEvidence' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(757,36): error TS2339: Property 'removeEvidence' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(767,28): error TS2339: Property 'removeEvidence' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(787,36): error TS2339: Property 'bulkOperation' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(813,36): error TS2339: Property 'bulkOperation' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(833,36): error TS2339: Property 'exportControls' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(868,36): error TS2551: Property 'importControls' does not exist on type 'ControlsService'. Did you mean 'bulkImportControls'?\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(899,36): error TS2551: Property 'importControls' does not exist on type 'ControlsService'. Did you mean 'bulkImportControls'?\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(910,36): error TS2339: Property 'validateControl' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(927,36): error TS2339: Property 'validateControl' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(951,36): error TS2339: Property 'getControlGaps' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(965,36): error TS2339: Property 'getControlRiskAssessment' does not exist on type 'ControlsService'.\r",
+      "src/modules/compliance/__tests__/controls.service.spec.ts(995,36): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(92,7): error TS2353: Object literal may only specify known properties, and 'requirements' does not exist in type 'CreateFrameworkDto'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(127,31): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(180,42): error TS2353: Object literal may only specify known properties, and 'includeStats' does not exist in type 'QueryFrameworkDto'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(196,21): error TS2339: Property 'meta' does not exist on type '{ items: ComplianceFramework[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(240,7): error TS2353: Object literal may only specify known properties, and 'requirements' does not exist in type 'UpdateFrameworkDto'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(266,31): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(274,31): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(427,39): error TS2339: Property 'getCoverageReport' does not exist on type 'FrameworksController'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(430,22): error TS2339: Property 'getCoverageReport' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(455,39): error TS2339: Property 'getComplianceScore' does not exist on type 'FrameworksController'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(458,22): error TS2339: Property 'getComplianceScore' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(472,39): error TS2339: Property 'validateFramework' does not exist on type 'FrameworksController'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(475,22): error TS2339: Property 'validateFramework' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(487,39): error TS2339: Property 'validateFramework' does not exist on type 'FrameworksController'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(531,39): error TS2339: Property 'getImplementationGuide' does not exist on type 'FrameworksController'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(534,22): error TS2339: Property 'getImplementationGuide' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(543,24): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(552,24): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/frameworks.controller.spec.ts(584,31): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(5,10): error TS2300: Duplicate identifier 'SearchService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(6,10): error TS2300: Duplicate identifier 'SearchService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(46,9): error TS2451: Cannot redeclare block-scoped variable 'mockSearchService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(53,9): error TS2451: Cannot redeclare block-scoped variable 'mockSearchService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(203,28): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(217,21): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(234,21): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(304,42): error TS2353: Object literal may only specify known properties, and 'tags' does not exist in type 'QueryFrameworkDto'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(314,42): error TS2353: Object literal may only specify known properties, and 'minComplianceScore' does not exist in type 'QueryFrameworkDto'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(336,42): error TS2353: Object literal may only specify known properties, and 'includeStats' does not exist in type 'QueryFrameworkDto'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(343,21): error TS2339: Property 'meta' does not exist on type '{ items: ComplianceFramework[]; total: number; }'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(348,42): error TS2353: Object literal may only specify known properties, and 'includeControls' does not exist in type 'QueryFrameworkDto'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(441,36): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(457,28): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(466,17): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(476,21): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(492,21): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(499,28): error TS2339: Property 'removeFramework' does not exist on type 'SearchService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(511,28): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(525,36): error TS2339: Property 'getFrameworkStatistics' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(583,36): error TS2339: Property 'getCoverageReport' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(604,36): error TS2339: Property 'getComplianceScore' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(622,36): error TS2339: Property 'validateFramework' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(640,36): error TS2339: Property 'validateFramework' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(655,36): error TS2339: Property 'getImplementationGuide' does not exist on type 'FrameworksService'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(695,21): error TS2339: Property 'mappings' does not exist on type 'any[]'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(696,21): error TS2339: Property 'mappings' does not exist on type 'any[]'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(697,21): error TS2339: Property 'mappings' does not exist on type 'any[]'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(698,21): error TS2339: Property 'mappings' does not exist on type 'any[]'.\r",
+      "src/modules/compliance/__tests__/frameworks.service.spec.ts(791,36): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/compliance/compliance-mapping.controller.ts(93,43): error TS2345: Argument of type 'MappingEntryDto[]' is not assignable to parameter of type 'CreateMappingDto[]'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(477,37): error TS2339: Property 'policyId' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(480,70): error TS2339: Property 'policyId' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(484,40): error TS2339: Property 'controlIds' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(487,46): error TS2339: Property 'controlIds' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(497,38): error TS2339: Property 'policyId' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(504,91): error TS2339: Property 'policyId' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(508,36): error TS2339: Property 'policyId' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(526,71): error TS2339: Property 'policyId' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(527,46): error TS2339: Property 'controlIds' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(535,34): error TS2339: Property 'policyId' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(536,36): error TS2339: Property 'controlIds' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(666,32): error TS2339: Property 'policyId' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(667,34): error TS2339: Property 'controlIds' does not exist on type 'CreateMappingDto'.\r",
+      "src/modules/compliance/compliance-mapping.service.ts(873,13): error TS2353: Object literal may only specify known properties, and 'policyId' does not exist in type 'CreateMappingDto'.\r",
+      "src/modules/compliance/controls.service.ts(50,44): error TS2769: No overload matches this call.\r",
+      "src/modules/compliance/entities/control.entity.ts(454,42): error TS2339: Property 'date' does not exist on type 'AssessmentInput'.\r",
+      "src/modules/events/__tests__/kafka-consumer.mock-service.spec.ts(60,21): error TS2445: Property 'handleControlImplemented' is protected and only accessible within class 'KafkaConsumerService' and its subclasses.\r",
+      "src/modules/events/__tests__/kafka-consumer.mock-service.spec.ts(75,21): error TS2445: Property 'handleControlFailed' is protected and only accessible within class 'KafkaConsumerService' and its subclasses.\r",
+      "src/modules/events/__tests__/kafka-consumer.mock-service.spec.ts(91,21): error TS2445: Property 'handleControlTested' is protected and only accessible within class 'KafkaConsumerService' and its subclasses.\r",
+      "src/modules/events/__tests__/kafka-consumer.mock-service.spec.ts(106,21): error TS2445: Property 'handleEvidenceCollected' is protected and only accessible within class 'KafkaConsumerService' and its subclasses.\r",
+      "src/modules/events/__tests__/kafka-consumer.mock-service.spec.ts(121,21): error TS2445: Property 'handleRiskIdentified' is protected and only accessible within class 'KafkaConsumerService' and its subclasses.\r",
+      "src/modules/events/__tests__/kafka-consumer.mock-service.spec.ts(136,21): error TS2445: Property 'handlePolicyUpdated' is protected and only accessible within class 'KafkaConsumerService' and its subclasses.\r",
+      "src/modules/events/__tests__/kafka-consumer.mock-service.spec.ts(180,21): error TS2445: Property 'handleControlFailed' is protected and only accessible within class 'KafkaConsumerService' and its subclasses.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(160,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(193,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(211,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(222,54): error TS2339: Property 'EFFECTIVE' does not exist on type 'typeof ImplementationStatus'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(243,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(263,56): error TS2339: Property 'NOT_EFFECTIVE' does not exist on type 'typeof ImplementationStatus'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(282,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(313,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(327,56): error TS2339: Property 'EFFECTIVE' does not exist on type 'typeof ImplementationStatus'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(351,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(356,56): error TS2339: Property 'PARTIALLY_EFFECTIVE' does not exist on type 'typeof ImplementationStatus'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(380,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(388,56): error TS2339: Property 'NOT_EFFECTIVE' does not exist on type 'typeof ImplementationStatus'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(415,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(453,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(490,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(518,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(549,38): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(572,40): error TS2345: Argument of type '{ topic: string; partition: number; message: { value: Buffer<ArrayBuffer>; key: any; timestamp: string; headers: {}; offset: string; }; }' is not assignable to parameter of type 'EachMessagePayload'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(601,36): error TS2304: Cannot find name 'createMockMessage'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(617,36): error TS2304: Cannot find name 'createMockMessage'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(644,36): error TS2304: Cannot find name 'createMockMessage'.\r",
+      "src/modules/events/__tests__/kafka-consumer.service.spec.ts(675,38): error TS2304: Cannot find name 'createMockMessage'.\r",
+      "src/modules/monitoring/monitoring.service.ts(130,9): error TS2739: Type '{ failedAttempts: number; attemptsByIp: any[]; window: string; }' is missing the following properties from type 'MonitoringMetadata': timestamp, service, environment\r",
+      "src/modules/monitoring/monitoring.service.ts(161,9): error TS2739: Type '{ violations: number; window: string; }' is missing the following properties from type 'MonitoringMetadata': timestamp, service, environment\r",
+      "src/modules/monitoring/monitoring.service.ts(188,9): error TS2739: Type '{ userId: string; userEmail: string; attempts: number; lastResource: AuditResourceType; }' is missing the following properties from type 'MonitoringMetadata': timestamp, service, environment\r",
+      "src/modules/monitoring/monitoring.service.ts(226,9): error TS2739: Type '{ userId: any; userEmail: any; downloadCount: any; window: string; }' is missing the following properties from type 'MonitoringMetadata': timestamp, service, environment\r",
+      "src/modules/monitoring/monitoring.service.ts(277,13): error TS2739: Type '{ apiKeyId: any; previousCount: any; recentCount: any; percentageChange: number; }' is missing the following properties from type 'MonitoringMetadata': timestamp, service, environment\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(74,5): error TS2741: Property 'headers' is missing in type '{}' but required in type 'InternalAxiosRequestConfig<any>'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(114,36): error TS2339: Property 'deployPolicy' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(141,28): error TS2339: Property 'deployPolicy' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(151,28): error TS2339: Property 'deployPolicy' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(223,36): error TS2339: Property 'removePolicy' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(246,28): error TS2339: Property 'removePolicy' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(261,36): error TS2339: Property 'listPolicies' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(279,36): error TS2339: Property 'listPolicies' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(332,36): error TS2339: Property 'evaluateBatch' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(352,36): error TS2339: Property 'evaluateBatch' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(368,36): error TS2551: Property 'validatePolicy' does not exist on type 'OpaService'. Did you mean 'evaluatePolicy'?\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(391,36): error TS2551: Property 'validatePolicy' does not exist on type 'OpaService'. Did you mean 'evaluatePolicy'?\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(430,36): error TS2339: Property 'updateData' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(445,36): error TS2339: Property 'checkHealth' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(461,36): error TS2339: Property 'checkHealth' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(475,36): error TS2551: Property 'compilePolicyToWasm' does not exist on type 'OpaService'. Did you mean 'compilePolicy'?\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(496,36): error TS2339: Property 'getMetrics' does not exist on type 'OpaService'.\r",
+      "src/modules/opa/__tests__/opa.service.spec.ts(518,36): error TS2339: Property 'getDecisionLogs' does not exist on type 'OpaService'.\r",
+      "src/modules/policies/__tests__/policies.controller.spec.ts(105,7): error TS2322: Type 'Date' is not assignable to type 'string'.\r",
+      "src/modules/policies/__tests__/policies.controller.spec.ts(225,9): error TS2322: Type 'Date' is not assignable to type 'string'.\r",
+      "src/modules/policies/__tests__/policies.controller.spec.ts(226,9): error TS2322: Type 'Date' is not assignable to type 'string'.\r",
+      "src/modules/policies/__tests__/policies.controller.spec.ts(620,43): error TS2339: Property 'id' does not exist on type '{ user: { id: string; email: string; roles: string[]; organizationId: string; }; }'.\r",
+      "src/modules/policies/__tests__/policies.controller.spec.ts(646,13): error TS2322: Type '{ complianceMapping: { frameworks: string[]; controls: string[]; }; id: string; policyNumber: string; title: string; description: string; purpose: string; type: PolicyType; status: PolicyStatus; ... 22 more ...; updatedAt: Date; }' is not assignable to type 'CreatePolicyDto'.\r",
+      "src/modules/policies/__tests__/policies.controller.spec.ts(665,13): error TS2322: Type '{ content: { sections: { title: string; content: string; }[]; }; id: string; policyNumber: string; title: string; description: string; purpose: string; type: PolicyType; status: PolicyStatus; ... 22 more ...; updatedAt: Date; }' is not assignable to type 'CreatePolicyDto'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(57,5): error TS2322: Type 'Date' is not assignable to type 'string'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(58,5): error TS2322: Type 'Date' is not assignable to type 'string'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(59,5): error TS2322: Type 'Date' is not assignable to type 'string'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(198,23): error TS2554: Expected 10 arguments, but got 2.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(256,49): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(265,49): error TS2339: Property 'findExpiring' does not exist on type 'PoliciesController'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(274,49): error TS2339: Property 'findNeedsReview' does not exist on type 'PoliciesController'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(283,49): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(452,52): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(536,29): error TS2339: Property 'status' does not exist on type 'FindOptionsWhere<Policy> | FindOptionsWhere<Policy>[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(537,71): error TS2339: Property 'status' does not exist on type 'FindOptionsWhere<Policy> | FindOptionsWhere<Policy>[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(539,29): error TS2339: Property 'type' does not exist on type 'FindOptionsWhere<Policy> | FindOptionsWhere<Policy>[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(540,69): error TS2339: Property 'type' does not exist on type 'FindOptionsWhere<Policy> | FindOptionsWhere<Policy>[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(583,52): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(629,52): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(649,50): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(651,24): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(666,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ viewCount: number; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; type: PolicyType; ... 55 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(668,36): error TS2345: Argument of type '{ viewCount: number; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; type: PolicyType; status: PolicyStatus; ... 54 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(689,50): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(691,28): error TS2339: Property 'policyNumber' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(708,50): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(710,24): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(721,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ changeHistory: DeepPartial<{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; }>[]; ... 62 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(735,36): error TS2345: Argument of type '{ changeHistory: DeepPartial<{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; }>[]; ... 62 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(757,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ title: string; changeHistory: DeepPartial<{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; }>[]; ... 61 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(772,36): error TS2345: Argument of type '{ title: string; changeHistory: DeepPartial<{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; }>[]; ... 61 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(797,43): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(802,24): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(807,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ status: PolicyStatus; approvalDate: Date; approvedBy: string; id: string; title: string; policyNumber: string; ... 58 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(814,36): error TS2345: Argument of type '{ status: PolicyStatus; approvalDate: Date; approvedBy: string; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; ... 55 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(829,48): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(836,34): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(847,43): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(853,24): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(858,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ status: PolicyStatus; publishedDate: Date; publishedBy: string; id: string; title: string; policyNumber: string; ... 58 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(865,36): error TS2345: Argument of type '{ status: PolicyStatus; publishedDate: Date; publishedBy: string; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; ... 55 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(887,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ status: PolicyStatus; publishedDate: Date; publishedBy: string; id: string; title: string; policyNumber: string; ... 58 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(894,36): error TS2345: Argument of type '{ status: PolicyStatus; publishedDate: Date; publishedBy: string; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; ... 55 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(912,43): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(917,24): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(929,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ exceptions: ({ id?: string; description?: string; justification?: string; approvedBy?: string; approvalDate?: DeepPartial<Date>; expirationDate?: DeepPartial<...>; conditions?: DeepPartial<...>; } | { ...; })[]; ... 62 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(941,36): error TS2345: Argument of type '{ exceptions: ({ id?: string; description?: string; justification?: string; approvedBy?: string; approvalDate?: DeepPartial<Date>; expirationDate?: DeepPartial<Date>; conditions?: DeepPartial<...>; } | { ...; })[]; ... 62 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(963,50): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(965,24): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(970,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ status: PolicyStatus; archivedAt: Date; archivedBy: string; id: string; title: string; policyNumber: string; ... 58 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.integration.spec.ts(977,36): error TS2345: Argument of type '{ status: PolicyStatus; archivedAt: Date; archivedBy: string; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; type: PolicyType; ... 54 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.security.spec.ts(286,13): error TS2739: Type '{ title: string; type: PolicyType.SECURITY; content: { sections: undefined[]; }; }' is missing the following properties from type 'CreatePolicyDto': priority, scope, effectiveDate, ownerName\r",
+      "src/modules/policies/__tests__/policies.security.spec.ts(326,21): error TS2339: Property 'canBeViewedBy' does not exist on type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.security.spec.ts(326,49): error TS2339: Property 'roles' does not exist on type '{ id: string; email: string; organizationId: string; }'.\r",
+      "src/modules/policies/__tests__/policies.security.spec.ts(341,24): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/policies/__tests__/policies.security.spec.ts(542,9): error TS2322: Type '{ __proto__: { isAdmin: true; }; }' is not assignable to type '{ __proto__: { isAdmin: boolean; }; constructor?: undefined; prototype?: undefined; } | { constructor: { prototype: { isAdmin: boolean; }; }; __proto__?: undefined; prototype?: undefined; } | { prototype: { ...; }; __proto__?: undefined; constructor?: undefined; }'.\r",
+      "src/modules/policies/__tests__/policies.security.spec.ts(544,9): error TS2322: Type '{ prototype: { isAdmin: true; }; }' is not assignable to type '{ __proto__: { isAdmin: boolean; }; constructor?: undefined; prototype?: undefined; } | { constructor: { prototype: { isAdmin: boolean; }; }; __proto__?: undefined; prototype?: undefined; } | { prototype: { ...; }; __proto__?: undefined; constructor?: undefined; }'.\r",
+      "src/modules/policies/__tests__/policies.security.spec.ts(630,39): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(200,23): error TS2554: Expected 10 arguments, but got 6.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(224,51): error TS2345: Argument of type '{ organizationId: string; createdBy: string; title: string; description: string; type: PolicyType; priority: PolicyPriority; scope: PolicyScope; ... 7 more ...; keywords: string[]; }' is not assignable to parameter of type 'CreatePolicyDto'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(260,52): error TS2345: Argument of type '{ organizationId: string; createdBy: string; title: string; description: string; type: PolicyType; priority: PolicyPriority; scope: PolicyScope; ... 7 more ...; keywords: string[]; }' is not assignable to parameter of type 'CreatePolicyDto'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(269,52): error TS2345: Argument of type '{ title: string; organizationId: string; createdBy: string; description: string; type: PolicyType; priority: PolicyPriority; scope: PolicyScope; ... 7 more ...; keywords: string[]; }' is not assignable to parameter of type 'CreatePolicyDto'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(354,29): error TS2339: Property 'status' does not exist on type 'FindOptionsWhere<Policy> | FindOptionsWhere<Policy>[]'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(355,71): error TS2339: Property 'status' does not exist on type 'FindOptionsWhere<Policy> | FindOptionsWhere<Policy>[]'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(357,29): error TS2339: Property 'type' does not exist on type 'FindOptionsWhere<Policy> | FindOptionsWhere<Policy>[]'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(358,69): error TS2339: Property 'type' does not exist on type 'FindOptionsWhere<Policy> | FindOptionsWhere<Policy>[]'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(403,44): error TS2339: Property 'findExpiring' does not exist on type 'PoliciesService'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(410,44): error TS2339: Property 'findExpiring' does not exist on type 'PoliciesService'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(445,44): error TS2339: Property 'findNeedsReview' does not exist on type 'PoliciesService'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(473,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ viewCount: number; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; type: PolicyType; ... 55 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(475,36): error TS2345: Argument of type '{ viewCount: number; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; type: PolicyType; status: PolicyStatus; ... 54 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(540,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ changeHistory: DeepPartial<{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; }>[]; ... 62 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(554,36): error TS2345: Argument of type '{ changeHistory: DeepPartial<{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; }>[]; ... 62 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(558,44): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(582,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ title: string; changeHistory: DeepPartial<{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; }>[]; ... 61 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(597,36): error TS2345: Argument of type '{ title: string; changeHistory: DeepPartial<{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; }>[]; ... 61 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(601,29): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(628,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ status: PolicyStatus; approvalDate: Date; approvedBy: string; id: string; title: string; policyNumber: string; ... 58 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(635,36): error TS2345: Argument of type '{ status: PolicyStatus; approvalDate: Date; approvedBy: string; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; ... 55 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(639,62): error TS2345: Argument of type '{ comments: string; }' is not assignable to parameter of type 'string'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(663,54): error TS2345: Argument of type '{}' is not assignable to parameter of type 'string'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(682,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ status: PolicyStatus; publishedDate: Date; publishedBy: string; id: string; title: string; policyNumber: string; ... 58 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(689,36): error TS2345: Argument of type '{ status: PolicyStatus; publishedDate: Date; publishedBy: string; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; ... 55 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(693,44): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(716,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ status: PolicyStatus; publishedDate: Date; publishedBy: string; id: string; title: string; policyNumber: string; ... 58 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(723,36): error TS2345: Argument of type '{ status: PolicyStatus; publishedDate: Date; publishedBy: string; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; ... 55 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(727,44): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(754,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ exceptions: ({ id?: string; description?: string; justification?: string; approvedBy?: string; approvalDate?: DeepPartial<Date>; expirationDate?: DeepPartial<...>; conditions?: DeepPartial<...>; } | { ...; })[]; ... 62 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(766,36): error TS2345: Argument of type '{ exceptions: ({ id?: string; description?: string; justification?: string; approvedBy?: string; approvalDate?: DeepPartial<Date>; expirationDate?: DeepPartial<Date>; conditions?: DeepPartial<...>; } | { ...; })[]; ... 62 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(770,44): error TS2554: Expected 3 arguments, but got 2.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(800,56): error TS2345: Argument of type '(policy: DeepPartial<Policy>) => Promise<{ status: PolicyStatus; archivedAt: Date; archivedBy: string; id: string; title: string; policyNumber: string; ... 58 more ...; controls?: Control[]; } | { ...; }>' is not assignable to parameter of type '(entity: DeepPartial<Policy>, options?: SaveOptions) => Promise<DeepPartial<Policy> & Policy>'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(807,36): error TS2345: Argument of type '{ status: PolicyStatus; archivedAt: Date; archivedBy: string; id: string; title: string; policyNumber: string; version: string; description?: string; purpose: string; type: PolicyType; ... 54 more ...; controls?: Control[]; } | { ...; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.service.integration.spec.ts(811,29): error TS2554: Expected 2 arguments, but got 1.\r",
+      "src/modules/policies/__tests__/policies.service.spec.ts(211,13): error TS2341: Property 'sanitizePolicyContent' is private and only accessible within class 'PoliciesService'.\r",
+      "src/modules/policies/__tests__/policies.service.spec.ts(479,36): error TS2345: Argument of type '{ id: string; organizationId: string; }' is not assignable to parameter of type 'UserContext'.\r",
+      "src/modules/policies/__tests__/policies.service.spec.ts(790,65): error TS2345: Argument of type '{ user: string; action: string; resource: string; }' is not assignable to parameter of type 'PolicyOperationContext'.\r",
+      "src/modules/policies/__tests__/policies.service.spec.ts(827,65): error TS2345: Argument of type '{ user: string; action: string; resource: string; }' is not assignable to parameter of type 'PolicyOperationContext'.\r",
+      "src/modules/policies/__tests__/policies.service.spec.ts(843,57): error TS2345: Argument of type '{ user: string; action: string; resource: string; }' is not assignable to parameter of type 'PolicyOperationContext'.\r",
+      "src/modules/policies/__tests__/policies.workflow.spec.ts(472,35): error TS2339: Property 'status' does not exist on type '{ id: string; description: string; justification: string; approvedBy: string; approvalDate: Date; expirationDate?: Date; conditions?: string[]; }'.\r",
+      "src/modules/policies/__tests__/policies.workflow.spec.ts(545,67): error TS2339: Property 'complianceThreshold' does not exist on type 'Policy'.\r",
+      "src/modules/policies/__tests__/policies.workflow.spec.ts(558,22): error TS2339: Property 'count' does not exist on type '{ create: Mock<any, any, any>; save: Mock<any, any, any>; findOne: Mock<any, any, any>; find: Mock<any, any, any>; createQueryBuilder: Mock<any, any, any>; }'.\r",
+      "src/modules/policies/__tests__/policies.workflow.spec.ts(560,28): error TS2345: Argument of type '{ title: string; type: PolicyType.SECURITY; content: { sections: undefined[]; }; organizationId: string; createdBy: string; }' is not assignable to parameter of type 'CreatePolicyDto'.\r",
+      "src/modules/policies/__tests__/policies.workflow.spec.ts(680,48): error TS2339: Property 'action' does not exist on type '{ version: string; changedBy: string; changedAt: Date; changes: { summary: string; details?: AuditLogDetails; sections?: string[]; }; approved?: boolean; approvedBy?: string; } | { ...; }'.\r",
+      "src/modules/policies/entities/policy.entity.ts(835,32): error TS2345: Argument of type 'PolicySection' is not assignable to parameter of type '{ id: string; title: string; content: string; order: number; subsections?: { id: string; title: string; content: string; order: number; }[]; }'.\r",
+      "src/modules/policies/entities/policy.entity.ts(868,57): error TS2698: Spread types may only be created from object types.\r",
+      "src/modules/policies/policies.controller.ts(260,52): error TS2345: Argument of type 'PolicyEvaluationContextDto' is not assignable to parameter of type 'PolicyOperationContext'.\r",
+      "src/modules/policies/policies.service.ts(14,8): error TS2724: '\"@soc-compliance/events\"' has no exported member named 'PolicyApprovedEvent'. Did you mean 'PolicyArchivedEvent'?\r",
+      "src/modules/policies/policies.service.ts(16,8): error TS2305: Module '\"@soc-compliance/events\"' has no exported member 'PolicyCreatedEvent'.\r",
+      "src/modules/policies/policies.service.ts(21,8): error TS2305: Module '\"@soc-compliance/events\"' has no exported member 'PolicyUpdatedEvent'.\r",
+      "src/modules/policies/policies.service.ts(120,42): error TS2769: No overload matches this call.\r",
+      "src/modules/policies/policies.service.ts(160,42): error TS2345: Argument of type 'Policy[]' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/policies/policies.service.ts(173,35): error TS2339: Property 'organizationId' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/policies.service.ts(175,31): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/policies.service.ts(176,35): error TS2339: Property 'policyNumber' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/policies.service.ts(177,28): error TS2339: Property 'title' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/policies.service.ts(178,27): error TS2339: Property 'type' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/policies.service.ts(179,29): error TS2339: Property 'status' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/policies.service.ts(180,33): error TS2339: Property 'complianceMapping' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/policies.service.ts(185,76): error TS2339: Property 'id' does not exist on type 'Policy[]'.\r",
+      "src/modules/policies/policies.service.ts(187,5): error TS2740: Type 'Policy[]' is missing the following properties from type 'Policy': id, title, policyNumber, version, and 31 more.\r",
+      "src/modules/policies/policies.service.ts(507,7): error TS2741: Property 'sections' is missing in type '{}' but required in type 'PolicyContentDto'.\r",
+      "src/modules/policies/policies.service.ts(527,9): error TS2741: Property 'action' is missing in type '{}' but required in type 'AuditLogDetails'.\r",
+      "src/modules/policies/policies.service.ts(899,57): error TS2559: Type 'WorkflowTransitionMetadata' has no properties in common with type 'AuditMetadata'.\r",
+      "src/modules/policies/policies.service.ts(947,50): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.\r",
+      "src/modules/policies/policies.service.ts(956,43): error TS2322: Type 'unknown' is not assignable to type 'PolicyStatus'.\r",
+      "src/modules/policies/policies.service.ts(959,43): error TS2322: Type 'unknown' is not assignable to type 'string'.\r",
+      "src/modules/policies/policies.service.ts(1057,63): error TS2345: Argument of type 'PolicyOperationContext' is not assignable to parameter of type 'PolicyEvaluationCacheContext'.\r",
+      "src/modules/policies/policies.service.ts(1060,7): error TS2741: Property 'result' is missing in type '{}' but required in type 'PolicyEvaluationResult'.\r",
+      "src/modules/policies/policies.service.ts(1071,71): error TS2345: Argument of type 'PolicyOperationContext' is not assignable to parameter of type 'OpaInput'.\r",
+      "src/modules/policies/policies.service.ts(1102,7): error TS2741: Property 'result' is missing in type '{ allowed: boolean; reasons: any; decision_id: string; evaluationTime: number; }' but required in type 'PolicyEvaluationResult'.\r",
+      "src/modules/policies/policies.service.ts(1127,7): error TS2322: Type '{ organizationId: string; status?: string; priority?: string; owner?: string; tags?: string[]; search?: string; page?: number; limit?: number; sort?: string; order?: \"ASC\" | \"DESC\"; }' is not assignable to type '{ type?: string[]; status?: string[]; organizationId?: string; frameworks?: string[]; tags?: string[]; dateRange?: { field: string; from?: Date; to?: Date; }; }'.\r",
+      "src/modules/policies/policies.service.ts(1131,28): error TS2339: Property 'pagination' does not exist on type 'PolicyQueryFilters'.\r",
+      "src/modules/policies/policies.service.ts(1132,7): error TS2322: Type 'string' is not assignable to type '{ field: string; order: \"asc\" | \"desc\"; }[]'.\r",
+      "src/modules/policies/policies.service.ts(1159,17): error TS2339: Property 'sections' does not exist on type 'unknown'.\r",
+      "src/modules/policies/policies.service.ts(1160,15): error TS2339: Property 'sections' does not exist on type 'unknown'.\r",
+      "src/modules/policies/policies.service.ts(1160,34): error TS2339: Property 'sections' does not exist on type 'unknown'.\r",
+      "src/modules/policies/policies.service.ts(1162,18): error TS2349: This expression is not callable.\r",
+      "src/modules/policies/policies.service.ts(1165,20): error TS2349: This expression is not callable.\r",
+      "src/modules/policies/policies.service.ts(1253,5): error TS2739: Type '{ byStatus: {}; byType: {}; expiringSoon: number; needsReview: number; averageComplianceScore: number; }' is missing the following properties from type 'PolicyMetricsResult': total, byPriority\r",
+      "src/modules/policies/policies.service.ts(1293,7): error TS2353: Object literal may only specify known properties, and 'implementation' does not exist in type '{ controls: string[]; coverage: number; gaps?: string[]; }'.\r",
+      "src/modules/policies/policies.service.ts(1312,20): error TS2353: Object literal may only specify known properties, and 'control' does not exist in type 'AuditLogDetails'.\r",
+      "src/modules/policies/policies.service.ts(1422,20): error TS2353: Object literal may only specify known properties, and 'control' does not exist in type 'AuditLogDetails'.\r",
+      "src/modules/policies/policies.service.ts(1514,44): error TS2339: Property 'getMany' does not exist on type 'CacheService'.\r",
+      "src/modules/policies/policies.service.ts(1554,7): error TS2322: Type 'unknown' is not assignable to type 'ControlDetails'.\r",
+      "src/modules/policies/policies.service.ts(1562,11): error TS2353: Object literal may only specify known properties, and 'code' does not exist in type '{ id: string; name?: string; description?: string; status?: string; framework?: string; category?: string; priority?: string; lastUpdated?: Date; implementationStatus?: string; }'.\r",
+      "src/modules/policies/policies.service.ts(1630,7): error TS2740: Type '{}' is missing the following properties from type 'WorkflowInstance': id, type, entityId, status, and 4 more.\r",
+      "src/modules/policies/policies.service.ts(1648,7): error TS2322: Type 'unknown' is not assignable to type 'EvidenceDetails'.\r",
+      "src/modules/policies/policies.service.ts(1694,66): error TS2339: Property 'strength' does not exist on type '{ controls: string[]; coverage: number; gaps?: string[]; }'.\r",
+      "src/modules/policies/policies.service.ts(1712,45): error TS2339: Property 'implementation' does not exist on type '{ controls: string[]; coverage: number; gaps?: string[]; }'.\r",
+      "src/modules/policies/policies.service.ts(1713,39): error TS2339: Property 'strength' does not exist on type '{ controls: string[]; coverage: number; gaps?: string[]; }'.\r",
+      "src/modules/policies/policies.service.ts(1714,36): error TS2339: Property 'notes' does not exist on type '{ controls: string[]; coverage: number; gaps?: string[]; }'.\r",
+      "src/modules/policies/policies.service.ts(1716,39): error TS2339: Property 'evidence' does not exist on type '{ controls: string[]; coverage: number; gaps?: string[]; }'.\r",
+      "src/modules/policies/policies.service.ts(1766,27): error TS2339: Property 'strength' does not exist on type '{ controls: string[]; coverage: number; gaps?: string[]; }'.\r",
+      "src/modules/policies/types/policy.types.ts(6,10): error TS2459: Module '\"../../compliance/entities/control.entity\"' declares 'ComplianceFramework' locally, but it is not exported.\r",
+      "src/modules/policies/types/policy.types.ts(489,3): error TS2484: Export declaration conflicts with exported declaration of 'PolicyMetadata'.\r",
+      "src/modules/policies/types/policy.types.ts(490,3): error TS2484: Export declaration conflicts with exported declaration of 'PolicyActionParameters'.\r",
+      "src/modules/policies/types/policy.types.ts(491,3): error TS2484: Export declaration conflicts with exported declaration of 'PolicyEvaluationContext'.\r",
+      "src/modules/policies/types/policy.types.ts(492,3): error TS2484: Export declaration conflicts with exported declaration of 'ControlMetadata'.\r",
+      "src/modules/policies/types/policy.types.ts(493,3): error TS2484: Export declaration conflicts with exported declaration of 'ComplianceMapping'.\r",
+      "src/modules/policies/types/policy.types.ts(494,3): error TS2484: Export declaration conflicts with exported declaration of 'PolicyAutomationRule'.\r",
+      "src/modules/policies/types/policy.types.ts(495,3): error TS2484: Export declaration conflicts with exported declaration of 'PolicyTemplate'.\r",
+      "src/modules/policies/types/policy.types.ts(496,3): error TS2484: Export declaration conflicts with exported declaration of 'PolicyIntegrationConfig'.\r",
+      "src/modules/policies/types/policy.types.ts(497,3): error TS2484: Export declaration conflicts with exported declaration of 'PolicySearchParams'.\r",
+      "src/modules/policies/types/policy.types.ts(498,3): error TS2484: Export declaration conflicts with exported declaration of 'PolicyMetrics'.\r",
+      "src/modules/policies/types/policy.types.ts(499,3): error TS2484: Export declaration conflicts with exported declaration of 'ComplianceScoreCalculation'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(66,11): error TS2353: Object literal may only specify known properties, and 'classification' does not exist in type '{ id: string; type: string; attributes: PolicyAttributes; }'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(71,9): error TS2322: Type '{ time: string; ipAddress: string; location: string; }' is not assignable to type 'PolicyEnvironment & { timestamp: Date; }'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(146,28): error TS2339: Property 'user' does not exist on type 'PolicyContext'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(165,39): error TS2353: Object literal may only specify known properties, and 'classification' does not exist in type '{ id: string; type: string; attributes: PolicyAttributes; }'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(167,11): error TS2322: Type '{ time: string; }' is not assignable to type 'PolicyEnvironment & { timestamp: Date; }'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(193,41): error TS2353: Object literal may only specify known properties, and 'classification' does not exist in type '{ id: string; type: string; attributes: PolicyAttributes; }'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(195,11): error TS2322: Type '{ time: string; }' is not assignable to type 'PolicyEnvironment & { timestamp: Date; }'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(211,23): error TS2339: Property 'overallDecision' does not exist on type 'PolicyEvaluationResult[]'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(475,23): error TS2339: Property 'auditTrail' does not exist on type 'Policy'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.controller.spec.ts(476,23): error TS2339: Property 'auditTrail' does not exist on type 'Policy'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(7,3): error TS2305: Module '\"../../../../test/utils/test-helpers\"' has no exported member 'TEST_OPA_POLICIES'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(78,9): error TS2353: Object literal may only specify known properties, and 'classification' does not exist in type '{ id: string; type: string; attributes: PolicyAttributes; }'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(83,7): error TS2322: Type '{ time: string; ipAddress: string; location: string; }' is not assignable to type 'PolicyEnvironment & { timestamp: Date; }'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(169,32): error TS2352: Conversion of type '{ user: { id: string; }; }' to type 'PolicyContext' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(228,23): error TS2339: Property 'metadata' does not exist on type 'PolicyEvaluationResult[]'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(316,25): error TS2339: Property 'rules' does not exist on type 'PolicyRule'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(411,28): error TS2304: Cannot find name 'mockContext'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(453,52): error TS2304: Cannot find name 'mockContext'.\r",
+      "src/modules/policy-engine/__tests__/policy-engine.service.spec.ts(473,48): error TS2304: Cannot find name 'mockContext'.\r",
+      "src/modules/policy-engine/evaluators/policy.evaluator.ts(2,27): error TS2307: Cannot find module 'safe-eval' or its corresponding type declarations.\r",
+      "src/modules/policy-engine/policy-engine.controller.ts(134,70): error TS2345: Argument of type '{ createdBy: any; name?: string; description?: string; parameters?: PolicyEvaluationParameters; organizationId: string; }' is not assignable to parameter of type '{ name?: string; description?: string; parameters?: TemplateParameters; organizationId: string; createdBy: string; }'.\r",
+      "src/modules/search/__tests__/search.service.spec.ts(106,33): error TS2345: Argument of type '{ id: string; policyNumber: string; title: string; description: string; purpose: string; type: string; status: string; workflowState: string; priority: string; scope: string; organizationId: string; ... 24 more ...; regoPolicy: string; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/search/__tests__/search.service.spec.ts(125,40): error TS2345: Argument of type '{ id: string; policyNumber: string; title: string; description: string; purpose: string; type: string; status: string; workflowState: string; priority: string; scope: string; organizationId: string; ... 24 more ...; regoPolicy: string; }' is not assignable to parameter of type 'Policy'.\r",
+      "src/modules/search/__tests__/search.service.spec.ts(304,39): error TS2345: Argument of type '{ id: string; policyNumber: string; title: string; description: string; purpose: string; type: string; status: string; workflowState: string; priority: string; scope: string; organizationId: string; ... 24 more ...; regoPolicy: string; }[]' is not assignable to parameter of type 'Policy[]'.\r",
+      "src/modules/search/__tests__/search.service.spec.ts(329,11): error TS2740: Type '{ id: string; policyNumber: string; title: string; description: string; purpose: string; type: string; status: string; workflowState: string; priority: string; scope: string; organizationId: string; ... 24 more ...; regoPolicy: string; }' is missing the following properties from type 'Policy': isActive, isExpiringSoon, needsReview, completionPercentage, and 7 more.\r",
+      "src/modules/search/__tests__/search.service.spec.ts(330,11): error TS2740: Type '{ id: string; policyNumber: string; title: string; description: string; purpose: string; type: string; status: string; workflowState: string; priority: string; scope: string; organizationId: string; ... 24 more ...; regoPolicy: string; }' is missing the following properties from type 'Policy': isActive, isExpiringSoon, needsReview, completionPercentage, and 7 more.\r",
+      "src/modules/search/__tests__/search.service.spec.ts(469,33): error TS2740: Type '{ id: string; policyNumber: string; title: string; description: string; purpose: string; type: string; status: string; workflowState: string; priority: string; scope: string; organizationId: string; ... 24 more ...; regoPolicy: string; }' is missing the following properties from type 'Policy': isActive, isExpiringSoon, needsReview, completionPercentage, and 7 more.\r",
+      "test/jest-setup.ts(7,3): error TS2741: Property '__promisify__' is missing in type '(fn: any, ...args: any[]) => any' but required in type 'typeof setImmediate'.\r",
+      "test/jest-setup.ts(17,3): error TS2322: Type '(array: Uint8Array) => Uint8Array<ArrayBufferLike>' is not assignable to type '<T extends ArrayBufferView | null>(array: T) => T'.\r"
+    ]
+  },
+  "tests": {
+    "success": false,
+    "passed": 0,
+    "failed": 0,
+    "total": 0,
+    "message": "Test execution failed: 0 failed, 0 passed",
+    "failedTests": [],
+    "error": true
+  },
+  "bypasses": {
+    "success": false,
+    "bypassCount": 228,
+    "message": "228 type bypasses detected",
+    "bypasses": [
+      {
+        "file": "src\\app.module.debug.ts",
+        "line": 34,
+        "pattern": "type any",
+        "content": "const imports: any[] = [];",
+        "match": ": any"
+      },
+      {
+        "file": "src\\app.module.debug.ts",
+        "line": 35,
+        "pattern": "type any",
+        "content": "const providers: any[] = [];",
+        "match": ": any"
+      },
+      {
+        "file": "src\\app.module.debug.ts",
+        "line": 34,
+        "pattern": "any[]",
+        "content": "const imports: any[] = [];",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\app.module.debug.ts",
+        "line": 35,
+        "pattern": "any[]",
+        "content": "const providers: any[] = [];",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\app.module.ts",
+        "line": 36,
+        "pattern": "type any",
+        "content": "const imports: any[] = [];",
+        "match": ": any"
+      },
+      {
+        "file": "src\\app.module.ts",
+        "line": 37,
+        "pattern": "type any",
+        "content": "const providers: any[] = [];",
+        "match": ": any"
+      },
+      {
+        "file": "src\\app.module.ts",
+        "line": 36,
+        "pattern": "any[]",
+        "content": "const imports: any[] = [];",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\app.module.ts",
+        "line": 37,
+        "pattern": "any[]",
+        "content": "const providers: any[] = [];",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\audit\\audit.controller.ts",
+        "line": 156,
+        "pattern": "any[]",
+        "content": "): Promise<any[]> {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\audit\\audit.service.ts",
+        "line": 280,
+        "pattern": "any[]",
+        "content": "async detectSuspiciousActivity(organizationId: string): Promise<any[]> {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\audit\\entities\\audit-log.entity.ts",
+        "line": 43,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\cache\\types\\cache.types.ts",
+        "line": 21,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\cache\\types\\cache.types.ts",
+        "line": 30,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 337,
+        "pattern": "type any",
+        "content": "Object.values(coverageByFramework).forEach((fw: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 433,
+        "pattern": "type any",
+        "content": "sum + Object.values(mapping.frameworks).reduce((fwSum: number, fw: any) =>",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 652,
+        "pattern": "type any",
+        "content": "async bulkCreate(mappings: CreateMappingDto[]): Promise<{ success: number; failed: number; errors: any[] }> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 694,
+        "pattern": "type any",
+        "content": "const whereClause: any = { deletedAt: IsNull() };",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 743,
+        "pattern": "type any",
+        "content": "const whereClause: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 853,
+        "pattern": "type any",
+        "content": "async importMappings(data: string, format: string): Promise<{ imported: number; errors: any[] }> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 894,
+        "pattern": "type any",
+        "content": "const whereClause: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 1020,
+        "pattern": "type any",
+        "content": "const whereClause: any = { deletedAt: IsNull() };",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 189,
+        "pattern": "any[]",
+        "content": "async suggestMappings(policyId: string, frameworkId?: string): Promise<any[]> {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 652,
+        "pattern": "any[]",
+        "content": "async bulkCreate(mappings: CreateMappingDto[]): Promise<{ success: number; failed: number; errors: any[] }> {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\compliance\\compliance-mapping.service.ts",
+        "line": 853,
+        "pattern": "any[]",
+        "content": "async importMappings(data: string, format: string): Promise<{ imported: number; errors: any[] }> {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\compliance\\controls.controller.ts",
+        "line": 56,
+        "pattern": "type any",
+        "content": "findAll(@Query() query: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\controls.controller.ts",
+        "line": 130,
+        "pattern": "type any",
+        "content": "evidence?: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\controls.controller.ts",
+        "line": 194,
+        "pattern": "type any",
+        "content": "@Body() controls: any[],",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\controls.controller.ts",
+        "line": 194,
+        "pattern": "any[]",
+        "content": "@Body() controls: any[],",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\compliance\\controls.service.ts",
+        "line": 100,
+        "pattern": "type any",
+        "content": "async findAll(query: any = {}): Promise<{ items: Control[]; total: number }> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\controls.service.ts",
+        "line": 250,
+        "pattern": "type any",
+        "content": "evidence?: any,",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\controls.service.ts",
+        "line": 436,
+        "pattern": "type any",
+        "content": "async bulkImportControls(frameworkId: string, controls: any[], user: CurrentUserData): Promise<any> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\controls.service.ts",
+        "line": 436,
+        "pattern": "any[]",
+        "content": "async bulkImportControls(frameworkId: string, controls: any[], user: CurrentUserData): Promise<any> {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\compliance\\dto\\create-framework.dto.ts",
+        "line": 90,
+        "pattern": "type any",
+        "content": "complianceRequirements?: any[];",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\dto\\create-framework.dto.ts",
+        "line": 91,
+        "pattern": "type any",
+        "content": "auditGuidance?: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\dto\\create-framework.dto.ts",
+        "line": 90,
+        "pattern": "any[]",
+        "content": "complianceRequirements?: any[];",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\compliance\\entities\\control.entity.ts",
+        "line": 412,
+        "pattern": "as any",
+        "content": "type: evidence.type as any,",
+        "match": " as any"
+      },
+      {
+        "file": "src\\modules\\compliance\\entities\\control.entity.ts",
+        "line": 25,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\compliance\\frameworks.controller.ts",
+        "line": 52,
+        "pattern": "type any",
+        "content": "findAll(@Query() query: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\frameworks.controller.ts",
+        "line": 112,
+        "pattern": "type any",
+        "content": "import(@Body() frameworkData: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\frameworks.service.ts",
+        "line": 94,
+        "pattern": "type any",
+        "content": "async findAll(query: any = {}): Promise<{ items: ComplianceFramework[]; total: number }> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\frameworks.service.ts",
+        "line": 277,
+        "pattern": "type any",
+        "content": "async importFramework(frameworkData: any): Promise<ComplianceFramework> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\compliance\\frameworks.service.ts",
+        "line": 258,
+        "pattern": "any[]",
+        "content": "async findCrossMappings(frameworkId: string): Promise<any[]> {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\controls\\entities\\control.entity.ts",
+        "line": 525,
+        "pattern": "type any",
+        "content": "addTestResult(result: any): void {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\interceptors\\event-sanitization.interceptor.ts",
+        "line": 36,
+        "pattern": "type any",
+        "content": "private sanitizeEventMetadata(metadata: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\interceptors\\event-sanitization.interceptor.ts",
+        "line": 36,
+        "pattern": "type any",
+        "content": "private sanitizeEventMetadata(metadata: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\interceptors\\event-sanitization.interceptor.ts",
+        "line": 39,
+        "pattern": "type any",
+        "content": "const sanitized: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\kafka-consumer.service.ts",
+        "line": 19,
+        "pattern": "type any",
+        "content": "metadata?: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\kafka-consumer.service.ts",
+        "line": 71,
+        "pattern": "type any",
+        "content": "private async handleMessage(topic: string, message: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\kafka-consumer.service.ts",
+        "line": 389,
+        "pattern": "type any",
+        "content": "private sanitizeEvent(event: any): ComplianceEvent {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\kafka-consumer.service.ts",
+        "line": 403,
+        "pattern": "type any",
+        "content": "private sanitizeMetadata(metadata: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\kafka-consumer.service.ts",
+        "line": 403,
+        "pattern": "type any",
+        "content": "private sanitizeMetadata(metadata: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\events\\kafka-consumer.service.ts",
+        "line": 404,
+        "pattern": "type any",
+        "content": "const sanitized: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\frameworks\\entities\\framework.entity.ts",
+        "line": 414,
+        "pattern": "type any",
+        "content": "getMappingTo(targetFramework: string): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\health\\health.controller.ts",
+        "line": 113,
+        "pattern": "type any",
+        "content": "async detailed(): Promise<HealthCheckResult & { metadata: any }> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\opa\\opa.service.ts",
+        "line": 20,
+        "pattern": "type any",
+        "content": "result: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\opa\\opa.service.ts",
+        "line": 202,
+        "pattern": "type any",
+        "content": "async pushData(path: string, data: any): Promise<void> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\opa\\opa.service.ts",
+        "line": 322,
+        "pattern": "type any",
+        "content": "private isRetryableError(error: any): boolean {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\opa\\opa.service.ts",
+        "line": 336,
+        "pattern": "type any",
+        "content": "private handleOpaError(error: any, operation: string): never {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policies\\policies.controller.ts",
+        "line": 283,
+        "pattern": "type any",
+        "content": "@Query() filters: any,",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policies\\policies.service.ts",
+        "line": 756,
+        "pattern": "type any",
+        "content": "exception: any,",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policies\\policies.service.ts",
+        "line": 1215,
+        "pattern": "type any",
+        "content": "private async calculateMetrics(queryBuilder: any): Promise<PolicyMetricsResult> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policies\\types\\policy.types.ts",
+        "line": 3,
+        "pattern": "Record<string, any>",
+        "content": "* These replace all Record<string, any> with proper type safety",
+        "match": "Record<string, any>"
+      },
+      {
+        "file": "src\\modules\\policies\\types\\policy.types.ts",
+        "line": 106,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 74,
+        "pattern": "type any",
+        "content": "private buildEvaluationContext(context: PolicyContext): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 95,
+        "pattern": "type any",
+        "content": "contains: (array: any[], value: any) => array && array.includes(value),",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 95,
+        "pattern": "type any",
+        "content": "contains: (array: any[], value: any) => array && array.includes(value),",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 101,
+        "pattern": "type any",
+        "content": "private async evaluateCondition(condition: string, context: any): Promise<any> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 147,
+        "pattern": "type any",
+        "content": "private safeEvaluateExpression(expression: string, context: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 147,
+        "pattern": "type any",
+        "content": "private safeEvaluateExpression(expression: string, context: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 192,
+        "pattern": "type any",
+        "content": "private customSafeEvaluator(expression: string, context: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 192,
+        "pattern": "type any",
+        "content": "private customSafeEvaluator(expression: string, context: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 249,
+        "pattern": "type any",
+        "content": "private getValueFromPath(obj: any, path: string): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 249,
+        "pattern": "type any",
+        "content": "private getValueFromPath(obj: any, path: string): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 261,
+        "pattern": "type any",
+        "content": "private parseValue(value: string): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 314,
+        "pattern": "type any",
+        "content": "context: any",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\evaluators\\policy.evaluator.ts",
+        "line": 95,
+        "pattern": "any[]",
+        "content": "contains: (array: any[], value: any) => array && array.includes(value),",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\interfaces\\policy-engine.interface.ts",
+        "line": 60,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\interfaces\\policy-engine.interface.ts",
+        "line": 81,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\parsers\\policy-language.parser.ts",
+        "line": 142,
+        "pattern": "type any",
+        "content": "private parseValue(value: string): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\policy-engine\\policy-engine.controller.ts",
+        "line": 132,
+        "pattern": "type any",
+        "content": "@Request() req: any,",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\redis\\redis.service.ts",
+        "line": 56,
+        "pattern": "type any",
+        "content": "async set(key: string, value: any, ttl?: number): Promise<void> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\redis\\redis.service.ts",
+        "line": 128,
+        "pattern": "type any",
+        "content": "async hset(key: string, field: string, value: any): Promise<number> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\risks\\entities\\risk.entity.ts",
+        "line": 500,
+        "pattern": "type any",
+        "content": "addIncident(incident: any): void {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\risks\\entities\\risk.entity.ts",
+        "line": 513,
+        "pattern": "type any",
+        "content": "addAuditEntry(action: string, performedBy: string, changes?: any): void {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 86,
+        "pattern": "type any",
+        "content": ".filter((item: any) => item.index?.error)",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 87,
+        "pattern": "type any",
+        "content": ".map((item: any) => item.index.error);",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 159,
+        "pattern": "type any",
+        "content": "return suggestions.map((option: any) => option.text);",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 259,
+        "pattern": "type any",
+        "content": "return response.hits.hits.map((hit: any) => ({",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 269,
+        "pattern": "type any",
+        "content": "async indexFramework(framework: any): Promise<void> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 293,
+        "pattern": "type any",
+        "content": "async indexControl(control: any): Promise<void> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 436,
+        "pattern": "type any",
+        "content": "private transformPolicyToDocument(policy: Policy): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 451,
+        "pattern": "type any",
+        "content": "private extractContentText(content: any): string {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 455,
+        "pattern": "type any",
+        "content": ".map((section: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 459,
+        "pattern": "type any",
+        "content": "' ' + section.subsections.map((sub: any) => `${sub.title} ${sub.content}`).join(' ');",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 466,
+        "pattern": "type any",
+        "content": "private buildSearchQuery(options: PolicySearchOptions): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 467,
+        "pattern": "type any",
+        "content": "const query: any = {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 512,
+        "pattern": "type any",
+        "content": "const rangeQuery: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 526,
+        "pattern": "type any",
+        "content": "const searchBody: any = {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 563,
+        "pattern": "type any",
+        "content": "private parseSearchResponse(response: any, options: PolicySearchOptions): SearchResult<any> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\search\\search.service.ts",
+        "line": 564,
+        "pattern": "type any",
+        "content": "const items = response.hits.hits.map((hit: any) => ({",
+        "match": ": any"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 3,
+        "pattern": "Record<string, any>",
+        "content": "* These types replace ALL Record<string, any> instances for enterprise-grade type safety",
+        "match": "Record<string, any>"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 17,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 26,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 33,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 138,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 154,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 162,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 183,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 191,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 199,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\modules\\shared\\types\\index.ts",
+        "line": 266,
+        "pattern": "[key: string]: unknown",
+        "content": "[key: string]: unknown;",
+        "match": "[key: string]: unknown"
+      },
+      {
+        "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+        "line": 8,
+        "pattern": "type any",
+        "content": "fallback?: (...args: any[]) => any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+        "line": 110,
+        "pattern": "type any",
+        "content": "return (target: any, propertyName: string, descriptor: PropertyDescriptor) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+        "line": 114,
+        "pattern": "type any",
+        "content": "descriptor.value = async function (...args: any[]) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+        "line": 8,
+        "pattern": "any[]",
+        "content": "fallback?: (...args: any[]) => any;",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\shared\\decorators\\circuit-breaker.decorator.ts",
+        "line": 114,
+        "pattern": "any[]",
+        "content": "descriptor.value = async function (...args: any[]) {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\shared\\decorators\\rate-limit.decorator.ts",
+        "line": 20,
+        "pattern": "type any",
+        "content": "skipIf?: (request: any) => boolean;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\rate-limit.decorator.ts",
+        "line": 34,
+        "pattern": "type any",
+        "content": "return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\retry.decorator.ts",
+        "line": 8,
+        "pattern": "type any",
+        "content": "retryCondition?: (error: any) => boolean;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\retry.decorator.ts",
+        "line": 9,
+        "pattern": "type any",
+        "content": "onRetry?: (error: any, attempt: number) => void;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\retry.decorator.ts",
+        "line": 12,
+        "pattern": "type any",
+        "content": "const defaultRetryCondition = (error: any): boolean => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\retry.decorator.ts",
+        "line": 48,
+        "pattern": "type any",
+        "content": "return (target: any, propertyName: string, descriptor: PropertyDescriptor) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\retry.decorator.ts",
+        "line": 51,
+        "pattern": "type any",
+        "content": "descriptor.value = async function (...args: any[]) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\retry.decorator.ts",
+        "line": 52,
+        "pattern": "type any",
+        "content": "let lastError: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\decorators\\retry.decorator.ts",
+        "line": 51,
+        "pattern": "any[]",
+        "content": "descriptor.value = async function (...args: any[]) {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\shared\\exceptions\\business.exception.ts",
+        "line": 56,
+        "pattern": "type any",
+        "content": "details?: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\exceptions\\business.exception.ts",
+        "line": 150,
+        "pattern": "type any",
+        "content": "constructor(service: string, operation: string, details?: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\exceptions\\business.exception.ts",
+        "line": 163,
+        "pattern": "type any",
+        "content": "constructor(field: string, message: string, value?: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\all-exceptions.filter.ts",
+        "line": 21,
+        "pattern": "type any",
+        "content": "details?: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\all-exceptions.filter.ts",
+        "line": 42,
+        "pattern": "type any",
+        "content": "let details: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\all-exceptions.filter.ts",
+        "line": 55,
+        "pattern": "type any",
+        "content": "details?: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 27,
+        "pattern": "type any",
+        "content": "value?: any;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 28,
+        "pattern": "type any",
+        "content": "children?: any[];",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 69,
+        "pattern": "type any",
+        "content": "private formatValidationErrors(errors: any[]): any[] {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 69,
+        "pattern": "type any",
+        "content": "private formatValidationErrors(errors: any[]): any[] {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 82,
+        "pattern": "type any",
+        "content": "private formatError(error: ValidationError): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 83,
+        "pattern": "type any",
+        "content": "const formatted: any = {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 28,
+        "pattern": "any[]",
+        "content": "children?: any[];",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 69,
+        "pattern": "any[]",
+        "content": "private formatValidationErrors(errors: any[]): any[] {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\shared\\filters\\validation-exception.filter.ts",
+        "line": 69,
+        "pattern": "any[]",
+        "content": "private formatValidationErrors(errors: any[]): any[] {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\shared\\guards\\api-key.guard.ts",
+        "line": 33,
+        "pattern": "type any",
+        "content": "handleRequest(err: any, user: any, info: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\guards\\api-key.guard.ts",
+        "line": 33,
+        "pattern": "type any",
+        "content": "handleRequest(err: any, user: any, info: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\guards\\api-key.guard.ts",
+        "line": 33,
+        "pattern": "type any",
+        "content": "handleRequest(err: any, user: any, info: any) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\guards\\authorization.guard.ts",
+        "line": 66,
+        "pattern": "type any",
+        "content": "private extractUserContext(request: any): UserContext {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\interceptors\\resource-ownership.interceptor.ts",
+        "line": 68,
+        "pattern": "type any",
+        "content": "private isAdmin(user: any): boolean {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 6,
+        "pattern": "type any",
+        "content": "transform(value: any, metadata: ArgumentMetadata) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 26,
+        "pattern": "type any",
+        "content": "private sanitizeObject(obj: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 26,
+        "pattern": "type any",
+        "content": "private sanitizeObject(obj: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 36,
+        "pattern": "type any",
+        "content": "const sanitized: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 91,
+        "pattern": "type any",
+        "content": "transform(value: any, metadata: ArgumentMetadata) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 105,
+        "pattern": "type any",
+        "content": "private sanitizeObjectHtml(obj: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 105,
+        "pattern": "type any",
+        "content": "private sanitizeObjectHtml(obj: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 110,
+        "pattern": "type any",
+        "content": "const sanitized: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\pipes\\sanitization.pipe.ts",
+        "line": 128,
+        "pattern": "type any",
+        "content": "transform(value: any, metadata: ArgumentMetadata) {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\services\\authorization.service.ts",
+        "line": 116,
+        "pattern": "type any",
+        "content": "queryBuilder: any,",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\strategies\\api-key.strategy.ts",
+        "line": 26,
+        "pattern": "type any",
+        "content": "async (apiKey: string, done: any, req: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\strategies\\api-key.strategy.ts",
+        "line": 26,
+        "pattern": "type any",
+        "content": "async (apiKey: string, done: any, req: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\strategies\\api-key.strategy.ts",
+        "line": 32,
+        "pattern": "type any",
+        "content": "async validate(apiKey: string, done: any, req: any): Promise<any> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\strategies\\api-key.strategy.ts",
+        "line": 32,
+        "pattern": "type any",
+        "content": "async validate(apiKey: string, done: any, req: any): Promise<any> {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 75,
+        "pattern": "as any",
+        "content": "let sanitized = (sanitizeHtml as any)(content, options);",
+        "match": " as any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 156,
+        "pattern": "type any",
+        "content": "static sanitizeJson(json: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 156,
+        "pattern": "type any",
+        "content": "static sanitizeJson(json: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 166,
+        "pattern": "type any",
+        "content": "const sanitized: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 185,
+        "pattern": "type any",
+        "content": "static sanitizePolicyContent(content: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 185,
+        "pattern": "type any",
+        "content": "static sanitizePolicyContent(content: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 251,
+        "pattern": "type any",
+        "content": "static sanitizeNumber(value: any, min?: number, max?: number): number {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 272,
+        "pattern": "type any",
+        "content": "static sanitizeBoolean(value: any): boolean {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 283,
+        "pattern": "type any",
+        "content": "static sanitizeDate(date: any): Date {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 305,
+        "pattern": "type any",
+        "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 305,
+        "pattern": "type any",
+        "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 320,
+        "pattern": "type any",
+        "content": "static sanitizeEnum<T>(value: any, enumType: any): T {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 320,
+        "pattern": "type any",
+        "content": "static sanitizeEnum<T>(value: any, enumType: any): T {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 333,
+        "pattern": "type any",
+        "content": "static sanitizeObjectKeys(obj: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 333,
+        "pattern": "type any",
+        "content": "static sanitizeObjectKeys(obj: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 337,
+        "pattern": "type any",
+        "content": "const sanitized: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\sanitization.util.ts",
+        "line": 305,
+        "pattern": "any[]",
+        "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 45,
+        "pattern": "type any",
+        "content": "static sanitizeJson(json: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 45,
+        "pattern": "type any",
+        "content": "static sanitizeJson(json: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 49,
+        "pattern": "type any",
+        "content": "static sanitizePolicyContent(content: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 49,
+        "pattern": "type any",
+        "content": "static sanitizePolicyContent(content: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 63,
+        "pattern": "type any",
+        "content": "static sanitizeNumber(value: any, min?: number, max?: number): number {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 81,
+        "pattern": "type any",
+        "content": "static sanitizeBoolean(value: any): boolean {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 89,
+        "pattern": "type any",
+        "content": "static sanitizeDate(date: any): Date {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 99,
+        "pattern": "type any",
+        "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 99,
+        "pattern": "type any",
+        "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 111,
+        "pattern": "type any",
+        "content": "static sanitizeEnum<T>(value: any, enumType: any): T {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 111,
+        "pattern": "type any",
+        "content": "static sanitizeEnum<T>(value: any, enumType: any): T {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 121,
+        "pattern": "type any",
+        "content": "static sanitizeObjectKeys(obj: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 121,
+        "pattern": "type any",
+        "content": "static sanitizeObjectKeys(obj: any): any {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 125,
+        "pattern": "type any",
+        "content": "const sanitized: any = {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\shared\\utils\\__mocks__\\sanitization.util.ts",
+        "line": 99,
+        "pattern": "any[]",
+        "content": "static sanitizeArray<T>(array: any[], itemSanitizer: (item: any) => T, maxLength = 1000): T[] {",
+        "match": "any[]"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\terminus.ts",
+        "line": 24,
+        "pattern": "type any",
+        "content": "() => (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\terminus.ts",
+        "line": 29,
+        "pattern": "type any",
+        "content": "up: (key: string, data?: any) => ({ [key]: { status: 'up', ...data } }),",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\terminus.ts",
+        "line": 30,
+        "pattern": "type any",
+        "content": "down: (key: string, data?: any) => ({ [key]: { status: 'down', ...data } }),",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 20,
+        "pattern": "type any",
+        "content": "export const InjectRepository = (entity: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 21,
+        "pattern": "type any",
+        "content": "return (target: any, propertyName: string, parameterIndex?: number) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 24,
+        "pattern": "type any",
+        "content": "export const InjectDataSource = (dataSource?: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 25,
+        "pattern": "type any",
+        "content": "return (target: any, propertyName: string, parameterIndex?: number) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 28,
+        "pattern": "type any",
+        "content": "export const InjectEntityManager = (dataSource?: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 29,
+        "pattern": "type any",
+        "content": "return (target: any, propertyName: string, parameterIndex?: number) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 32,
+        "pattern": "type any",
+        "content": "export const getRepositoryToken = (entity: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 36,
+        "pattern": "type any",
+        "content": "export const getDataSourceToken = (dataSource?: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\@nestjs\\typeorm.ts",
+        "line": 40,
+        "pattern": "type any",
+        "content": "export const getEntityManagerToken = (dataSource?: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\sanitize-html.ts",
+        "line": 5,
+        "pattern": "as any",
+        "content": "(sanitizeHtml as any).defaults = {",
+        "match": " as any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 7,
+        "pattern": "type any",
+        "content": "export const Entity = (name?: string) => (target: any) => {",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 11,
+        "pattern": "type any",
+        "content": "export const Column = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 12,
+        "pattern": "type any",
+        "content": "export const PrimaryGeneratedColumn = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 13,
+        "pattern": "type any",
+        "content": "export const ManyToOne = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 14,
+        "pattern": "type any",
+        "content": "export const OneToMany = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 15,
+        "pattern": "type any",
+        "content": "export const JoinColumn = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 16,
+        "pattern": "type any",
+        "content": "export const CreateDateColumn = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 17,
+        "pattern": "type any",
+        "content": "export const UpdateDateColumn = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 18,
+        "pattern": "type any",
+        "content": "export const DeleteDateColumn = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 19,
+        "pattern": "type any",
+        "content": "export const Index = () => (target: any, key?: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 20,
+        "pattern": "type any",
+        "content": "export const Unique = () => (target: any, key?: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 21,
+        "pattern": "type any",
+        "content": "export const BeforeInsert = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 22,
+        "pattern": "type any",
+        "content": "export const BeforeUpdate = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 23,
+        "pattern": "type any",
+        "content": "export const ManyToMany = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 24,
+        "pattern": "type any",
+        "content": "export const JoinTable = () => (target: any, key: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 25,
+        "pattern": "type any",
+        "content": "export const Check = () => (target: any, key?: string) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 35,
+        "pattern": "type any",
+        "content": "export const In = jest.fn((values: any[]) => ({ in: values }));",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 38,
+        "pattern": "type any",
+        "content": "export const Between = jest.fn((from: any, to: any) => ({ from, to }));",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 38,
+        "pattern": "type any",
+        "content": "export const Between = jest.fn((from: any, to: any) => ({ from, to }));",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 39,
+        "pattern": "type any",
+        "content": "export const LessThanOrEqual = jest.fn((value: any) => ({ lessThanOrEqual: value }));",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 42,
+        "pattern": "type any",
+        "content": "export const InjectRepository = (entity: any) => (target: any, key: string, index: number) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 42,
+        "pattern": "type any",
+        "content": "export const InjectRepository = (entity: any) => (target: any, key: string, index: number) => {};",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 43,
+        "pattern": "type any",
+        "content": "export const getRepositoryToken = (entity: any) => `${entity.name}Repository`;",
+        "match": ": any"
+      },
+      {
+        "file": "src\\__mocks__\\typeorm.ts",
+        "line": 35,
+        "pattern": "any[]",
+        "content": "export const In = jest.fn((values: any[]) => ({ in: values }));",
+        "match": "any[]"
+      }
+    ]
+  },
+  "overall": {
+    "success": false,
+    "startTime": "2025-08-08T03:14:34.540Z",
+    "duration": 28196,
+    "message": "❌ VERIFICATION FAILED - Policy Service is NOT complete"
+  },
+  "completionCriteria": {
+    "typescriptErrors": 414,
+    "testsPassing": "0/0",
+    "typeBypassesFound": 228
+  },
+  "recommendations": [
+    {
+      "area": "TypeScript",
+      "issue": "414 compilation errors",
+      "action": "Run `node verify-typescript.js` for detailed error list and fix each error"
+    },
+    {
+      "area": "Tests",
+      "issue": "0 failing tests",
+      "action": "Run `node verify-tests.js` for detailed failure list and fix failing tests"
+    },
+    {
+      "area": "Type Safety",
+      "issue": "228 type bypasses found",
+      "action": "Run `node verify-no-bypasses.js` for detailed bypass list and eliminate all type bypasses"
+    }
+  ]
+}

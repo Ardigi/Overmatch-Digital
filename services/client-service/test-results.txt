@@ -1,0 +1,721 @@
+
+> @soc-compliance/client-service@1.0.0 test
+> jest --config jest.config.unit.js
+
+FAIL src/modules/clients/integration/database.integration.spec.ts
+  ● Client Database Integration (REAL) › Database Connectivity Requirements › should require active database connection
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Database Connectivity Requirements › should have all required tables and columns
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Database Connectivity Requirements › should enforce database constraints
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Real Client CRUD Operations › should create, read, update, and delete clients with complex data
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Real Client CRUD Operations › should handle client relationships and hierarchies
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Real Client CRUD Operations › should handle client contracts and related entities
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Complex Database Queries › should perform complex client analytics queries
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Complex Database Queries › should handle compliance reporting queries
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Complex Database Queries › should perform full-text search on client data
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Complex Database Queries › should handle date range and revenue filtering
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Complex Database Queries › should handle pagination with large datasets
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Database Constraints and Transactions › should enforce referential integrity
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Database Constraints and Transactions › should handle database transactions
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Database Constraints and Transactions › should handle concurrent client operations
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Performance and Indexing › should perform efficiently with indexes
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+  ● Client Database Integration (REAL) › Performance and Indexing › should handle complex joins efficiently
+
+    TypeError: dataSource.query is not a function
+
+    [0m [90m 74 |[39m
+     [90m 75 |[39m     [90m// Verify database schema exists[39m
+    [31m[1m>[22m[39m[90m 76 |[39m     [36mconst[39m tables [33m=[39m [36mawait[39m dataSource[33m.[39mquery(
+     [90m    |[39m                                     [31m[1m^[22m[39m
+     [90m 77 |[39m       [32m"SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"[39m
+     [90m 78 |[39m     )[33m;[39m
+     [90m 79 |[39m     [36mconst[39m tableNames [33m=[39m tables[33m.[39mmap((t) [33m=>[39m t[33m.[39mtable_name)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/database.integration.spec.ts:76:37)
+
+PASS src/modules/clients/__tests__/clients.validation.spec.ts
+PASS src/modules/clients/clients.controller.simple.spec.ts
+FAIL src/modules/clients/integration/multi-tenancy.integration.spec.ts
+  ● Client Multi-Tenancy Integration (REAL) › Organization Data Isolation › should enforce strict data isolation between organizations
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Organization Data Isolation › should isolate client search results by organization
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Organization Data Isolation › should enforce organization isolation in related entities
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Multi-Tenant Cache Isolation › should isolate cached data by organization
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Multi-Tenant Cache Isolation › should maintain separate cache TTLs per organization
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Cross-Organization Security Tests › should prevent unauthorized cross-organization data access
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Cross-Organization Security Tests › should prevent client updates across organization boundaries
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Multi-Tenant Analytics and Reporting › should generate organization-specific analytics
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Multi-Tenant Analytics and Reporting › should provide organization-specific dashboard stats
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Multi-Tenant Data Migration and Cleanup › should handle organization data cleanup without affecting other orgs
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Multi-Tenant Data Migration and Cleanup › should handle concurrent operations across organizations
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+  ● Client Multi-Tenancy Integration (REAL) › Multi-Tenant Compliance and Audit Trails › should maintain separate audit trails per organization
+
+    TypeError: global.cleanupTestData is not a function
+
+    [0m [90m 181 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+     [90m 182 |[39m     [90m// Clean up test data for all organizations before each test[39m
+    [31m[1m>[22m[39m[90m 183 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_A_ID[39m)[33m;[39m
+     [90m     |[39m                           [31m[1m^[22m[39m
+     [90m 184 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_B_ID[39m)[33m;[39m
+     [90m 185 |[39m     [36mawait[39m (global [36mas[39m any)[33m.[39mcleanupTestData(dataSource[33m,[39m [33mORG_C_ID[39m)[33m;[39m
+     [90m 186 |[39m     ([36mawait[39m redisService[33m.[39mgetCache([32m'test'[39m)) [33m&&[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/multi-tenancy.integration.spec.ts:183:27)
+
+PASS src/modules/clients/clients.service.spec.ts
+PASS src/modules/clients/clients.controller.spec.ts
+FAIL src/modules/clients/__tests__/clients.controller.spec.ts
+  ● ClientsController › completeOnboarding › should complete onboarding successfully
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: "2025-03-01T00:00:00.000Z"
+    Received: 2025-03-01T00:00:00.000Z
+
+    [0m [90m 443 |[39m
+     [90m 444 |[39m       expect(result[33m.[39monboardingCompleteDate)[33m.[39mtoBeDefined()[33m;[39m
+    [31m[1m>[22m[39m[90m 445 |[39m       expect(result[33m.[39mnextAuditDate)[33m.[39mtoEqual(completeDto[33m.[39mfirstAuditScheduled)[33m;[39m
+     [90m     |[39m                                    [31m[1m^[22m[39m
+     [90m 446 |[39m       expect(service[33m.[39mcompleteOnboarding)[33m.[39mtoHaveBeenCalledWith(
+     [90m 447 |[39m         [32m'client-123'[39m[33m,[39m
+     [90m 448 |[39m         completeDto[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/__tests__/clients.controller.spec.ts:445:36)
+
+FAIL src/modules/clients/__tests__/clients.security.spec.ts
+  ● Clients Security Tests › Authentication Tests › should validate user ID format
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+    [0m [90m 146 |[39m
+     [90m 147 |[39m         [36mconst[39m canActivate [33m=[39m [36mawait[39m authGuard[33m.[39mcanActivate(context)[33m;[39m
+    [31m[1m>[22m[39m[90m 148 |[39m         expect(canActivate)[33m.[39mtoBe([36mfalse[39m)[33m;[39m
+     [90m     |[39m                             [31m[1m^[22m[39m
+     [90m 149 |[39m       }
+     [90m 150 |[39m     })[33m;[39m
+     [90m 151 |[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/__tests__/clients.security.spec.ts:148:29)
+
+  ● Clients Security Tests › Authentication Tests › should validate email format
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+    [0m [90m 167 |[39m
+     [90m 168 |[39m         [36mconst[39m canActivate [33m=[39m [36mawait[39m authGuard[33m.[39mcanActivate(context)[33m;[39m
+    [31m[1m>[22m[39m[90m 169 |[39m         expect(canActivate)[33m.[39mtoBe([36mfalse[39m)[33m;[39m
+     [90m     |[39m                             [31m[1m^[22m[39m
+     [90m 170 |[39m       }
+     [90m 171 |[39m     })[33m;[39m
+     [90m 172 |[39m   })[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/__tests__/clients.security.spec.ts:169:29)
+
+FAIL src/modules/clients/integration/redis-cache.integration.spec.ts (14.236 s)
+  ● Client Redis Cache Integration (REAL) › Redis Connectivity Requirements › should require active Redis connection (no graceful degradation)
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Redis Connectivity Requirements › should fail fast when Redis operations fail
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Real Client Caching Operations › should cache and retrieve client data with real Redis
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Real Client Caching Operations › should cache client lists with query filters
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Real Client Caching Operations › should handle contract caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Real Client Caching Operations › should handle audit caching with client relationships
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Real Client Caching Operations › should handle compliance status caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Service Integration with Real Cache › should use real cache in findOne method with cache hit/miss
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Service Integration with Real Cache › should use real cache in findAll method with complex query caching
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Service Integration with Real Cache › should invalidate cache on client updates
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Service Integration with Real Cache › should handle compliance status caching in getComplianceMetrics
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Cache Distributed Locking › should handle distributed locks for critical operations
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Cache Distributed Locking › should handle lock expiration
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Cache Performance and Concurrency › should handle concurrent cache operations
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Cache Performance and Concurrency › should handle pattern-based cache invalidation efficiently
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Cache Performance and Concurrency › should demonstrate cache benefits with timing
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Error Handling and Resilience › should handle cache serialization errors gracefully
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+  ● Client Redis Cache Integration (REAL) › Error Handling and Resilience › should handle cache key generation edge cases
+
+    Redis connection failed: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.. Integration tests require actual Redis connectivity. Start Redis with: docker-compose up redis
+
+    [0m [90m 64 |[39m     } [36mcatch[39m (error) {
+     [90m 65 |[39m       [36mawait[39m redis[33m.[39mquit()[33m;[39m
+    [31m[1m>[22m[39m[90m 66 |[39m       [36mthrow[39m [36mnew[39m [33mError[39m(
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 67 |[39m         [32m`Redis connection failed: ${error.message}. `[39m [33m+[39m
+     [90m 68 |[39m           [32m'Integration tests require actual Redis connectivity. '[39m [33m+[39m
+     [90m 69 |[39m           [32m'Start Redis with: docker-compose up redis'[39m[0m
+
+      at Object.<anonymous> (src/modules/clients/integration/redis-cache.integration.spec.ts:66:13)
+
+A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks. Active timers can also cause this, ensure that .unref() was called on them.
+Test Suites: 5 failed, 4 passed, 9 total
+Tests:       49 failed, 167 passed, 216 total
+Snapshots:   0 total
+Time:        15.61 s
+Ran all test suites.
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\client-service
+npm error workspace @soc-compliance/client-service@1.0.0
+npm error location C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\client-service
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c jest --config jest.config.unit.js

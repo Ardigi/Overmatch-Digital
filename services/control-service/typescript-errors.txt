@@ -1,0 +1,133 @@
+src/modules/controls/controls.service.ts(1011,32): error TS2339: Property 'requirements' does not exist on type 'any[]'.
+src/modules/controls/controls.service.ts(1011,84): error TS2339: Property 'requirements' does not exist on type 'any[]'.
+src/modules/controls/controls.service.ts(1012,52): error TS2339: Property 'requirements' does not exist on type 'any[]'.
+src/modules/controls/controls.service.ts(1210,53): error TS2345: Argument of type '{ testDate: Date; result: "PASS"; duration: number | undefined; testedBy: string; evidence: string[]; findings: never[]; testMethod: TestMethod; }' is not assignable to parameter of type 'ControlTestResultData & { testedBy: string; }'.
+  Property 'executedBy' is missing in type '{ testDate: Date; result: "PASS"; duration: number | undefined; testedBy: string; evidence: string[]; findings: never[]; testMethod: TestMethod; }' but required in type 'ControlTestResultData'.
+src/modules/controls/controls.service.ts(1658,41): error TS2345: Argument of type 'ControlExportFilters' is not assignable to parameter of type 'ControlQueryParams'.
+  Types of property 'status' are incompatible.
+    Type 'string[] | undefined' is not assignable to type 'ControlStatus | undefined'.
+      Type 'string[]' is not assignable to type 'ControlStatus | undefined'.
+src/modules/controls/controls.service.ts(1664,7): error TS2322: Type '{ code: string; name: string; type: ControlType; category: ControlCategory; status: ControlStatus; frameworks: { name: string; section?: string | undefined; reference?: string | undefined; requirements?: string | undefined; priority?: string | undefined; }[]; metrics: { ...; }; }[]' is not assignable to type 'ControlExportData[]'.
+  Type '{ code: string; name: string; type: ControlType; category: ControlCategory; status: ControlStatus; frameworks: { name: string; section?: string | undefined; reference?: string | undefined; requirements?: string | undefined; priority?: string | undefined; }[]; metrics: { ...; }; }' is missing the following properties from type 'ControlExportData': id, description
+src/modules/controls/controls.service.ts(1740,22): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ HIGH: number; MEDIUM: number; LOW: number; CRITICAL: number; }'.
+src/modules/controls/controls.service.ts(1905,7): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/modules/controls/controls.service.ts(1913,48): error TS2345: Argument of type '(controls: Set<string>) => void' is not assignable to parameter of type '(value: unknown, index: number, array: unknown[]) => void'.
+  Types of parameters 'controls' and 'value' are incompatible.
+    Type 'unknown' is not assignable to type 'Set<string>'.
+src/modules/controls/controls.service.ts(1936,7): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/modules/controls/controls.service.ts(1939,31): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/modules/controls/controls.service.ts(1940,21): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/modules/controls/controls.service.ts(1942,11): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/modules/controls/controls.service.ts(1944,43): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/modules/controls/controls.service.ts(1954,108): error TS2345: Argument of type '(s: Set<string>) => number' is not assignable to parameter of type '(value: unknown, index: number, array: unknown[]) => number'.
+  Types of parameters 's' and 'value' are incompatible.
+    Type 'unknown' is not assignable to type 'Set<string>'.
+src/modules/controls/controls.service.ts(2010,15): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/modules/controls/controls.service.ts(2010,43): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.
+src/modules/controls/controls.service.ts(2016,15): error TS2532: Object is possibly 'undefined'.
+src/modules/controls/controls.service.ts(2327,33): error TS2339: Property 'framework' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(2328,28): error TS2339: Property 'coveragePercentage' does not exist on type 'ReportSummary'.
+src/modules/controls/controls.service.ts(2329,25): error TS2339: Property 'criticalGaps' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(2330,21): error TS2339: Property 'generatedAt' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(2360,19): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ critical: number; high: number; medium: number; low: number; }'.
+  No index signature with a parameter of type 'string' was found on type '{ critical: number; high: number; medium: number; low: number; }'.
+src/modules/controls/controls.service.ts(2373,23): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ HIGH: number; MEDIUM: number; LOW: number; }'.
+src/modules/controls/controls.service.ts(2373,48): error TS2339: Property 'criticality' does not exist on type 'ControlAnalysisData'.
+src/modules/controls/controls.service.ts(2383,24): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ ACCESS_CONTROL: number; AUTHENTICATION: number; DATA_PROTECTION: number; ENCRYPTION: number; }'.
+  No index signature with a parameter of type 'string' was found on type '{ ACCESS_CONTROL: number; AUTHENTICATION: number; DATA_PROTECTION: number; ENCRYPTION: number; }'.
+src/modules/controls/controls.service.ts(2390,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ HIGH: number; MEDIUM: number; LOW: number; }'.
+src/modules/controls/controls.service.ts(2390,31): error TS2339: Property 'criticality' does not exist on type 'ControlAnalysisData'.
+src/modules/controls/controls.service.ts(2408,11): error TS7034: Variable 'issues' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/modules/controls/controls.service.ts(2462,18): error TS7005: Variable 'issues' implicitly has an 'any[]' type.
+src/modules/controls/controls.service.ts(2464,24): error TS7005: Variable 'issues' implicitly has an 'any[]' type.
+src/modules/controls/controls.service.ts(2465,65): error TS7005: Variable 'issues' implicitly has an 'any[]' type.
+src/modules/controls/controls.service.ts(2675,11): error TS7034: Variable 'risks' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/modules/controls/controls.service.ts(2725,22): error TS7005: Variable 'risks' implicitly has an 'any[]' type.
+src/modules/controls/controls.service.ts(2726,24): error TS7005: Variable 'risks' implicitly has an 'any[]' type.
+src/modules/controls/controls.service.ts(2727,21): error TS7005: Variable 'risks' implicitly has an 'any[]' type.
+src/modules/controls/controls.service.ts(2742,57): error TS7005: Variable 'risks' implicitly has an 'any[]' type.
+src/modules/controls/controls.service.ts(2823,11): error TS7034: Variable 'overdueControls' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/modules/controls/controls.service.ts(2872,23): error TS7005: Variable 'overdueControls' implicitly has an 'any[]' type.
+src/modules/controls/controls.service.ts(2911,35): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ CONTINUOUS: number; DAILY: number; WEEKLY: number; MONTHLY: number; QUARTERLY: number; SEMI_ANNUAL: number; ANNUAL: number; ON_DEMAND: number; }'.
+src/modules/controls/controls.service.ts(3001,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3002,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3008,7): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3009,7): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3010,7): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3018,35): error TS7006: Parameter 'fw' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3019,14): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3020,11): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3026,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3027,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3028,9): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+src/modules/controls/controls.service.ts(3090,38): error TS2339: Property 'totalCost' does not exist on type 'ControlROIData'.
+src/modules/controls/controls.service.ts(3091,52): error TS2339: Property 'incidentsPreventedValue' does not exist on type 'ControlROIData'.
+src/modules/controls/controls.service.ts(3092,55): error TS2339: Property 'compliancePenaltiesAvoided' does not exist on type 'ControlROIData'.
+src/modules/controls/controls.service.ts(3112,7): error TS2322: Type 'string' is not assignable to type 'number'.
+src/modules/controls/controls.service.ts(3129,42): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3135,28): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3135,31): error TS7006: Parameter 'b' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3154,31): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3154,36): error TS7006: Parameter 'yi' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3155,34): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3155,39): error TS7006: Parameter 'yi' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3155,43): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/modules/controls/controls.service.ts(3362,9): error TS2353: Object literal may only specify known properties, and 'complianceScore' does not exist in type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(3378,14): error TS2339: Property 'complianceScore' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(3383,14): error TS2339: Property 'coverage' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(3384,29): error TS2339: Property 'coverage' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(3389,14): error TS2339: Property 'risks' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(3390,62): error TS2339: Property 'risks' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(3394,14): error TS2339: Property 'testingCompliance' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(3399,14): error TS2339: Property 'utilization' does not exist on type 'ComprehensiveReportData'.
+src/modules/controls/controls.service.ts(3445,40): error TS2339: Property 'complianceMetrics' does not exist on type 'CSVMetricsData'.
+src/modules/controls/controls.service.ts(3446,40): error TS2339: Property 'coverageAnalysis' does not exist on type 'CSVMetricsData'.
+src/modules/controls/controls.service.ts(3447,38): error TS2339: Property 'controlMetrics' does not exist on type 'CSVMetricsData'.
+src/modules/controls/controls.service.ts(3448,44): error TS2339: Property 'controlMetrics' does not exist on type 'CSVMetricsData'.
+src/modules/controls/controls.service.ts(3449,42): error TS2339: Property 'complianceMetrics' does not exist on type 'CSVMetricsData'.
+src/modules/controls/controls.service.ts(3450,43): error TS2339: Property 'performanceMetrics' does not exist on type 'CSVMetricsData'.
+src/modules/controls/controls.service.ts(3713,35): error TS2345: Argument of type '{ controlId: string; error: string; }' is not assignable to parameter of type 'never'.
+src/modules/controls/controls.service.ts(3732,33): error TS2345: Argument of type '{ controlId: string; error: any; }' is not assignable to parameter of type 'never'.
+src/modules/controls/controls.service.ts(3744,71): error TS2345: Argument of type '{ error: any; }' is not assignable to parameter of type 'string'.
+src/modules/controls/controls.service.ts(3882,11): error TS2532: Object is possibly 'undefined'.
+src/modules/controls/controls.service.ts(3898,42): error TS2488: Type 'Set<string> | undefined' must have a '[Symbol.iterator]()' method that returns an iterator.
+src/modules/controls/controls.service.ts(3898,65): error TS18048: 'controls2' is possibly 'undefined'.
+src/modules/controls/controls.service.ts(4094,59): error TS2345: Argument of type '{ successRate: { value: any; benchmark: number; difference: string; rating: string; }; duration: { value: any; benchmark: number; difference: string; rating: string; }; }' is not assignable to parameter of type 'BenchmarkPerformance'.
+  Type '{ successRate: { value: any; benchmark: number; difference: string; rating: string; }; duration: { value: any; benchmark: number; difference: string; rating: string; }; }' is missing the following properties from type 'BenchmarkPerformance': organizationId, industry, companySize, overallScore, and 5 more.
+src/modules/controls/controls.service.ts(4095,62): error TS2345: Argument of type '{ successRate: { value: any; benchmark: number; difference: string; rating: string; }; duration: { value: any; benchmark: number; difference: string; rating: string; }; }' is not assignable to parameter of type 'BenchmarkPerformance'.
+  Type '{ successRate: { value: any; benchmark: number; difference: string; rating: string; }; duration: { value: any; benchmark: number; difference: string; rating: string; }; }' is missing the following properties from type 'BenchmarkPerformance': organizationId, industry, companySize, overallScore, and 5 more.
+src/modules/controls/controls.service.ts(4109,39): error TS2339: Property 'successRate' does not exist on type 'BenchmarkPerformance'.
+src/modules/controls/controls.service.ts(4110,40): error TS2339: Property 'duration' does not exist on type 'BenchmarkPerformance'.
+src/modules/controls/controls.service.ts(4122,21): error TS2339: Property 'successRate' does not exist on type 'BenchmarkPerformance'.
+src/modules/controls/controls.service.ts(4127,21): error TS2339: Property 'duration' does not exist on type 'BenchmarkPerformance'.
+src/modules/controls/controls.service.ts(4132,21): error TS2339: Property 'successRate' does not exist on type 'BenchmarkPerformance'.
+src/modules/controls/controls.service.ts(4132,71): error TS2339: Property 'duration' does not exist on type 'BenchmarkPerformance'.
+src/modules/controls/controls.service.ts(4154,7): error TS7053: Element implicitly has an 'any' type because expression of type 'ControlCategory' can't be used to index type '{}'.
+  Property '[ControlCategory.ACCESS_CONTROL]' does not exist on type '{}'.
+src/modules/controls/controls.service.ts(4165,12): error TS7053: Element implicitly has an 'any' type because expression of type 'ControlCategory' can't be used to index type '{}'.
+  Property '[ControlCategory.ACCESS_CONTROL]' does not exist on type '{}'.
+src/modules/controls/controls.service.ts(4166,9): error TS7053: Element implicitly has an 'any' type because expression of type 'ControlCategory' can't be used to index type '{}'.
+  Property '[ControlCategory.ACCESS_CONTROL]' does not exist on type '{}'.
+src/modules/controls/controls.service.ts(4173,7): error TS7053: Element implicitly has an 'any' type because expression of type 'ControlCategory' can't be used to index type '{}'.
+  Property '[ControlCategory.ACCESS_CONTROL]' does not exist on type '{}'.
+src/modules/controls/controls.service.ts(4590,9): error TS2353: Object literal may only specify known properties, and 'status' does not exist in type 'FindOptionsWhere<ControlTestResult> | FindOptionsWhere<ControlTestResult>[]'.
+src/modules/controls/controls.service.ts(4598,38): error TS2339: Property 'OVERDUE' does not exist on type 'typeof ImplementationStatus'.
+src/modules/controls/controls.service.ts(4767,48): error TS2339: Property 'status' does not exist on type 'ControlTestResult'.
+src/modules/controls/controls.service.ts(4870,7): error TS2322: Type '{ frameworks: string; }' is not assignable to type 'FindOptionsWhere<Control> | FindOptionsWhere<Control>[] | undefined'.
+  Types of property 'frameworks' are incompatible.
+    Type 'string' is not assignable to type 'boolean | { name: string; section?: string | undefined; reference?: string | undefined; requirements?: string | undefined; priority?: string | undefined; } | FindOperator<any> | FindOptionsWhere<...> | FindOptionsWhere<...>[] | EqualOperator<...> | undefined'.
+src/modules/controls/controls.service.ts(4899,63): error TS2339: Property 'status' does not exist on type 'ControlTestResult'.
+src/modules/controls/controls.service.ts(4903,70): error TS2551: Property 'implementedAt' does not exist on type 'ControlImplementation'. Did you mean 'implementedBy'?
+src/modules/controls/controls.service.ts(5000,12): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ SOC1: number; SOC2: number; ISO27001: number; ISO27002: number; NIST: number; HIPAA: number; 'PCI-DSS': number; GDPR: number; CCPA: number; CUSTOM: number; }'.
+  No index signature with a parameter of type 'string' was found on type '{ SOC1: number; SOC2: number; ISO27001: number; ISO27002: number; NIST: number; HIPAA: number; 'PCI-DSS': number; GDPR: number; CCPA: number; CUSTOM: number; }'.
+src/modules/controls/controls.service.ts(5085,38): error TS2339: Property 'status' does not exist on type 'ControlTestResult'.
+src/modules/controls/controls.service.ts(5195,11): error TS7034: Variable 'improvementAreas' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/modules/controls/controls.service.ts(5237,7): error TS7005: Variable 'improvementAreas' implicitly has an 'any[]' type.

@@ -1,0 +1,2060 @@
+
+> @soc-compliance/evidence-service@1.0.0 test
+> jest
+
+[31m[Nest] 8036  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to update evidence non-existent:[39m
+[31m[Nest] 8036  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mNotFoundException: Evidence with ID non-existent not found
+    at EvidenceService.findOne [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:408:13[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at EvidenceService.update [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:420:22[90m)[39m
+    at EvidenceService.bulkUpdate [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:593:9[90m)[39m
+    at Object.<anonymous> [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.spec.ts:668:22[90m)[39m {
+  response: {
+    message: [32m'Evidence with ID non-existent not found'[39m,
+    error: [32m'Not Found'[39m,
+    statusCode: [33m404[39m
+  },
+  status: [33m404[39m,
+  options: {}
+}
+PASS src/modules/evidence/evidence.service.spec.ts
+[32m[Nest] 8036  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-123[39m
+[32m[Nest] 8036  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.verified event for evidence evidence-123[39m
+[32m[Nest] 8036  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.rejected event for evidence evidence-123[39m
+[32m[Nest] 8036  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-123[39m
+FAIL src/modules/evidence/evidence.controller.spec.ts
+  ● EvidenceController › create › should create new evidence successfully
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › create › should validate required fields
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › create › should validate evidence type
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › uploadEvidence › should upload evidence with file successfully
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › uploadEvidence › should handle missing file upload
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › uploadEvidence › should validate file size limits
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › findAll › should return all evidence without filters
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › findAll › should filter by status
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › findAll › should filter by type
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › findAll › should handle pagination
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › getExpiringEvidence › should return expiring evidence with default 30 days
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › getExpiringEvidence › should accept custom days parameter
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › getExpiringEvidence › should handle invalid days parameter
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › getEvidenceByAudit › should return evidence for specific audit
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › getEvidenceByAudit › should handle audit not found
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › getEvidenceByControl › should return evidence for specific control
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › findOne › should return evidence by ID
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › findOne › should handle not found
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › findOne › should validate UUID format
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › update › should update evidence successfully
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › update › should handle partial updates
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › update › should validate status transitions
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › validateEvidence › should validate evidence successfully
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › validateEvidence › should handle validation rejection
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › bulkUpdate › should bulk update evidence
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › bulkUpdate › should handle partial bulk update failures
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › remove › should soft delete evidence
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › remove › should prevent deletion of validated evidence
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › downloadEvidence › should download evidence file
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › downloadEvidence › should handle missing file
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › getEvidenceHistory › should return evidence history
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › getEvidenceStats › should return evidence statistics
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › Role-based access control › should allow admin to perform all actions
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › Role-based access control › should allow compliance_manager to create and manage evidence
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › Role-based access control › should allow evidence_viewer read-only access
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › Error handling › should handle service errors gracefully
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › Error handling › should validate input data types
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › Evidence collection automation › should support automated evidence collection
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+  ● EvidenceController › Evidence retention and archival › should handle evidence retention policies
+
+    Nest can't resolve dependencies of the ServiceAuthGuard (?, JwtService). Please make sure that the argument ConfigService at index [0] is available in the RootTestModule context.
+
+    Potential solutions:
+    - Is RootTestModule a valid NestJS module?
+    - If ConfigService is a provider, is it part of the current RootTestModule?
+    - If ConfigService is exported from a separate @Module, is that module imported within RootTestModule?
+      @Module({
+        imports: [ /* the Module containing ConfigService */ ]
+      })
+
+    [0m [90m 65 |[39m
+     [90m 66 |[39m   beforeEach([36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 67 |[39m     [36mconst[39m module[33m:[39m [33mTestingModule[39m [33m=[39m [36mawait[39m [33mTest[39m[33m.[39mcreateTestingModule({
+     [90m    |[39m                                   [31m[1m^[22m[39m
+     [90m 68 |[39m       controllers[33m:[39m [[33mEvidenceController[39m][33m,[39m
+     [90m 69 |[39m       providers[33m:[39m [
+     [90m 70 |[39m         {[0m
+
+      at TestingInjector.lookupComponentInParentModules (../../node_modules/@nestjs/core/injector/injector.js:286:19)
+      at resolveParam (../../node_modules/@nestjs/core/injector/injector.js:141:38)
+          at async Promise.all (index 0)
+      at TestingInjector.resolveConstructorParams (../../node_modules/@nestjs/core/injector/injector.js:169:27)
+      at TestingInjector.loadInstance (../../node_modules/@nestjs/core/injector/injector.js:75:13)
+      at TestingInjector.loadInjectable (../../node_modules/@nestjs/core/injector/injector.js:99:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:80:13
+          at async Promise.all (index 2)
+      at TestingInstanceLoader.createInstancesOfInjectables (../../node_modules/@nestjs/core/injector/instance-loader.js:79:9)
+      at ../../node_modules/@nestjs/core/injector/instance-loader.js:41:13
+          at async Promise.all (index 1)
+      at TestingInstanceLoader.createInstances (../../node_modules/@nestjs/core/injector/instance-loader.js:39:9)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/core/injector/instance-loader.js:22:13)
+      at TestingInstanceLoader.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-instance-loader.js:9:9)
+      at TestingModuleBuilder.createInstancesOfDependencies (../../node_modules/@nestjs/testing/testing-module.builder.js:118:9)
+      at TestingModuleBuilder.compile (../../node_modules/@nestjs/testing/testing-module.builder.js:74:9)
+      at Object.<anonymous> (src/modules/evidence/evidence.controller.spec.ts:67:35)
+
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to record access for evidence evidence-1:[39m
+TypeError: evidence.recordAccess is not a function
+    at EvidenceService.recordAccess (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\src\modules\evidence\evidence.service.ts:891:16)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at EvidenceController.findOne (C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\src\modules\evidence\evidence.controller.ts:133:7)
+    at C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\src\modules\evidence\evidence.integration.spec.ts:231:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-2[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-2[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-2[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39m[31mFailed to send evidence upload notification:[39m
+[31m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [31m  ERROR[39m [38;5;3m[EvidenceService] [39mTypeError: this.serviceDiscovery.callService is not a function
+    at EvidenceService.notifyEvidenceUpload [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:1484:35[90m)[39m
+    at EvidenceService.create [90m(C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.service.ts:109:20[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90mC:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service\[39msrc\modules\evidence\evidence.integration.spec.ts:176:24
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-2[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-2[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-3[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-2[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-3[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-2[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-3[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+[32m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [32m    LOG[39m [38;5;3m[EvidenceService] [39m[32mEmitted evidence.collected event for evidence evidence-1[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mFailed to send evidence upload notification:[39m
+[33m[Nest] 32972  - [39m10/07/2025, 12:02:20 AM [33m   WARN[39m [38;5;3m[EvidenceService] [39m[33mthis.serviceDiscovery.callService is not a function[39m
+FAIL src/modules/evidence/evidence.integration.spec.ts
+  ● Evidence Module Integration Tests › Evidence Collection Workflow › should upload evidence file
+
+    expected 201 "Created", got 400 "Bad Request"
+
+    [0m [90m 362 |[39m         [33m.[39mfield([32m'controlId'[39m[33m,[39m [32m'control-policy-001'[39m)
+     [90m 363 |[39m         [33m.[39mattach([32m'file'[39m[33m,[39m [33mBuffer[39m[33m.[39m[36mfrom[39m([32m'Test policy content'[39m)[33m,[39m [32m'policy.pdf'[39m)
+    [31m[1m>[22m[39m[90m 364 |[39m         [33m.[39mexpect([35m201[39m)[33m;[39m
+     [90m     |[39m          [31m[1m^[22m[39m
+     [90m 365 |[39m
+     [90m 366 |[39m       expect(response[33m.[39mbody)[33m.[39mtoMatchObject({
+     [90m 367 |[39m         title[33m:[39m [32m'Policy Document Evidence'[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:364:10)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Collection Workflow › should retrieve evidence by ID
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 382 |[39m       })[33m;[39m
+     [90m 383 |[39m
+    [31m[1m>[22m[39m[90m 384 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m`/evidence/${createResponse.body.id}`[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                                      [31m[1m^[22m[39m
+     [90m 385 |[39m
+     [90m 386 |[39m       expect(response[33m.[39mbody)[33m.[39mtoMatchObject({
+     [90m 387 |[39m         id[33m:[39m createResponse[33m.[39mbody[33m.[39mid[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:384:86)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Collection Workflow › should validate evidence
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 427 |[39m         [33m.[39mpost([32m`/evidence/${createResponse.body.id}/validate`[39m)
+     [90m 428 |[39m         [33m.[39msend(validateDto)
+    [31m[1m>[22m[39m[90m 429 |[39m         [33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m          [31m[1m^[22m[39m
+     [90m 430 |[39m
+     [90m 431 |[39m       expect(response[33m.[39mbody)[33m.[39mtoMatchObject({
+     [90m 432 |[39m         status[33m:[39m [33mEvidenceStatus[39m[33m.[39m[33mVALIDATED[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:429:10)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Query and Filtering › should filter evidence by status
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 466 |[39m
+     [90m 467 |[39m     it([32m'should filter evidence by status'[39m[33m,[39m [36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 468 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m'/evidence?status=validated'[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                             [31m[1m^[22m[39m
+     [90m 469 |[39m
+     [90m 470 |[39m       expect(response[33m.[39mbody[33m.[39mdata)[33m.[39mtoHaveLength([35m1[39m)[33m;[39m
+     [90m 471 |[39m       expect(response[33m.[39mbody[33m.[39mdata[[35m0[39m][33m.[39mstatus)[33m.[39mtoBe([33mEvidenceStatus[39m[33m.[39m[33mVALIDATED[39m)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:468:77)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Query and Filtering › should filter evidence by type
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 473 |[39m
+     [90m 474 |[39m     it([32m'should filter evidence by type'[39m[33m,[39m [36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 475 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m'/evidence?type=screenshot'[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                            [31m[1m^[22m[39m
+     [90m 476 |[39m
+     [90m 477 |[39m       expect(response[33m.[39mbody[33m.[39mdata[33m.[39mevery(e [33m=>[39m e[33m.[39mtype [33m===[39m [33mEvidenceType[39m[33m.[39m[33mSCREENSHOT[39m))[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m 478 |[39m     })[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:475:76)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Query and Filtering › should search evidence by text
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 479 |[39m
+     [90m 480 |[39m     it([32m'should search evidence by text'[39m[33m,[39m [36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 481 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m'/evidence?search=firewall'[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                            [31m[1m^[22m[39m
+     [90m 482 |[39m
+     [90m 483 |[39m       expect(response[33m.[39mbody[33m.[39mdata)[33m.[39mtoHaveLength([35m1[39m)[33m;[39m
+     [90m 484 |[39m       expect(response[33m.[39mbody[33m.[39mdata[[35m0[39m][33m.[39mtitle)[33m.[39mtoContain([32m'Firewall'[39m)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:481:76)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Query and Filtering › should paginate results
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 486 |[39m
+     [90m 487 |[39m     it([32m'should paginate results'[39m[33m,[39m [36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 488 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m'/evidence?page=1&limit=2'[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                           [31m[1m^[22m[39m
+     [90m 489 |[39m
+     [90m 490 |[39m       expect(response[33m.[39mbody[33m.[39mdata)[33m.[39mtoHaveLength([35m2[39m)[33m;[39m
+     [90m 491 |[39m       expect(response[33m.[39mbody[33m.[39mpage)[33m.[39mtoBe([35m1[39m)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:488:75)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Bulk Operations › should bulk update evidence
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 523 |[39m         [33m.[39mpost([32m'/evidence/bulk-update'[39m)
+     [90m 524 |[39m         [33m.[39msend(bulkUpdateDto)
+    [31m[1m>[22m[39m[90m 525 |[39m         [33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m          [31m[1m^[22m[39m
+     [90m 526 |[39m
+     [90m 527 |[39m       expect(response[33m.[39mbody)[33m.[39mtoMatchObject({
+     [90m 528 |[39m         updated[33m:[39m [35m2[39m[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:525:10)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Bulk Operations › should bulk validate evidence
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 541 |[39m         [33m.[39mpost([32m'/evidence/bulk-validate'[39m)
+     [90m 542 |[39m         [33m.[39msend(bulkValidateDto)
+    [31m[1m>[22m[39m[90m 543 |[39m         [33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m          [31m[1m^[22m[39m
+     [90m 544 |[39m
+     [90m 545 |[39m       expect(response[33m.[39mbody[33m.[39mvalidated)[33m.[39mtoBe([35m3[39m)[33m;[39m
+     [90m 546 |[39m     })[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:543:10)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Bulk Operations › should bulk delete evidence
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 555 |[39m         [33m.[39mpost([32m'/evidence/bulk-delete'[39m)
+     [90m 556 |[39m         [33m.[39msend(bulkDeleteDto)
+    [31m[1m>[22m[39m[90m 557 |[39m         [33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m          [31m[1m^[22m[39m
+     [90m 558 |[39m
+     [90m 559 |[39m       expect(response[33m.[39mbody[33m.[39mdeleted)[33m.[39mtoBe([35m2[39m)[33m;[39m
+     [90m 560 |[39m     })[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:557:10)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Compliance Workflows › should get evidence by audit
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 590 |[39m       })[33m;[39m
+     [90m 591 |[39m
+    [31m[1m>[22m[39m[90m 592 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m`/evidence/audit/${auditId}`[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                             [31m[1m^[22m[39m
+     [90m 593 |[39m
+     [90m 594 |[39m       expect(response[33m.[39mbody)[33m.[39mtoHaveLength([35m1[39m)[33m;[39m
+     [90m 595 |[39m       expect(response[33m.[39mbody[[35m0[39m][33m.[39mauditId)[33m.[39mtoBe(auditId)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:592:77)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Compliance Workflows › should get evidence by control
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 605 |[39m       })[33m;[39m
+     [90m 606 |[39m
+    [31m[1m>[22m[39m[90m 607 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m`/evidence/control/${controlId}`[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                                 [31m[1m^[22m[39m
+     [90m 608 |[39m
+     [90m 609 |[39m       expect(response[33m.[39mbody)[33m.[39mtoHaveLength([35m1[39m)[33m;[39m
+     [90m 610 |[39m       expect(response[33m.[39mbody[[35m0[39m][33m.[39mcontrolId)[33m.[39mtoBe(controlId)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:607:81)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence History and Audit Trail › should track evidence history
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 635 |[39m
+     [90m 636 |[39m       [90m// Get history[39m
+    [31m[1m>[22m[39m[90m 637 |[39m       [36mconst[39m historyResponse [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m`/evidence/${evidenceId}/history`[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                                         [31m[1m^[22m[39m
+     [90m 638 |[39m
+     [90m 639 |[39m       expect(historyResponse[33m.[39mbody)[33m.[39mtoHaveLength([35m3[39m)[33m;[39m
+     [90m 640 |[39m       expect(historyResponse[33m.[39mbody[33m.[39mmap(h [33m=>[39m h[33m.[39maction))[33m.[39mtoContain([32m'created'[39m)[33m;[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:637:89)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Evidence Statistics › should return evidence statistics
+
+    expected 200 "OK", got 400 "Bad Request"
+
+    [0m [90m 653 |[39m       })[33m;[39m
+     [90m 654 |[39m
+    [31m[1m>[22m[39m[90m 655 |[39m       [36mconst[39m response [33m=[39m [36mawait[39m request(app)[33m.[39m[36mget[39m([32m'/evidence/stats'[39m)[33m.[39mexpect([35m200[39m)[33m;[39m
+     [90m     |[39m                                                                  [31m[1m^[22m[39m
+     [90m 656 |[39m
+     [90m 657 |[39m       expect(response[33m.[39mbody)[33m.[39mtoMatchObject({
+     [90m 658 |[39m         total[33m:[39m expect[33m.[39many([33mNumber[39m)[33m,[39m[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:655:66)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+  ● Evidence Module Integration Tests › Error Handling › should handle evidence not found
+
+    expected 404 "Not Found", got 400 "Bad Request"
+
+    [0m [90m 675 |[39m
+     [90m 676 |[39m     it([32m'should handle evidence not found'[39m[33m,[39m [36masync[39m () [33m=>[39m {
+    [31m[1m>[22m[39m[90m 677 |[39m       [36mawait[39m request(app)[33m.[39m[36mget[39m([32m'/evidence/123e4567-e89b-12d3-a456-426614174000'[39m)[33m.[39mexpect([35m404[39m)[33m;[39m
+     [90m     |[39m                                                                                [31m[1m^[22m[39m
+     [90m 678 |[39m     })[33m;[39m
+     [90m 679 |[39m
+     [90m 680 |[39m     it([32m'should validate required fields'[39m[33m,[39m [36masync[39m () [33m=>[39m {[0m
+
+      at Object.<anonymous> (src/modules/evidence/evidence.integration.spec.ts:677:80)
+      ----
+      at Test._assertStatus (../../node_modules/supertest/lib/test.js:252:14)
+      at ../../node_modules/supertest/lib/test.js:308:13
+      at Test._assertFunction (../../node_modules/supertest/lib/test.js:285:13)
+      at Test.assert (../../node_modules/supertest/lib/test.js:164:23)
+      at Server.localAssert (../../node_modules/supertest/lib/test.js:120:14)
+
+Test Suites: 2 failed, 1 passed, 3 total
+Tests:       54 failed, 36 passed, 90 total
+Snapshots:   0 total
+Time:        3.589 s
+Ran all test suites.
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service
+npm error workspace @soc-compliance/evidence-service@1.0.0
+npm error location C:\Users\Ryann\Documents\Work\Coding\overmatch-digital\services\evidence-service
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c jest

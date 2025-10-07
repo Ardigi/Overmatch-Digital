@@ -1,0 +1,233 @@
+version: '3.8'
+
+services:
+  # Already running: auth-service, client-service
+  
+  control-service:
+    build:
+      context: .
+      dockerfile: services/control-service/Dockerfile
+    container_name: soc-control-service
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=development
+      - PORT=3004
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_controls
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=soc_redis_pass
+      - JWT_SECRET=your-secret-key-change-in-production
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  policy-service:
+    build:
+      context: .
+      dockerfile: services/policy-service/Dockerfile
+    container_name: soc-policy-service
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=development
+      - PORT=3003
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_policies
+      - KAFKA_BROKERS=kafka:9092
+      - JWT_SECRET=your-secret-key-change-in-production
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - soc-network
+
+  evidence-service:
+    build:
+      context: .
+      dockerfile: services/evidence-service/Dockerfile
+    container_name: soc-evidence-service
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=development
+      - PORT=3005
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_evidence
+      - MONGODB_URI=mongodb://mongodb:27017/soc_evidence
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=soc_redis_pass
+      - JWT_SECRET=your-secret-key-change-in-production
+      - AWS_REGION=us-east-1
+      - AWS_BUCKET_NAME=soc-evidence-bucket
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
+    networks:
+      - soc-network
+
+  workflow-service:
+    build:
+      context: .
+      dockerfile: services/workflow-service/Dockerfile
+    container_name: soc-workflow-service
+    ports:
+      - "3006:3006"
+    environment:
+      - NODE_ENV=development
+      - PORT=3006
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_workflows
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=soc_redis_pass
+      - JWT_SECRET=your-secret-key-change-in-production
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  reporting-service:
+    build:
+      context: .
+      dockerfile: services/reporting-service/Dockerfile
+    container_name: soc-reporting-service
+    ports:
+      - "3007:3007"
+    environment:
+      - NODE_ENV=development
+      - PORT=3007
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_reporting
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=soc_redis_pass
+      - JWT_SECRET=your-secret-key-change-in-production
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  audit-service:
+    build:
+      context: .
+      dockerfile: services/audit-service/Dockerfile
+    container_name: soc-audit-service
+    ports:
+      - "3008:3008"
+    environment:
+      - NODE_ENV=development
+      - PORT=3008
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_audits
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=soc_redis_pass
+      - JWT_SECRET=your-secret-key-change-in-production
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  integration-service:
+    build:
+      context: .
+      dockerfile: services/integration-service/Dockerfile
+    container_name: soc-integration-service
+    ports:
+      - "3009:3009"
+    environment:
+      - NODE_ENV=development
+      - PORT=3009
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_integrations
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=soc_redis_pass
+      - JWT_SECRET=your-secret-key-change-in-production
+      - CREDENTIAL_ENCRYPTION_KEY=default-encryption-key
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: services/notification-service/Dockerfile
+    container_name: soc-notification-service
+    ports:
+      - "3010:3010"
+    environment:
+      - NODE_ENV=development
+      - PORT=3010
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_notifications
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=soc_redis_pass
+      - JWT_SECRET=your-secret-key-change-in-production
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  ai-service:
+    build:
+      context: .
+      dockerfile: services/ai-service/Dockerfile
+    container_name: soc-ai-service
+    ports:
+      - "3011:3011"
+    environment:
+      - NODE_ENV=development
+      - PORT=3011
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=soc_ai
+      - JWT_SECRET=your-secret-key-change-in-production
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-your-openai-api-key}
+    depends_on:
+      - postgres
+    networks:
+      - soc-network
+
+networks:
+  soc-network:
+    external: true

@@ -1,0 +1,83 @@
+global:
+  resolve_timeout: 5m
+  smtp_from: 'alerts@soc-platform.com'
+  smtp_smarthost: 'smtp.example.com:587'
+  smtp_auth_username: 'alerts@soc-platform.com'
+  smtp_auth_password: 'changeme'
+  slack_api_url: 'YOUR_SLACK_WEBHOOK_URL'
+
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 12h
+  receiver: 'default-receiver'
+  routes:
+    - match:
+        severity: critical
+      receiver: 'critical-receiver'
+      continue: true
+    - match:
+        severity: warning
+      receiver: 'warning-receiver'
+    - match_re:
+        service: '^(auth|client|policy).*'
+      receiver: 'core-services-receiver'
+    - match:
+        alertname: ComplianceCheckFailure
+      receiver: 'compliance-receiver'
+
+receivers:
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'ops@soc-platform.com'
+        headers:
+          Subject: 'SOC Platform Alert: {{ .GroupLabels.alertname }}'
+
+  - name: 'critical-receiver'
+    email_configs:
+      - to: 'critical-alerts@soc-platform.com'
+        headers:
+          Subject: 'CRITICAL: {{ .GroupLabels.alertname }}'
+    slack_configs:
+      - channel: '#critical-alerts'
+        title: 'Critical Alert'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}{{ end }}'
+        send_resolved: true
+    pagerduty_configs:
+      - service_key: 'YOUR_PAGERDUTY_SERVICE_KEY'
+        description: '{{ .GroupLabels.alertname }}: {{ .CommonAnnotations.summary }}'
+
+  - name: 'warning-receiver'
+    email_configs:
+      - to: 'warnings@soc-platform.com'
+        headers:
+          Subject: 'Warning: {{ .GroupLabels.alertname }}'
+    slack_configs:
+      - channel: '#warning-alerts'
+        title: 'Warning Alert'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
+
+  - name: 'core-services-receiver'
+    email_configs:
+      - to: 'core-services@soc-platform.com'
+    slack_configs:
+      - channel: '#core-services-alerts'
+
+  - name: 'compliance-receiver'
+    email_configs:
+      - to: 'compliance@soc-platform.com'
+        headers:
+          Subject: 'COMPLIANCE ALERT: {{ .GroupLabels.alertname }}'
+    slack_configs:
+      - channel: '#compliance-alerts'
+        title: 'Compliance Alert'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}{{ end }}'
+        color: 'danger'
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'cluster', 'service']

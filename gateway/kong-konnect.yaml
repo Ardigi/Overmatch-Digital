@@ -1,0 +1,218 @@
+_format_version: "3.0"
+_konnect:
+  runtime_group_name: soc-compliance-production
+
+# Services Configuration
+services:
+  # Auth Service - Public endpoints
+  - name: auth-service
+    host: auth-service
+    port: 3001
+    protocol: http
+    retries: 5
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    routes:
+      - name: auth-public
+        paths:
+          - /auth/login
+          - /auth/register
+          - /auth/refresh
+          - /auth/logout
+          - /auth/health
+        strip_path: false
+        methods:
+          - GET
+          - POST
+          - OPTIONS
+
+  # Client Service - Protected endpoints
+  - name: client-service
+    host: client-service
+    port: 3002
+    protocol: http
+    retries: 5
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    routes:
+      - name: client-routes
+        paths:
+          - /clients
+        strip_path: false
+        methods:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - OPTIONS
+    plugins:
+      # OIDC Plugin for JWT validation and claims forwarding
+      - name: openid-connect
+        config:
+          # Use Bearer JWT authentication
+          auth_methods:
+            - bearer
+          # Don't require issuer validation for now (using our own Auth Service)
+          issuer_checks_enabled: false
+          # Map JWT claims to upstream headers
+          upstream_headers_claims:
+            - sub
+            - email
+            - roles
+            - organizationId
+            - sessionId
+          upstream_headers_names:
+            - X-User-Id
+            - X-User-Email
+            - X-User-Roles
+            - X-Organization-Id
+            - X-Session-Id
+          # Token configuration
+          bearer_jwt_auth_enable: true
+          bearer_jwt_auth_allowed_auds:
+            - soc-compliance
+          # Use our JWT secret for validation
+          bearer_jwt_auth_signing_algs:
+            - HS256
+          # Display errors for debugging
+          display_errors: true
+
+  # Control Service - Protected endpoints  
+  - name: control-service
+    host: control-service
+    port: 3004
+    protocol: http
+    retries: 5
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    routes:
+      - name: control-routes
+        paths:
+          - /controls
+        strip_path: false
+        methods:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - OPTIONS
+    plugins:
+      # OIDC Plugin for JWT validation and claims forwarding
+      - name: openid-connect
+        config:
+          auth_methods:
+            - bearer
+          issuer_checks_enabled: false
+          upstream_headers_claims:
+            - sub
+            - email
+            - roles
+            - organizationId
+            - sessionId
+          upstream_headers_names:
+            - X-User-Id
+            - X-User-Email
+            - X-User-Roles
+            - X-Organization-Id
+            - X-Session-Id
+          bearer_jwt_auth_enable: true
+          bearer_jwt_auth_allowed_auds:
+            - soc-compliance
+          bearer_jwt_auth_signing_algs:
+            - HS256
+          display_errors: true
+
+  # Policy Service - Protected endpoints
+  - name: policy-service
+    host: policy-service
+    port: 3003
+    protocol: http
+    retries: 5
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    routes:
+      - name: policy-routes
+        paths:
+          - /policies
+        strip_path: false
+        methods:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - OPTIONS
+    plugins:
+      - name: openid-connect
+        config:
+          auth_methods:
+            - bearer
+          issuer_checks_enabled: false
+          upstream_headers_claims:
+            - sub
+            - email
+            - roles
+            - organizationId
+            - sessionId
+          upstream_headers_names:
+            - X-User-Id
+            - X-User-Email
+            - X-User-Roles
+            - X-Organization-Id
+            - X-Session-Id
+          bearer_jwt_auth_enable: true
+          bearer_jwt_auth_allowed_auds:
+            - soc-compliance
+          bearer_jwt_auth_signing_algs:
+            - HS256
+          display_errors: true
+
+# Global Plugins
+plugins:
+  # Rate limiting
+  - name: rate-limiting
+    config:
+      minute: 100
+      policy: local
+
+  # CORS configuration  
+  - name: cors
+    config:
+      origins:
+        - http://localhost:3000
+        - https://soc-compliance.com
+      methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+        - OPTIONS
+      headers:
+        - Accept
+        - Accept-Version
+        - Content-Length
+        - Content-MD5
+        - Content-Type
+        - Date
+        - X-Auth-Token
+        - Authorization
+      exposed_headers:
+        - X-Auth-Token
+        - X-Total-Count
+      credentials: true
+      max_age: 3600
+
+  # Request/Response logging for audit
+  - name: http-log
+    config:
+      http_endpoint: http://audit-service:3008/logs
+      method: POST
+      timeout: 10000
+      keepalive: 60000

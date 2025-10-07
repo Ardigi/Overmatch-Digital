@@ -1,0 +1,264 @@
+# CORS Plugin Configuration for SOC Compliance Platform
+# This configuration defines Cross-Origin Resource Sharing policies
+
+_format_version: "3.0"
+
+# Global CORS configuration
+global_cors:
+  # Allowed origins
+  origins:
+    # Production domains
+    - "https://app.soc-platform.com"
+    - "https://www.soc-platform.com"
+    - "https://admin.soc-platform.com"
+    - "https://docs.soc-platform.com"
+    
+    # Staging domains
+    - "https://staging.soc-platform.com"
+    - "https://app-staging.soc-platform.com"
+    
+    # Development domains
+    - "http://localhost:3000"
+    - "http://localhost:3001"
+    - "http://127.0.0.1:3000"
+    - "http://127.0.0.1:3001"
+    
+    # Mobile app origins
+    - "capacitor://localhost"
+    - "ionic://localhost"
+  
+  # Allowed methods
+  methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - OPTIONS
+    - HEAD
+  
+  # Allowed headers
+  headers:
+    - Accept
+    - Accept-Version
+    - Authorization
+    - Cache-Control
+    - Content-Length
+    - Content-MD5
+    - Content-Type
+    - Date
+    - X-Auth-Token
+    - X-Requested-With
+    - X-Correlation-ID
+    - X-Request-ID
+    - X-Organization-ID
+    - X-Client-ID
+    - X-CSRF-Token
+    - X-File-Name
+    - X-File-Size
+    - X-File-Type
+  
+  # Exposed headers (available to client)
+  exposed_headers:
+    - X-Auth-Token
+    - X-Refresh-Token
+    - X-Request-ID
+    - X-Correlation-ID
+    - X-RateLimit-Limit
+    - X-RateLimit-Remaining
+    - X-RateLimit-Reset
+    - Content-Disposition
+    - Content-Length
+    - Content-Type
+    - ETag
+    - Location
+  
+  # Credentials
+  credentials: true
+  
+  # Max age (24 hours)
+  max_age: 86400
+  
+  # Preflight continue
+  preflight_continue: false
+
+# Service-specific CORS configurations
+service_cors:
+  # Auth Service - More restrictive
+  auth-service:
+    origins:
+      - "https://app.soc-platform.com"
+      - "https://www.soc-platform.com"
+      - "http://localhost:3000"
+    methods:
+      - GET
+      - POST
+      - OPTIONS
+    headers:
+      - Accept
+      - Authorization
+      - Content-Type
+      - X-Auth-Token
+      - X-CSRF-Token
+    credentials: true
+    max_age: 3600
+  
+  # Evidence Service - File upload headers
+  evidence-service:
+    origins:
+      - "https://app.soc-platform.com"
+      - "https://admin.soc-platform.com"
+      - "http://localhost:3000"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - OPTIONS
+    headers:
+      - Accept
+      - Authorization
+      - Content-Type
+      - Content-Length
+      - X-Auth-Token
+      - X-File-Name
+      - X-File-Size
+      - X-File-Type
+      - X-Upload-Length
+      - X-Upload-Offset
+    exposed_headers:
+      - Content-Disposition
+      - Content-Length
+      - X-Upload-Length
+      - X-Upload-Offset
+    credentials: true
+    max_age: 86400
+  
+  # Notification Service - WebSocket support
+  notification-service:
+    origins:
+      - "https://app.soc-platform.com"
+      - "https://admin.soc-platform.com"
+      - "http://localhost:3000"
+      - "ws://localhost:3000"
+      - "wss://app.soc-platform.com"
+    methods:
+      - GET
+      - POST
+      - OPTIONS
+    headers:
+      - Accept
+      - Authorization
+      - Content-Type
+      - Upgrade
+      - Connection
+      - Sec-WebSocket-Key
+      - Sec-WebSocket-Version
+      - Sec-WebSocket-Extensions
+    credentials: true
+    max_age: 86400
+  
+  # Integration Service - External APIs
+  integration-service:
+    origins:
+      - "*"  # Allow all origins for webhooks
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - OPTIONS
+    headers:
+      - Accept
+      - Authorization
+      - Content-Type
+      - X-Hub-Signature
+      - X-Hub-Signature-256
+      - X-Webhook-ID
+      - X-Event-Type
+    credentials: false  # No credentials for webhooks
+    max_age: 3600
+
+# Environment-specific CORS
+environment_cors:
+  # Production
+  production:
+    origins:
+      - "https://app.soc-platform.com"
+      - "https://www.soc-platform.com"
+      - "https://admin.soc-platform.com"
+      - "https://docs.soc-platform.com"
+    credentials: true
+    max_age: 86400
+    strict_origin: true
+  
+  # Staging
+  staging:
+    origins:
+      - "https://staging.soc-platform.com"
+      - "https://app-staging.soc-platform.com"
+      - "https://admin-staging.soc-platform.com"
+    credentials: true
+    max_age: 43200
+    strict_origin: true
+  
+  # Development
+  development:
+    origins:
+      - "*"  # Allow all in development
+    credentials: true
+    max_age: 3600
+    strict_origin: false
+
+# Preflight request handling
+preflight_config:
+  # Cache duration
+  max_age: 86400
+  
+  # Continue to upstream
+  preflight_continue: false
+  
+  # Custom preflight response
+  custom_response:
+    status: 204
+    headers:
+      - "X-Preflight-Response: true"
+      - "Cache-Control: public, max-age=86400"
+
+# Origin validation rules
+origin_validation:
+  # Strict origin checking
+  strict_mode: true
+  
+  # Allow subdomains
+  allow_subdomains: true
+  
+  # Origin patterns (regex)
+  patterns:
+    - "^https?://([a-z0-9-]+\\.)?soc-platform\\.com$"
+    - "^https?://localhost(:[0-9]+)?$"
+    - "^https?://127\\.0\\.0\\.1(:[0-9]+)?$"
+  
+  # Blocked origins
+  blocked_origins:
+    - "http://malicious-site.com"
+    - "https://phishing-site.com"
+
+# Error handling
+error_handling:
+  # CORS error response
+  cors_error:
+    status: 403
+    message: "CORS policy violation: Origin not allowed"
+    headers:
+      - "X-CORS-Error: true"
+  
+  # Invalid origin
+  invalid_origin:
+    status: 403
+    message: "Invalid origin header"
+  
+  # Missing origin
+  missing_origin:
+    status: 400
+    message: "Origin header required"

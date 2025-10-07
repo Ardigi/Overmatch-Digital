@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # Keycloak - Enterprise Identity Provider for SOC 2 Compliance
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.2
+    container_name: soc-keycloak
+    environment:
+      # Admin credentials - MUST be set via environment variables
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      
+      # Database configuration
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: soc_user
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      
+      # HTTP settings
+      KC_HTTP_ENABLED: "true"
+      KC_HTTP_PORT: 8080
+      KC_HOSTNAME_URL: "http://host.docker.internal:8180"
+      KC_HOSTNAME_ADMIN_URL: "http://localhost:8180"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_PROXY_HEADERS: "xforwarded"
+      
+      # Development mode (change to 'production' for prod)
+      KC_LOG_LEVEL: INFO
+      
+    ports:
+      - "8180:8080"  # Keycloak UI and API (changed from 8080 to avoid conflicts)
+      - "8543:8443"  # HTTPS (changed from 8443 to avoid Kong conflict)
+    
+    command: start-dev  # Use 'start' for production
+    
+    depends_on:
+      - postgres
+    
+    networks:
+      - overmatch-digital_soc-network
+    
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+    
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e 'GET /health/ready HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3;grep -q '200 OK' <&3"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Keycloak DB initialization
+  keycloak-db-init:
+    image: postgres:15-alpine
+    container_name: keycloak-db-init
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+    command: >
+      sh -c "
+        until pg_isready -h postgres -U soc_user; do
+          echo 'Waiting for PostgreSQL...'
+          sleep 2
+        done
+        
+        echo 'Creating Keycloak database if not exists...'
+        psql -h postgres -U soc_user -d postgres -c 'CREATE DATABASE keycloak;' || echo 'Database already exists'
+        
+        echo 'Keycloak database ready!'
+      "
+    depends_on:
+      - postgres
+    networks:
+      - overmatch-digital_soc-network
+
+networks:
+  overmatch-digital_soc-network:
+    external: true
+
+volumes:
+  keycloak-data:
+    driver: local

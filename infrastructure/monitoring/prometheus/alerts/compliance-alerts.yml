@@ -1,0 +1,141 @@
+groups:
+  - name: compliance_alerts
+    interval: 30s
+    rules:
+      # Control Monitoring Alerts
+      - alert: ControlTestOverdue
+        expr: |
+          (time() - soc_compliance_control_last_test_timestamp) > (soc_compliance_control_test_frequency_days * 86400)
+        for: 1h
+        labels:
+          severity: warning
+          team: compliance
+        annotations:
+          summary: "Control {{ $labels.control_id }} test is overdue"
+          description: "Control {{ $labels.control_id }} in organization {{ $labels.organization_id }} has not been tested within its required frequency"
+
+      - alert: HighControlFailureRate
+        expr: |
+          rate(soc_compliance_control_test_failures_total[1h]) > 0.3
+        for: 30m
+        labels:
+          severity: critical
+          team: compliance
+        annotations:
+          summary: "High control failure rate detected"
+          description: "Control {{ $labels.control_id }} has a failure rate of {{ $value | humanizePercentage }} over the last hour"
+
+      # Evidence Collection Alerts
+      - alert: EvidenceCollectionFailed
+        expr: |
+          increase(soc_compliance_evidence_collection_failures_total[5m]) > 3
+        for: 10m
+        labels:
+          severity: warning
+          team: operations
+        annotations:
+          summary: "Evidence collection failing for {{ $labels.source }}"
+          description: "Evidence collection from {{ $labels.source }} has failed {{ $value }} times in the last 5 minutes"
+
+      - alert: EvidenceStorageQuotaExceeded
+        expr: |
+          (soc_compliance_evidence_storage_used_bytes / soc_compliance_evidence_storage_limit_bytes) > 0.9
+        for: 30m
+        labels:
+          severity: warning
+          team: operations
+        annotations:
+          summary: "Evidence storage quota exceeded"
+          description: "Evidence storage for organization {{ $labels.organization_id }} is at {{ $value | humanizePercentage }} capacity"
+
+      # Audit Process Alerts
+      - alert: AuditDeadlineApproaching
+        expr: |
+          (soc_compliance_audit_deadline_timestamp - time()) < (7 * 86400) and soc_compliance_audit_completion_percentage < 80
+        for: 1h
+        labels:
+          severity: warning
+          team: audit
+        annotations:
+          summary: "Audit deadline approaching for {{ $labels.client_name }}"
+          description: "Audit {{ $labels.audit_id }} for {{ $labels.client_name }} is due in {{ $value | humanizeDuration }} but only {{ $labels.completion_percentage }}% complete"
+
+      - alert: AuditorWorkloadImbalance
+        expr: |
+          stddev_over_time(soc_compliance_auditor_active_projects[1h]) > 3
+        for: 2h
+        labels:
+          severity: info
+          team: audit
+        annotations:
+          summary: "Auditor workload imbalance detected"
+          description: "Significant variance in auditor workloads detected (stddev: {{ $value }})"
+
+      # Security Alerts
+      - alert: UnauthorizedAccessAttempts
+        expr: |
+          rate(soc_compliance_unauthorized_access_attempts_total[5m]) > 10
+        for: 5m
+        labels:
+          severity: critical
+          team: security
+        annotations:
+          summary: "High rate of unauthorized access attempts"
+          description: "{{ $value }} unauthorized access attempts per second from {{ $labels.source_ip }}"
+
+      - alert: MFABypassAttempted
+        expr: |
+          increase(soc_compliance_mfa_bypass_attempts_total[10m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+          team: security
+        annotations:
+          summary: "MFA bypass attempted"
+          description: "MFA bypass attempted by user {{ $labels.user_id }} from IP {{ $labels.source_ip }}"
+
+      # Performance Alerts
+      - alert: APIHighLatency
+        expr: |
+          histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
+        for: 10m
+        labels:
+          severity: warning
+          team: operations
+        annotations:
+          summary: "High API latency on {{ $labels.service }}"
+          description: "95th percentile latency for {{ $labels.service }} is {{ $value }}s"
+
+      - alert: ServiceDown
+        expr: |
+          up{job=~"soc-compliance.*"} == 0
+        for: 5m
+        labels:
+          severity: critical
+          team: operations
+        annotations:
+          summary: "Service {{ $labels.instance }} is down"
+          description: "{{ $labels.instance }} has been down for more than 5 minutes"
+
+      # Compliance Scoring Alerts
+      - alert: ComplianceScoreDropped
+        expr: |
+          delta(soc_compliance_organization_score[1h]) < -10
+        for: 30m
+        labels:
+          severity: warning
+          team: compliance
+        annotations:
+          summary: "Compliance score dropped significantly"
+          description: "Organization {{ $labels.organization_name }} compliance score dropped by {{ $value }} points"
+
+      - alert: CriticalComplianceGap
+        expr: |
+          soc_compliance_critical_controls_not_implemented > 0
+        for: 1h
+        labels:
+          severity: critical
+          team: compliance
+        annotations:
+          summary: "Critical controls not implemented"
+          description: "{{ $value }} critical controls are not implemented for {{ $labels.organization_name }}"

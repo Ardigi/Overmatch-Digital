@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: soc-compliance
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - auth-service.yaml
+  - client-service.yaml
+  - kong-ingress.yaml
+
+commonLabels:
+  app.kubernetes.io/name: soc-compliance
+  app.kubernetes.io/instance: production
+  app.kubernetes.io/component: backend
+  app.kubernetes.io/part-of: soc-compliance-platform
+  app.kubernetes.io/managed-by: kustomize

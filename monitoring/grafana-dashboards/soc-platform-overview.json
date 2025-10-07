@@ -1,0 +1,461 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "soc-platform-overview",
+    "title": "SOC Platform - Overview Dashboard",
+    "tags": ["soc-platform", "overview", "compliance"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "version": 1,
+    "refresh": "30s",
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+        "type": "graph",
+        "title": "Request Rate by Service",
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total[5m])) by (service)",
+            "legendFormat": "{{service}}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "reqps", "label": "Requests/sec" },
+          { "format": "short" }
+        ]
+      },
+      {
+        "id": 2,
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+        "type": "graph",
+        "title": "Error Rate",
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) by (service)",
+            "legendFormat": "{{service}} - 5xx",
+            "refId": "A"
+          },
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"4..\"}[5m])) by (service)",
+            "legendFormat": "{{service}} - 4xx",
+            "refId": "B"
+          }
+        ],
+        "yaxes": [
+          { "format": "percentunit", "label": "Error Rate" },
+          { "format": "short" }
+        ],
+        "alert": {
+          "conditions": [
+            {
+              "evaluator": {
+                "params": [0.05],
+                "type": "gt"
+              },
+              "query": {
+                "params": ["A", "5m", "now"]
+              },
+              "reducer": {
+                "params": [],
+                "type": "avg"
+              },
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "alerting",
+          "frequency": "60s",
+          "handler": 1,
+          "name": "High Error Rate Alert",
+          "noDataState": "no_data",
+          "notifications": []
+        }
+      },
+      {
+        "id": 3,
+        "gridPos": { "h": 8, "w": 8, "x": 0, "y": 8 },
+        "type": "graph",
+        "title": "Response Time (p95)",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (service, le))",
+            "legendFormat": "{{service}}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "ms", "label": "Response Time" },
+          { "format": "short" }
+        ],
+        "thresholds": [
+          {
+            "colorMode": "critical",
+            "fill": true,
+            "line": true,
+            "op": "gt",
+            "value": 500,
+            "yaxis": "left"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "gridPos": { "h": 8, "w": 8, "x": 8, "y": 8 },
+        "type": "stat",
+        "title": "Service Health",
+        "targets": [
+          {
+            "expr": "up{job=\"soc-services\"}",
+            "format": "table",
+            "instant": true,
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "textMode": "value_and_name",
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "center"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              { "type": "value", "value": "1", "text": "UP", "color": "green" },
+              { "type": "value", "value": "0", "text": "DOWN", "color": "red" }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "red", "value": 0 },
+                { "color": "green", "value": 1 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "gridPos": { "h": 8, "w": 8, "x": 16, "y": 8 },
+        "type": "gauge",
+        "title": "Database Connection Pool",
+        "targets": [
+          {
+            "expr": "(pg_stat_database_numbackends{datname=\"soc_production\"} / pg_settings_max_connections) * 100",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "showThresholdLabels": true,
+          "showThresholdMarkers": true
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": 0 },
+                { "color": "yellow", "value": 70 },
+                { "color": "red", "value": 90 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 6,
+        "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+        "type": "table",
+        "title": "Audit Trail Activity",
+        "targets": [
+          {
+            "expr": "sum(increase(audit_trail_entries_total[1h])) by (action, service)",
+            "format": "table",
+            "instant": true,
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Count"
+            }
+          ]
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto"
+            }
+          }
+        }
+      },
+      {
+        "id": 7,
+        "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+        "type": "graph",
+        "title": "Kafka Consumer Lag",
+        "targets": [
+          {
+            "expr": "kafka_consumer_lag_sum{topic=~\"soc.*\"}",
+            "legendFormat": "{{topic}} - {{consumer_group}}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "short", "label": "Message Lag" },
+          { "format": "short" }
+        ],
+        "alert": {
+          "conditions": [
+            {
+              "evaluator": {
+                "params": [10000],
+                "type": "gt"
+              },
+              "query": {
+                "params": ["A", "5m", "now"]
+              },
+              "reducer": {
+                "params": [],
+                "type": "max"
+              },
+              "type": "query"
+            }
+          ],
+          "executionErrorState": "alerting",
+          "frequency": "60s",
+          "handler": 1,
+          "name": "High Kafka Lag Alert",
+          "noDataState": "no_data",
+          "notifications": []
+        }
+      },
+      {
+        "id": 8,
+        "gridPos": { "h": 6, "w": 6, "x": 0, "y": 24 },
+        "type": "stat",
+        "title": "Active Audits",
+        "targets": [
+          {
+            "expr": "soc_audits_active_total",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "textMode": "value",
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "center"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": 0 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 9,
+        "gridPos": { "h": 6, "w": 6, "x": 6, "y": 24 },
+        "type": "stat",
+        "title": "Controls Tested Today",
+        "targets": [
+          {
+            "expr": "increase(soc_controls_tested_total[24h])",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "textMode": "value",
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "center"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": 0 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 10,
+        "gridPos": { "h": 6, "w": 6, "x": 12, "y": 24 },
+        "type": "stat",
+        "title": "Evidence Uploaded",
+        "targets": [
+          {
+            "expr": "increase(soc_evidence_uploaded_total[24h])",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "textMode": "value",
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "center"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": 0 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 11,
+        "gridPos": { "h": 6, "w": 6, "x": 18, "y": 24 },
+        "type": "stat",
+        "title": "Reports Generated",
+        "targets": [
+          {
+            "expr": "increase(soc_reports_generated_total[24h])",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "textMode": "value",
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "center"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "color": "green", "value": 0 }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 12,
+        "gridPos": { "h": 8, "w": 24, "x": 0, "y": 30 },
+        "type": "logs",
+        "title": "Recent Errors",
+        "targets": [
+          {
+            "expr": "{job=\"soc-services\"} |= \"ERROR\"",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "showTime": true,
+          "showLabels": true,
+          "showCommonLabels": false,
+          "wrapLogMessage": true,
+          "prettifyLogMessage": false,
+          "enableLogDetails": true,
+          "dedupStrategy": "none",
+          "sortOrder": "Descending"
+        }
+      }
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": "Prometheus",
+          "definition": "label_values(service)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Service",
+          "multi": true,
+          "name": "service",
+          "options": [],
+          "query": "label_values(service)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "production",
+            "value": "production"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "label": "Environment",
+          "multi": false,
+          "name": "environment",
+          "options": [
+            { "selected": true, "text": "production", "value": "production" },
+            { "selected": false, "text": "staging", "value": "staging" },
+            { "selected": false, "text": "development", "value": "development" }
+          ],
+          "query": "production,staging,development",
+          "skipUrlSync": false,
+          "type": "custom"
+        }
+      ]
+    },
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        },
+        {
+          "datasource": "Prometheus",
+          "enable": true,
+          "expr": "ALERTS{alertstate=\"firing\",job=\"soc-services\"}",
+          "iconColor": "red",
+          "name": "Critical Alerts",
+          "step": "10s",
+          "tagKeys": "severity",
+          "textFormat": "{{alertname}}",
+          "titleFormat": "Alert"
+        }
+      ]
+    }
+  }
+}

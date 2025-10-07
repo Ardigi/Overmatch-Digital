@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-config
+  labels:
+    app.kubernetes.io/name: soc-compliance
+data:
+  brokers: "kafka-0.kafka-headless.soc-compliance.svc.cluster.local:9092,kafka-1.kafka-headless.soc-compliance.svc.cluster.local:9092,kafka-2.kafka-headless.soc-compliance.svc.cluster.local:9092"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-config
+  labels:
+    app.kubernetes.io/name: soc-compliance
+data:
+  elasticsearch.url: "http://elasticsearch.soc-compliance.svc.cluster.local:9200"
+  opa.url: "http://opa.soc-compliance.svc.cluster.local:8181"
+  kong.admin.url: "http://kong-admin.soc-compliance.svc.cluster.local:8001"
+  prometheus.url: "http://prometheus.soc-compliance.svc.cluster.local:9090"

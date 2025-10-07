@@ -1,0 +1,81 @@
+{
+  "index_patterns": ["soc-logs-*"],
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1,
+    "index.refresh_interval": "5s"
+  },
+  "mappings": {
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "service": {
+        "type": "keyword"
+      },
+      "level": {
+        "type": "keyword"
+      },
+      "correlation_id": {
+        "type": "keyword"
+      },
+      "trace_id": {
+        "type": "keyword"
+      },
+      "span_id": {
+        "type": "keyword"
+      },
+      "user_id": {
+        "type": "keyword"
+      },
+      "organization_id": {
+        "type": "keyword"
+      },
+      "message": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "error_type": {
+        "type": "keyword"
+      },
+      "error_message": {
+        "type": "text"
+      },
+      "error_stack": {
+        "type": "text"
+      },
+      "response_time_ms": {
+        "type": "float"
+      },
+      "http.method": {
+        "type": "keyword"
+      },
+      "http.path": {
+        "type": "keyword"
+      },
+      "http.status_code": {
+        "type": "integer"
+      },
+      "client_ip": {
+        "type": "ip"
+      },
+      "geoip": {
+        "properties": {
+          "location": {
+            "type": "geo_point"
+          },
+          "country_name": {
+            "type": "keyword"
+          },
+          "city_name": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}

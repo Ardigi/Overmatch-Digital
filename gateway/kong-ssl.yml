@@ -1,0 +1,449 @@
+_format_version: "3.0"
+_transform: true
+
+# SSL/TLS Configuration for Kong API Gateway
+# Production-ready configuration with security best practices
+
+# Certificate configuration
+certificates:
+  - cert: |
+      -----BEGIN CERTIFICATE-----
+      # Server certificate goes here (will be replaced by generate-certs.ps1)
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN PRIVATE KEY-----
+      # Private key goes here (will be replaced by generate-certs.ps1)
+      -----END PRIVATE KEY-----
+    snis:
+      - name: soc-platform.com
+      - name: "*.soc-platform.com"
+      - name: api.soc-platform.com
+      - name: auth.soc-platform.com
+      - name: localhost
+      - name: "*.localhost"
+
+# Services configuration with HTTPS
+services:
+  # Auth Service
+  - name: auth-service
+    url: http://auth-service:3001
+    protocol: http
+    host: auth-service
+    port: 3001
+    retries: 5
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    tags:
+      - auth
+      - critical
+
+  # Client Service
+  - name: client-service
+    url: http://client-service:3002
+    protocol: http
+    host: client-service
+    port: 3002
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - client
+
+  # Policy Service
+  - name: policy-service
+    url: http://policy-service:3003
+    protocol: http
+    host: policy-service
+    port: 3003
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - policy
+
+  # Control Service
+  - name: control-service
+    url: http://control-service:3004
+    protocol: http
+    host: control-service
+    port: 3004
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - control
+
+  # Evidence Service
+  - name: evidence-service
+    url: http://evidence-service:3005
+    protocol: http
+    host: evidence-service
+    port: 3005
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - evidence
+
+  # Workflow Service
+  - name: workflow-service
+    url: http://workflow-service:3006
+    protocol: http
+    host: workflow-service
+    port: 3006
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - workflow
+
+  # Reporting Service
+  - name: reporting-service
+    url: http://reporting-service:3007
+    protocol: http
+    host: reporting-service
+    port: 3007
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - reporting
+
+  # Audit Service
+  - name: audit-service
+    url: http://audit-service:3008
+    protocol: http
+    host: audit-service
+    port: 3008
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - audit
+
+  # Integration Service
+  - name: integration-service
+    url: http://integration-service:3009
+    protocol: http
+    host: integration-service
+    port: 3009
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - integration
+
+  # Notification Service
+  - name: notification-service
+    url: http://notification-service:3010
+    protocol: http
+    host: notification-service
+    port: 3010
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - notification
+
+  # AI Service
+  - name: ai-service
+    url: http://ai-service:3011
+    protocol: http
+    host: ai-service
+    port: 3011
+    retries: 5
+    connect_timeout: 60000
+    tags:
+      - ai
+
+# Routes configuration with HTTPS
+routes:
+  # Auth routes
+  - name: auth-routes
+    service: auth-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - auth.soc-platform.com
+      - auth.localhost
+    paths:
+      - /auth
+    strip_path: true
+    https_redirect_status_code: 308
+
+  # Client routes
+  - name: client-routes
+    service: client-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/clients
+    https_redirect_status_code: 308
+
+  # Policy routes
+  - name: policy-routes
+    service: policy-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/policies
+    https_redirect_status_code: 308
+
+  # Control routes
+  - name: control-routes
+    service: control-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/controls
+    https_redirect_status_code: 308
+
+  # Evidence routes
+  - name: evidence-routes
+    service: evidence-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/evidence
+    https_redirect_status_code: 308
+
+  # Workflow routes
+  - name: workflow-routes
+    service: workflow-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/workflows
+    https_redirect_status_code: 308
+
+  # Reporting routes
+  - name: reporting-routes
+    service: reporting-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/reports
+    https_redirect_status_code: 308
+
+  # Audit routes
+  - name: audit-routes
+    service: audit-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/audits
+    https_redirect_status_code: 308
+
+  # Integration routes
+  - name: integration-routes
+    service: integration-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/integrations
+    https_redirect_status_code: 308
+
+  # Notification routes
+  - name: notification-routes
+    service: notification-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/notifications
+    https_redirect_status_code: 308
+
+  # AI routes
+  - name: ai-routes
+    service: ai-service
+    protocols:
+      - https
+      - http
+    hosts:
+      - api.soc-platform.com
+      - api.localhost
+    paths:
+      - /api/ai
+    https_redirect_status_code: 308
+
+# Global plugins
+plugins:
+  # CORS configuration
+  - name: cors
+    config:
+      origins:
+        - https://soc-platform.com
+        - https://www.soc-platform.com
+        - https://app.soc-platform.com
+        - https://localhost:3000
+        - http://localhost:3000
+      methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+        - OPTIONS
+      headers:
+        - Accept
+        - Accept-Version
+        - Content-Length
+        - Content-Type
+        - Authorization
+        - X-Request-ID
+        - X-Correlation-ID
+      exposed_headers:
+        - X-Request-ID
+        - X-RateLimit-Limit
+        - X-RateLimit-Remaining
+        - X-RateLimit-Reset
+      credentials: true
+      max_age: 3600
+
+  # Rate limiting
+  - name: rate-limiting
+    config:
+      minute: 60
+      hour: 1000
+      policy: local
+      fault_tolerant: true
+      hide_client_headers: false
+      redis_ssl: true
+      redis_ssl_verify: true
+
+  # Request ID for tracing
+  - name: correlation-id
+    config:
+      header_name: X-Correlation-ID
+      generator: uuid
+      echo_downstream: true
+
+  # Security headers
+  - name: response-transformer
+    config:
+      add:
+        headers:
+          - "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload"
+          - "X-Frame-Options: DENY"
+          - "X-Content-Type-Options: nosniff"
+          - "X-XSS-Protection: 1; mode=block"
+          - "Referrer-Policy: strict-origin-when-cross-origin"
+          - "Content-Security-Policy: default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:;"
+          - "Permissions-Policy: geolocation=(), microphone=(), camera=()"
+
+  # Request size limiting
+  - name: request-size-limiting
+    config:
+      allowed_payload_size: 10
+      size_unit: megabytes
+      require_content_length: true
+
+  # IP restriction (example - update for your needs)
+  # - name: ip-restriction
+  #   config:
+  #     allow:
+  #       - 10.0.0.0/8
+  #       - 172.16.0.0/12
+  #       - 192.168.0.0/16
+
+  # Bot detection
+  - name: bot-detection
+    config:
+      allow:
+        - GoogleBot
+        - BingBot
+      deny:
+        - "*"
+
+# Consumer configuration for API keys
+consumers:
+  - username: frontend-app
+    custom_id: frontend-app-001
+    tags:
+      - frontend
+      - production
+
+  - username: admin-portal
+    custom_id: admin-portal-001
+    tags:
+      - admin
+      - internal
+
+  - username: monitoring-service
+    custom_id: monitoring-001
+    tags:
+      - monitoring
+      - internal
+
+# API Key credentials
+keyauth_credentials:
+  - consumer: frontend-app
+    key: ${FRONTEND_API_KEY}
+    tags:
+      - production
+
+  - consumer: admin-portal
+    key: ${ADMIN_API_KEY}
+    tags:
+      - admin
+
+  - consumer: monitoring-service
+    key: ${MONITORING_API_KEY}
+    tags:
+      - monitoring
+
+# Upstreams for load balancing (example)
+upstreams:
+  - name: auth-service-upstream
+    algorithm: round-robin
+    slots: 1000
+    healthchecks:
+      active:
+        type: https
+        https_verify_certificate: true
+        healthy:
+          interval: 5
+          successes: 2
+        unhealthy:
+          interval: 5
+          failures: 3
+          timeouts: 3
+      passive:
+        healthy:
+          successes: 5
+        unhealthy:
+          failures: 5
+          timeouts: 3
+    targets:
+      - target: auth-service:3001
+        weight: 100
+        tags:
+          - production

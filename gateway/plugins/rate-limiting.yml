@@ -1,0 +1,221 @@
+# Rate Limiting Plugin Configuration for SOC Compliance Platform
+# This configuration defines rate limiting policies for different service tiers
+
+_format_version: "3.0"
+
+# Rate limiting tiers
+rate_limit_tiers:
+  # Public endpoints (no auth required)
+  public:
+    minute: 10
+    hour: 100
+    day: 1000
+    policy: local
+    fault_tolerant: true
+    hide_client_headers: false
+    redis_ssl: true
+    redis_ssl_verify: false
+    error_message: "API rate limit exceeded. Please try again later."
+    error_code: 429
+
+  # Basic tier (authenticated users)
+  basic:
+    minute: 60
+    hour: 1000
+    day: 10000
+    policy: redis
+    fault_tolerant: true
+    hide_client_headers: false
+    redis_ssl: true
+    redis_ssl_verify: false
+    redis_host: redis
+    redis_port: 6379
+    redis_password: ${REDIS_PASSWORD}
+    redis_database: 0
+
+  # Standard tier (client users)
+  standard:
+    minute: 100
+    hour: 2000
+    day: 20000
+    policy: redis
+    fault_tolerant: true
+    hide_client_headers: false
+    redis_ssl: true
+    redis_ssl_verify: false
+    redis_host: redis
+    redis_port: 6379
+    redis_password: ${REDIS_PASSWORD}
+    redis_database: 0
+
+  # Premium tier (enterprise clients)
+  premium:
+    minute: 200
+    hour: 4000
+    day: 40000
+    policy: redis
+    fault_tolerant: true
+    hide_client_headers: false
+    redis_ssl: true
+    redis_ssl_verify: false
+    redis_host: redis
+    redis_port: 6379
+    redis_password: ${REDIS_PASSWORD}
+    redis_database: 0
+
+  # Internal services (service-to-service)
+  internal:
+    minute: 500
+    hour: 10000
+    policy: redis
+    fault_tolerant: true
+    hide_client_headers: true
+    redis_ssl: true
+    redis_ssl_verify: false
+    redis_host: redis
+    redis_port: 6379
+    redis_password: ${REDIS_PASSWORD}
+    redis_database: 0
+
+# Service-specific rate limits
+service_limits:
+  # AI Service - expensive operations
+  ai-service:
+    minute: 10
+    hour: 100
+    day: 1000
+    policy: redis
+    fault_tolerant: true
+    error_message: "AI service rate limit exceeded. Please wait before making another request."
+
+  # Evidence Service - file uploads
+  evidence-service:
+    minute: 50
+    hour: 500
+    day: 5000
+    policy: redis
+    fault_tolerant: true
+    error_message: "File upload rate limit exceeded. Please try again later."
+
+  # Reporting Service - resource intensive
+  reporting-service:
+    minute: 30
+    hour: 300
+    day: 3000
+    policy: redis
+    fault_tolerant: true
+    error_message: "Report generation rate limit exceeded. Please try again later."
+
+  # Integration Service - webhooks
+  integration-service:
+    minute: 50
+    hour: 500
+    day: 5000
+    policy: redis
+    fault_tolerant: true
+    error_message: "Integration rate limit exceeded. Please try again later."
+
+# Endpoint-specific rate limits
+endpoint_limits:
+  # Auth endpoints
+  "/api/v1/auth/login":
+    minute: 5
+    hour: 50
+    policy: redis
+    fault_tolerant: true
+    error_message: "Too many login attempts. Please try again later."
+
+  "/api/v1/auth/register":
+    minute: 3
+    hour: 10
+    day: 50
+    policy: redis
+    fault_tolerant: true
+    error_message: "Registration rate limit exceeded. Please try again later."
+
+  "/api/v1/auth/forgot-password":
+    minute: 2
+    hour: 10
+    day: 20
+    policy: redis
+    fault_tolerant: true
+    error_message: "Too many password reset requests. Please try again later."
+
+  # Report generation endpoints
+  "/api/v1/reports/generate":
+    minute: 5
+    hour: 50
+    day: 500
+    policy: redis
+    fault_tolerant: true
+    error_message: "Report generation rate limit exceeded. Please try again later."
+
+  # AI analysis endpoints
+  "/api/v1/ai/analyze":
+    minute: 2
+    hour: 20
+    day: 200
+    policy: redis
+    fault_tolerant: true
+    error_message: "AI analysis rate limit exceeded. Please try again later."
+
+# Consumer-specific rate limits
+consumer_limits:
+  # Admin users
+  admin:
+    minute: 300
+    hour: 6000
+    policy: redis
+    fault_tolerant: true
+
+  # Service accounts
+  service-account:
+    minute: 500
+    hour: 10000
+    policy: redis
+    fault_tolerant: true
+
+  # Basic users
+  user:
+    minute: 60
+    hour: 1000
+    policy: redis
+    fault_tolerant: true
+
+  # Auditor role
+  auditor:
+    minute: 200
+    hour: 4000
+    policy: redis
+    fault_tolerant: true
+
+# Redis configuration
+redis_config:
+  host: redis
+  port: 6379
+  password: ${REDIS_PASSWORD}
+  database: 0
+  timeout: 2000
+  ssl: true
+  ssl_verify: false
+  cluster_addresses: null
+  sentinel_master: null
+  sentinel_role: null
+  sentinel_addresses: null
+
+# Headers configuration
+headers_config:
+  # Headers to send to client
+  client_headers:
+    - X-RateLimit-Limit-Minute
+    - X-RateLimit-Remaining-Minute
+    - X-RateLimit-Limit-Hour
+    - X-RateLimit-Remaining-Hour
+    - X-RateLimit-Limit-Day
+    - X-RateLimit-Remaining-Day
+
+  # Headers to hide from client
+  hide_headers:
+    - X-Kong-Upstream-Latency
+    - X-Kong-Proxy-Latency
+    - Via

@@ -1,0 +1,43 @@
+# Ignore all certificate files for security
+*.pem
+*.crt
+*.key
+*.csr
+*.p12
+*.pfx
+*.jks
+*.srl
+
+# Ignore certificate directories
+dev/*
+prod/*
+private/*
+intermediate/*
+
+# Keep directory structure
+!dev/.gitkeep
+!prod/.gitkeep
+!private/.gitkeep
+!intermediate/.gitkeep
+
+# Keep scripts
+!generate-certs.ps1
+!renew-certs.sh
+
+# Ignore backup files
+*.bak
+*.backup
+*.old
+
+# Ignore Let's Encrypt files
+accounts/
+archive/
+live/
+renewal/
+renewal-hooks/
+
+# Ignore temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db

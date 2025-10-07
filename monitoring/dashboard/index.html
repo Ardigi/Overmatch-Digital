@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOC Platform Monitoring Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        h1 {
+            color: #764ba2;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-healthy { background: #10b981; }
+        .status-warning { background: #f59e0b; }
+        .status-error { background: #ef4444; }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .timestamp {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .metric-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4b5563;
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+        
+        .metric-change {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .metric-change.positive { color: #10b981; }
+        .metric-change.negative { color: #ef4444; }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            transition: all 0.2s;
+        }
+        
+        .service-card.healthy { border-left-color: #10b981; }
+        .service-card.warning { border-left-color: #f59e0b; }
+        .service-card.error { border-left-color: #ef4444; }
+        
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .service-status {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .service-status.healthy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .service-status.warning {
+            background: #fed7aa;
+            color: #92400e;
+        }
+        
+        .service-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .service-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .service-metric {
+            text-align: center;
+        }
+        
+        .service-metric-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        
+        .service-metric-label {
+            font-size: 10px;
+            color: #9ca3af;
+            text-transform: uppercase;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chart-control {
+            padding: 6px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background: white;
+            color: #6b7280;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .chart-control:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+        
+        .chart-control.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        #responseTimeChart, #throughputChart {
+            height: 300px;
+        }
+        
+        .alert-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .alert-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        
+        .alert-item:hover {
+            background: #f9fafb;
+        }
+        
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .alert-icon.critical {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+        
+        .alert-icon.warning {
+            background: #fed7aa;
+            color: #f59e0b;
+        }
+        
+        .alert-icon.info {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+        
+        .alert-message {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        
+        .alert-time {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover {
+            color: #4b5563;
+        }
+        
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        
+        .refresh-btn {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .refresh-btn:hover {
+            background: #5a67d8;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <span class="status-indicator status-healthy"></span>
+                SOC Platform Monitoring
+            </h1>
+            <div>
+                <span class="timestamp" id="currentTime"></span>
+                <button class="refresh-btn" onclick="refreshDashboard()">↻ Refresh</button>
+            </div>
+        </header>
+        
+        <!-- Key Metrics -->
+        <div class="dashboard-grid">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">System Health</span>
+                    <span class="status-indicator status-healthy"></span>
+                </div>
+                <div class="metric-value">98.5%</div>
+                <div class="metric-change positive">↑ 2.1% from yesterday</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">Active Services</span>
+                </div>
+                <div class="metric-value">11/11</div>
+                <div class="metric-change">All services operational</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">Avg Response Time</span>
+                </div>
+                <div class="metric-value">142ms</div>
+                <div class="metric-change positive">↓ 18ms improvement</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-title">Requests/min</span>
+                </div>
+                <div class="metric-value">1,247</div>
+                <div class="metric-change positive">↑ 15% from last hour</div>
+            </div>
+        </div>
+        
+        <!-- Charts -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2 class="chart-title">Response Time Trends</h2>
+                <div class="chart-controls">
+                    <button class="chart-control active">1H</button>
+                    <button class="chart-control">6H</button>
+                    <button class="chart-control">24H</button>
+                    <button class="chart-control">7D</button>
+                </div>
+            </div>
+            <canvas id="responseTimeChart"></canvas>
+        </div>
+        
+        <!-- Service Status -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2 class="chart-title">Service Status</h2>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('microservices')">Microservices</button>
+                <button class="tab" onclick="showTab('infrastructure')">Infrastructure</button>
+                <button class="tab" onclick="showTab('databases')">Databases</button>
+            </div>
+            
+            <div id="microservices" class="services-grid">
+                <!-- Services will be populated by JavaScript -->
+            </div>
+            
+            <div id="infrastructure" class="services-grid" style="display: none;">
+                <!-- Infrastructure will be populated by JavaScript -->
+            </div>
+            
+            <div id="databases" class="services-grid" style="display: none;">
+                <!-- Databases will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Alerts -->
+        <div class="alert-container">
+            <div class="chart-header">
+                <h2 class="chart-title">Recent Alerts</h2>
+            </div>
+            
+            <div id="alertsList">
+                <!-- Alerts will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Service definitions
+        const microservices = [
+            { name: 'Auth Service', port: 3001, status: 'healthy', cpu: 23, memory: 45, requests: 523 },
+            { name: 'Client Service', port: 3002, status: 'healthy', cpu: 18, memory: 38, requests: 412 },
+            { name: 'Policy Service', port: 3003, status: 'healthy', cpu: 15, memory: 32, requests: 287 },
+            { name: 'Control Service', port: 3004, status: 'healthy', cpu: 20, memory: 41, requests: 356 },
+            { name: 'Evidence Service', port: 3005, status: 'warning', cpu: 67, memory: 78, requests: 892 },
+            { name: 'Workflow Service', port: 3006, status: 'healthy', cpu: 12, memory: 28, requests: 156 },
+            { name: 'Reporting Service', port: 3007, status: 'healthy', cpu: 45, memory: 52, requests: 623 },
+            { name: 'Audit Service', port: 3008, status: 'healthy', cpu: 8, memory: 22, requests: 1247 },
+            { name: 'Integration Service', port: 3009, status: 'healthy', cpu: 25, memory: 35, requests: 189 },
+            { name: 'Notification Service', port: 3010, status: 'healthy', cpu: 10, memory: 18, requests: 456 },
+            { name: 'AI Service', port: 3011, status: 'healthy', cpu: 52, memory: 68, requests: 78 }
+        ];
+        
+        const infrastructure = [
+            { name: 'Kong Gateway', port: 8000, status: 'healthy', cpu: 15, memory: 32, requests: 5623 },
+            { name: 'Kafka', port: 9092, status: 'healthy', cpu: 28, memory: 45, requests: 8934 },
+            { name: 'Redis', port: 6379, status: 'healthy', cpu: 5, memory: 12, requests: 15234 },
+            { name: 'Elasticsearch', port: 9200, status: 'healthy', cpu: 35, memory: 58, requests: 2341 }
+        ];
+        
+        const databases = [
+            { name: 'PostgreSQL Primary', port: 5432, status: 'healthy', cpu: 42, memory: 67, requests: 3456 },
+            { name: 'MongoDB', port: 27017, status: 'healthy', cpu: 25, memory: 48, requests: 1234 },
+            { name: 'PostgreSQL Replica', port: 5433, status: 'healthy', cpu: 18, memory: 35, requests: 890 }
+        ];
+        
+        const alerts = [
+            { level: 'warning', title: 'High Memory Usage', message: 'Evidence Service memory usage at 78%', time: '5 minutes ago' },
+            { level: 'info', title: 'Deployment Complete', message: 'Policy Service v2.1.3 deployed successfully', time: '12 minutes ago' },
+            { level: 'critical', title: 'Rate Limit Reached', message: 'API rate limit reached for client XYZ', time: '23 minutes ago' },
+            { level: 'info', title: 'Backup Complete', message: 'Daily database backup completed', time: '1 hour ago' },
+            { level: 'warning', title: 'Slow Queries Detected', message: '3 slow queries in Reporting Service', time: '2 hours ago' }
+        ];
+        
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = 
+                now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+        }
+        
+        // Render services
+        function renderServices(services, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = services.map(service => `
+                <div class="service-card ${service.status}">
+                    <div class="service-header">
+                        <span class="service-name">${service.name}</span>
+                        <span class="service-status ${service.status}">${service.status}</span>
+                    </div>
+                    <div class="service-metrics">
+                        <div class="service-metric">
+                            <div class="service-metric-value">${service.cpu}%</div>
+                            <div class="service-metric-label">CPU</div>
+                        </div>
+                        <div class="service-metric">
+                            <div class="service-metric-value">${service.memory}%</div>
+                            <div class="service-metric-label">Memory</div>
+                        </div>
+                        <div class="service-metric">
+                            <div class="service-metric-value">${service.requests}</div>
+                            <div class="service-metric-label">Req/m</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Render alerts
+        function renderAlerts() {
+            const container = document.getElementById('alertsList');
+            container.innerHTML = alerts.map(alert => `
+                <div class="alert-item">
+                    <div class="alert-icon ${alert.level}">
+                        ${alert.level === 'critical' ? '!' : alert.level === 'warning' ? '⚠' : 'ℹ'}
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-title">${alert.title}</div>
+                        <div class="alert-message">${alert.message}</div>
+                    </div>
+                    <div class="alert-time">${alert.time}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.services-grid').forEach(grid => {
+                grid.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).style.display = 'grid';
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        // Initialize response time chart
+        function initResponseTimeChart() {
+            const ctx = document.getElementById('responseTimeChart').getContext('2d');
+            
+            // Generate sample data
+            const labels = [];
+            const data = [];
+            for (let i = 59; i >= 0; i--) {
+                const time = new Date();
+                time.setMinutes(time.getMinutes() - i);
+                labels.push(time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                data.push(Math.floor(Math.random() * 50) + 120);
+            }
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Response Time (ms)',
+                        data: data,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Refresh dashboard
+        function refreshDashboard() {
+            // Simulate data refresh
+            microservices.forEach(service => {
+                service.cpu = Math.floor(Math.random() * 60) + 10;
+                service.memory = Math.floor(Math.random() * 60) + 20;
+                service.requests = Math.floor(Math.random() * 1000) + 100;
+            });
+            
+            renderServices(microservices, 'microservices');
+            renderServices(infrastructure, 'infrastructure');
+            renderServices(databases, 'databases');
+            
+            // Update metrics
+            document.querySelectorAll('.metric-value').forEach((el, i) => {
+                if (i === 0) el.textContent = (95 + Math.random() * 4).toFixed(1) + '%';
+                if (i === 2) el.textContent = Math.floor(Math.random() * 50 + 120) + 'ms';
+                if (i === 3) el.textContent = Math.floor(Math.random() * 500 + 1000).toLocaleString();
+            });
+            
+            updateTime();
+        }
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            renderServices(microservices, 'microservices');
+            renderServices(infrastructure, 'infrastructure');
+            renderServices(databases, 'databases');
+            renderAlerts();
+            
+            initResponseTimeChart();
+            
+            // Auto-refresh every 30 seconds
+            setInterval(refreshDashboard, 30000);
+        });
+    </script>
+</body>
+</html>

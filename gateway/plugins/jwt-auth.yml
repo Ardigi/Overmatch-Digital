@@ -1,0 +1,233 @@
+# JWT Authentication Plugin Configuration for SOC Compliance Platform
+# This configuration defines JWT validation and token management
+
+_format_version: "3.0"
+
+# JWT Configuration
+jwt_config:
+  # Key claim name
+  key_claim_name: kid
+  
+  # Secret configuration
+  secret_is_base64: false
+  
+  # JWT signing algorithms
+  algorithm: RS256
+  
+  # RSA public key for verification
+  rsa_public_key: |
+    -----BEGIN PUBLIC KEY-----
+    ${JWT_PUBLIC_KEY}
+    -----END PUBLIC KEY-----
+  
+  # Token locations
+  header_names:
+    - authorization
+    - x-auth-token
+  
+  cookie_names:
+    - auth-token
+    - jwt-token
+    - session-token
+  
+  uri_param_names:
+    - token
+    - jwt
+    - auth_token
+  
+  # Claims to verify
+  claims_to_verify:
+    - exp  # Expiration time
+    - nbf  # Not before
+    - iat  # Issued at
+  
+  # Maximum token expiration (1 year)
+  maximum_expiration: 31536000
+  
+  # Token prefix
+  auth_header_prefix: "Bearer "
+  
+  # Anonymous consumer (for public endpoints)
+  anonymous: null
+  
+  # Run on preflight requests
+  run_on_preflight: true
+
+# Service-specific JWT configurations
+service_jwt_configs:
+  # Auth Service - Issues tokens
+  auth-service:
+    skip_jwt_verification:
+      - /api/v1/auth/login
+      - /api/v1/auth/register
+      - /api/v1/auth/refresh
+      - /api/v1/auth/verify-email
+      - /api/v1/auth/forgot-password
+      - /api/v1/auth/reset-password
+      - /api/v1/auth/health
+      - /health
+      - /metrics
+  
+  # AI Service - Long-lived tokens
+  ai-service:
+    maximum_expiration: 86400  # 24 hours for long analysis
+    claims_to_verify:
+      - exp
+      - nbf
+      - scope
+  
+  # Integration Service - Service tokens
+  integration-service:
+    header_names:
+      - authorization
+      - x-api-key
+      - x-service-token
+    claims_to_verify:
+      - exp
+      - nbf
+      - scope
+      - service
+
+# Custom claims validation
+custom_claims:
+  # Organization claim - required for multi-tenancy
+  organizationId:
+    required: true
+    type: string
+    pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+  
+  # User role claim
+  role:
+    required: true
+    type: string
+    enum:
+      - admin
+      - auditor
+      - client-admin
+      - user
+      - service
+  
+  # Permissions claim
+  permissions:
+    required: false
+    type: array
+    items:
+      type: string
+  
+  # Client ID claim (for multi-tenant isolation)
+  clientId:
+    required: false
+    type: string
+    pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+  
+  # Service account claim
+  service:
+    required: false
+    type: string
+    enum:
+      - auth-service
+      - client-service
+      - policy-service
+      - control-service
+      - evidence-service
+      - workflow-service
+      - reporting-service
+      - audit-service
+      - integration-service
+      - notification-service
+      - ai-service
+
+# Token transformation rules
+token_transformations:
+  # Add consumer information to headers
+  add_headers:
+    - "X-Consumer-ID: ${jwt.sub}"
+    - "X-Consumer-Username: ${jwt.username}"
+    - "X-Consumer-Role: ${jwt.role}"
+    - "X-Organization-ID: ${jwt.organizationId}"
+    - "X-Client-ID: ${jwt.clientId}"
+    - "X-Token-Expires: ${jwt.exp}"
+  
+  # Remove sensitive headers
+  remove_headers:
+    - authorization
+    - x-auth-token
+    - cookie
+
+# Error responses
+error_responses:
+  # Missing token
+  no_token:
+    status: 401
+    message: "No authentication token provided"
+    headers:
+      - "WWW-Authenticate: Bearer realm=\"SOC Compliance Platform\""
+  
+  # Invalid token
+  invalid_token:
+    status: 401
+    message: "Invalid authentication token"
+    headers:
+      - "WWW-Authenticate: Bearer realm=\"SOC Compliance Platform\", error=\"invalid_token\""
+  
+  # Expired token
+  expired_token:
+    status: 401
+    message: "Authentication token has expired"
+    headers:
+      - "WWW-Authenticate: Bearer realm=\"SOC Compliance Platform\", error=\"invalid_token\", error_description=\"The access token expired\""
+  
+  # Insufficient permissions
+  insufficient_scope:
+    status: 403
+    message: "Insufficient permissions to access this resource"
+    headers:
+      - "WWW-Authenticate: Bearer realm=\"SOC Compliance Platform\", error=\"insufficient_scope\""
+
+# JWT secrets management
+secrets_config:
+  # Secret rotation
+  rotation_enabled: true
+  rotation_interval: 86400  # 24 hours
+  
+  # Key storage
+  storage_type: redis
+  storage_config:
+    host: redis
+    port: 6379
+    password: ${REDIS_PASSWORD}
+    database: 1
+    key_prefix: "kong:jwt:keys:"
+  
+  # Backup keys
+  backup_keys:
+    - kid: "backup-key-1"
+      secret: ${JWT_BACKUP_SECRET_1}
+    - kid: "backup-key-2"
+      secret: ${JWT_BACKUP_SECRET_2}
+
+# Session management
+session_config:
+  # Session storage
+  storage: redis
+  
+  # Session duration
+  cookie_lifetime: 3600  # 1 hour
+  rolling_timeout: 1800  # 30 minutes
+  absolute_timeout: 86400  # 24 hours
+  
+  # Cookie configuration
+  cookie_name: "soc_session"
+  cookie_path: "/"
+  cookie_domain: ".soc-platform.com"
+  cookie_samesite: "Strict"
+  cookie_httponly: true
+  cookie_secure: true
+  
+  # Session validation
+  check_ip: true
+  check_user_agent: true
+  
+  # Concurrent sessions
+  max_sessions_per_user: 5
+  enforce_single_session: false

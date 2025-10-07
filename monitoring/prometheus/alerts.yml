@@ -1,0 +1,174 @@
+groups:
+  - name: service_health
+    interval: 30s
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "{{ $labels.job }} has been down for more than 2 minutes."
+
+      - alert: HighMemoryUsage
+        expr: (container_memory_usage_bytes / container_spec_memory_limit_bytes) * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.container_name }}"
+          description: "Container {{ $labels.container_name }} memory usage is above 90%."
+
+      - alert: HighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on {{ $labels.container_name }}"
+          description: "Container {{ $labels.container_name }} CPU usage is above 80%."
+
+  - name: application_metrics
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate on {{ $labels.job }}"
+          description: "{{ $labels.job }} has error rate above 5% for 5 minutes."
+
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High response time on {{ $labels.job }}"
+          description: "{{ $labels.job }} 95th percentile response time is above 1 second."
+
+      - alert: AuthenticationFailures
+        expr: rate(auth_failures_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High authentication failure rate"
+          description: "More than 10 authentication failures per second for 2 minutes."
+
+  - name: database_health
+    interval: 30s
+    rules:
+      - alert: PostgreSQLDown
+        expr: pg_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "PostgreSQL database has been down for more than 1 minute."
+
+      - alert: HighDatabaseConnections
+        expr: pg_stat_activity_count > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High number of database connections"
+          description: "PostgreSQL has more than 80 active connections."
+
+      - alert: DatabaseReplicationLag
+        expr: pg_replication_lag > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Database replication lag"
+          description: "PostgreSQL replication lag is above 10 seconds."
+
+  - name: redis_health
+    interval: 30s
+    rules:
+      - alert: RedisDown
+        expr: redis_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis is down"
+          description: "Redis has been down for more than 1 minute."
+
+      - alert: RedisHighMemoryUsage
+        expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis high memory usage"
+          description: "Redis memory usage is above 90%."
+
+      - alert: RedisCacheMissRate
+        expr: rate(redis_keyspace_misses_total[5m]) / (rate(redis_keyspace_hits_total[5m]) + rate(redis_keyspace_misses_total[5m])) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Redis cache miss rate"
+          description: "Redis cache miss rate is above 50%."
+
+  - name: kafka_health
+    interval: 30s
+    rules:
+      - alert: KafkaConsumerLag
+        expr: kafka_consumer_lag > 1000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Kafka consumer lag"
+          description: "Kafka consumer {{ $labels.consumer_group }} has lag above 1000 messages."
+
+      - alert: KafkaBrokerOffline
+        expr: kafka_brokers < 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Kafka broker offline"
+          description: "Less than 1 Kafka broker available."
+
+  - name: compliance_metrics
+    interval: 1m
+    rules:
+      - alert: ComplianceCheckFailure
+        expr: compliance_check_failures_total > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Compliance check failure"
+          description: "Compliance check {{ $labels.check_type }} has failed."
+
+      - alert: AuditLogGap
+        expr: time() - audit_log_last_timestamp > 300
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Audit log gap detected"
+          description: "No audit logs received for more than 5 minutes."
+
+      - alert: UnauthorizedAccessAttempt
+        expr: rate(unauthorized_access_attempts_total[5m]) > 5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High rate of unauthorized access attempts"
+          description: "More than 5 unauthorized access attempts per second."
+
+# Include secrets management alerts
+- "/etc/prometheus/alerts/secrets-alerts.yml"

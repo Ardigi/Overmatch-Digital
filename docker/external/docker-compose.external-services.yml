@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  # MailDev - Email testing for development
+  maildev:
+    image: maildev/maildev:latest
+    container_name: soc-maildev
+    environment:
+      - MAILDEV_WEB_PORT=1080
+      - MAILDEV_SMTP_PORT=1025
+    ports:
+      - "1080:1080"  # Web interface
+      - "1025:1025"  # SMTP port
+    networks:
+      - soc-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:1080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MinIO - S3-compatible storage for development
+  minio:
+    image: minio/minio:latest
+    container_name: soc-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-soc_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-soc_password}
+      MINIO_DEFAULT_BUCKETS: soc-evidence,soc-reports,soc-audit-files
+    ports:
+      - "9000:9000"    # API port
+      - "9001:9001"    # Console port
+    volumes:
+      - minio-data:/data
+    networks:
+      - soc-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # MinIO Client - Initialize buckets
+  minio-client:
+    image: minio/mc:latest
+    container_name: soc-minio-client
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER:-soc_admin} ${MINIO_ROOT_PASSWORD:-soc_password};
+      /usr/bin/mc mb myminio/soc-evidence --ignore-existing;
+      /usr/bin/mc mb myminio/soc-reports --ignore-existing;
+      /usr/bin/mc mb myminio/soc-audit-files --ignore-existing;
+      /usr/bin/mc anonymous set download myminio/soc-reports;
+      exit 0;
+      "
+    networks:
+      - soc-network
+
+  # LocalStack - AWS services emulation (optional)
+  localstack:
+    image: localstack/localstack:latest
+    container_name: soc-localstack
+    ports:
+      - "4566:4566"            # LocalStack Gateway
+      - "4510-4559:4510-4559"  # External services
+    environment:
+      - SERVICES=s3,ses,sqs,sns
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - LAMBDA_EXECUTOR=local
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+    volumes:
+      - localstack-data:/tmp/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - soc-network
+
+  # Vault - Secrets management (optional for production)
+  vault:
+    image: vault:latest
+    container_name: soc-vault
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_ROOT_TOKEN:-myroot}
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    ports:
+      - "8200:8200"
+    volumes:
+      - vault-data:/vault/data
+    networks:
+      - soc-network
+
+volumes:
+  minio-data:
+  localstack-data:
+  vault-data:
+
+networks:
+  soc-network:
+    external: true

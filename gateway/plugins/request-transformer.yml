@@ -1,0 +1,313 @@
+# Request Transformer Plugin Configuration for SOC Compliance Platform
+# This configuration defines request transformations and header management
+
+_format_version: "3.0"
+
+# Global request transformations
+global_transformations:
+  # Headers to add to all requests
+  add:
+    headers:
+      - "X-Gateway-Version: 1.0"
+      - "X-Gateway-Timestamp: ${timestamp}"
+      - "X-Forwarded-Proto: ${scheme}"
+      - "X-Real-IP: ${remote_addr}"
+      - "X-Forwarded-Host: ${host}"
+  
+  # Headers to remove from all requests
+  remove:
+    headers:
+      - "Cookie"  # Remove cookies from upstream
+      - "X-Forwarded-For"  # Reset forwarding chain
+      - "X-Real-IP"  # Reset before adding new
+  
+  # Headers to rename
+  rename:
+    headers:
+      - "X-Custom-Header:X-Service-Header"
+      - "Authorization:X-Original-Authorization"
+  
+  # Query parameters to add
+  add:
+    querystring:
+      - "api_version=1.0"
+  
+  # Body transformations
+  body:
+    # Add metadata to JSON requests
+    add_json:
+      _metadata:
+        gateway_timestamp: "${timestamp}"
+        request_id: "${request_id}"
+        api_version: "1.0"
+
+# Service-specific transformations
+service_transformations:
+  # Auth Service
+  auth-service:
+    add:
+      headers:
+        - "X-Service-Name: auth-service"
+        - "X-Auth-Flow: true"
+    remove:
+      headers:
+        - "X-Original-Authorization"
+      querystring:
+        - "password"  # Don't log passwords
+    sensitive_fields:
+      - password
+      - token
+      - secret
+      - apiKey
+  
+  # Client Service - Add organization context
+  client-service:
+    add:
+      headers:
+        - "X-Service-Name: client-service"
+        - "X-Organization-ID: ${jwt.organizationId}"
+        - "X-Client-Context: ${jwt.clientId}"
+        - "X-User-Role: ${jwt.role}"
+    append:
+      headers:
+        - "X-Permitted-Clients: ${jwt.permittedClients}"
+  
+  # Evidence Service - File upload handling
+  evidence-service:
+    add:
+      headers:
+        - "X-Service-Name: evidence-service"
+        - "X-Max-Upload-Size: 104857600"  # 100MB
+        - "X-Allowed-Types: pdf,doc,docx,xls,xlsx,jpg,jpeg,png"
+    remove:
+      headers:
+        - "Content-Length"  # Will be recalculated
+    config:
+      preserve_content_type: true
+      preserve_body: true
+  
+  # Reporting Service - Add caching headers
+  reporting-service:
+    add:
+      headers:
+        - "X-Service-Name: reporting-service"
+        - "X-Cache-Control: private, max-age=300"
+        - "X-Report-Format: ${query.format|pdf}"
+    add:
+      querystring:
+        - "timezone=${headers.X-User-Timezone|UTC}"
+  
+  # AI Service - Add context headers
+  ai-service:
+    add:
+      headers:
+        - "X-Service-Name: ai-service"
+        - "X-AI-Model: ${query.model|gpt-4}"
+        - "X-AI-Temperature: ${query.temperature|0.7}"
+        - "X-AI-Max-Tokens: ${query.max_tokens|2000}"
+    config:
+      timeout_multiplier: 10  # 10x normal timeout
+
+# Authentication transformations
+auth_transformations:
+  # JWT token extraction and transformation
+  jwt:
+    extract_from:
+      - header: "Authorization"
+        prefix: "Bearer "
+      - header: "X-Auth-Token"
+      - cookie: "auth-token"
+      - query: "token"
+    
+    transform_to:
+      headers:
+        - "X-User-ID: ${jwt.sub}"
+        - "X-User-Email: ${jwt.email}"
+        - "X-User-Role: ${jwt.role}"
+        - "X-Organization-ID: ${jwt.organizationId}"
+        - "X-Client-ID: ${jwt.clientId}"
+        - "X-Token-Expires: ${jwt.exp}"
+        - "X-Token-Issued: ${jwt.iat}"
+    
+    remove_after_transform:
+      - "Authorization"
+      - "X-Auth-Token"
+  
+  # API key transformation
+  api_key:
+    extract_from:
+      - header: "X-API-Key"
+      - query: "api_key"
+    
+    transform_to:
+      headers:
+        - "X-API-Key-ID: ${api_key.id}"
+        - "X-API-Key-Name: ${api_key.name}"
+        - "X-API-Key-Scopes: ${api_key.scopes}"
+
+# Multi-tenancy transformations
+multitenancy:
+  # Extract tenant information
+  extract_tenant:
+    from:
+      - header: "X-Organization-ID"
+      - jwt_claim: "organizationId"
+      - subdomain: "{tenant}.soc-platform.com"
+      - path: "/api/v1/orgs/{tenant}/*"
+    
+    transform_to:
+      headers:
+        - "X-Tenant-ID: ${tenant.id}"
+        - "X-Tenant-Name: ${tenant.name}"
+        - "X-Tenant-Tier: ${tenant.tier}"
+    
+    validate:
+      required: true
+      format: "uuid"
+  
+  # Client isolation
+  client_isolation:
+    extract_from:
+      - jwt_claim: "clientId"
+      - header: "X-Client-ID"
+      - path: "/api/v1/clients/{clientId}/*"
+    
+    transform_to:
+      headers:
+        - "X-Client-ID: ${client.id}"
+        - "X-Client-Name: ${client.name}"
+      querystring:
+        - "client_id=${client.id}"
+
+# Webhook transformations
+webhook_transformations:
+  # Incoming webhooks
+  incoming:
+    add:
+      headers:
+        - "X-Webhook-Timestamp: ${timestamp}"
+        - "X-Webhook-ID: ${request_id}"
+    
+    validate_signature:
+      header: "X-Hub-Signature-256"
+      algorithm: "hmac-sha256"
+      secret_source: "consumer"
+    
+    transform_body:
+      wrap_in_envelope: true
+      envelope_format:
+        webhook_id: "${request_id}"
+        received_at: "${timestamp}"
+        source_ip: "${remote_addr}"
+        headers: "${headers}"
+        body: "${body}"
+  
+  # Outgoing webhooks
+  outgoing:
+    add:
+      headers:
+        - "User-Agent: SOC-Platform-Webhook/1.0"
+        - "X-Webhook-Event: ${event.type}"
+        - "X-Webhook-ID: ${webhook.id}"
+        - "X-Webhook-Timestamp: ${timestamp}"
+    
+    sign_request:
+      algorithm: "hmac-sha256"
+      header: "X-Webhook-Signature"
+      include_timestamp: true
+
+# Content-type specific transformations
+content_transformations:
+  # JSON transformations
+  "application/json":
+    # Ensure valid JSON
+    validate: true
+    
+    # Pretty print in development
+    pretty_print: ${env.NODE_ENV == 'development'}
+    
+    # Add envelope
+    envelope:
+      enabled: false
+      format:
+        data: "${body}"
+        meta:
+          timestamp: "${timestamp}"
+          request_id: "${request_id}"
+  
+  # Form data transformations
+  "application/x-www-form-urlencoded":
+    # Convert to JSON for upstream
+    convert_to: "application/json"
+    
+    # Sanitize inputs
+    sanitize:
+      - trim_whitespace: true
+      - remove_null_bytes: true
+      - escape_html: true
+  
+  # Multipart transformations
+  "multipart/form-data":
+    # File upload validations
+    validate_files:
+      max_size: 104857600  # 100MB
+      allowed_types:
+        - "application/pdf"
+        - "image/jpeg"
+        - "image/png"
+      scan_viruses: true
+
+# Error transformation
+error_transformations:
+  # Standardize error responses
+  standardize_errors:
+    format:
+      error:
+        code: "${error.code}"
+        message: "${error.message}"
+        details: "${error.details}"
+        timestamp: "${timestamp}"
+        request_id: "${request_id}"
+        path: "${request.path}"
+    
+    # Hide internal errors in production
+    production_mode:
+      hide_details: true
+      generic_message: "An error occurred processing your request"
+      include_request_id: true
+  
+  # Error code mapping
+  status_code_mapping:
+    "400": "BAD_REQUEST"
+    "401": "UNAUTHORIZED"
+    "403": "FORBIDDEN"
+    "404": "NOT_FOUND"
+    "409": "CONFLICT"
+    "422": "UNPROCESSABLE_ENTITY"
+    "429": "TOO_MANY_REQUESTS"
+    "500": "INTERNAL_SERVER_ERROR"
+    "502": "BAD_GATEWAY"
+    "503": "SERVICE_UNAVAILABLE"
+    "504": "GATEWAY_TIMEOUT"
+
+# Performance optimizations
+performance:
+  # Request buffering
+  buffering:
+    request_body: true
+    response_body: true
+    memory_limit: "10m"
+    disk_limit: "100m"
+  
+  # Compression
+  compression:
+    request:
+      enabled: true
+      types: ["application/json", "text/plain"]
+      min_length: 1024
+    
+    response:
+      enabled: true
+      types: ["application/json", "text/html", "text/plain"]
+      min_length: 512
+      level: 6

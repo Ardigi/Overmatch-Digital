@@ -1,0 +1,282 @@
+# Security Headers Plugin Configuration for SOC Compliance Platform
+# This configuration implements security best practices for HTTP headers
+
+_format_version: "3.0"
+
+# Security headers configuration
+security_headers:
+  # Content Security Policy (CSP)
+  content_security_policy:
+    # Production CSP
+    production: |
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.soc-platform.com https://www.google-analytics.com https://www.googletagmanager.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.soc-platform.com;
+      img-src 'self' data: https: blob:;
+      font-src 'self' https://fonts.gstatic.com https://cdn.soc-platform.com;
+      connect-src 'self' https://api.soc-platform.com wss://api.soc-platform.com https://www.google-analytics.com;
+      media-src 'self' https://cdn.soc-platform.com;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'none';
+      block-all-mixed-content;
+      upgrade-insecure-requests;
+    
+    # Development CSP (more permissive)
+    development: |
+      default-src 'self' http://localhost:* ws://localhost:*;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:*;
+      style-src 'self' 'unsafe-inline' http://localhost:*;
+      img-src 'self' data: http: https: blob:;
+      font-src 'self' data: http://localhost:*;
+      connect-src 'self' http://localhost:* ws://localhost:* http://127.0.0.1:*;
+      media-src 'self';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+  
+  # Report-only mode for testing
+  content_security_policy_report_only: false
+  
+  # CSP violation reporting
+  csp_report_uri: "https://api.soc-platform.com/api/v1/security/csp-report"
+
+  # Strict Transport Security (HSTS)
+  strict_transport_security:
+    max_age: 31536000  # 1 year
+    include_subdomains: true
+    preload: true
+  
+  # X-Frame-Options
+  x_frame_options: "DENY"
+  
+  # X-Content-Type-Options
+  x_content_type_options: "nosniff"
+  
+  # X-XSS-Protection
+  x_xss_protection: "1; mode=block"
+  
+  # Referrer-Policy
+  referrer_policy: "strict-origin-when-cross-origin"
+  
+  # Permissions-Policy (Feature-Policy)
+  permissions_policy:
+    accelerometer: "()"
+    ambient-light-sensor: "()"
+    autoplay: "(self)"
+    battery: "()"
+    camera: "()"
+    cross-origin-isolated: "()"
+    display-capture: "()"
+    document-domain: "()"
+    encrypted-media: "(self)"
+    execution-while-not-rendered: "()"
+    execution-while-out-of-viewport: "()"
+    fullscreen: "(self)"
+    geolocation: "()"
+    gyroscope: "()"
+    keyboard-map: "()"
+    magnetometer: "()"
+    microphone: "()"
+    midi: "()"
+    navigation-override: "()"
+    payment: "()"
+    picture-in-picture: "()"
+    publickey-credentials-get: "()"
+    screen-wake-lock: "()"
+    sync-xhr: "()"
+    usb: "()"
+    web-share: "()"
+    xr-spatial-tracking: "()"
+  
+  # Cross-Origin Headers
+  cross_origin_embedder_policy: "require-corp"
+  cross_origin_opener_policy: "same-origin"
+  cross_origin_resource_policy: "same-origin"
+  
+  # Additional Security Headers
+  expect_ct:
+    max_age: 86400
+    enforce: true
+    report_uri: "https://api.soc-platform.com/api/v1/security/ct-report"
+  
+  # Clear-Site-Data (for logout)
+  clear_site_data:
+    endpoints:
+      - "/api/v1/auth/logout"
+    types:
+      - "cache"
+      - "cookies"
+      - "storage"
+
+# Service-specific security headers
+service_security_headers:
+  # Auth Service - Stricter policies
+  auth-service:
+    x_frame_options: "DENY"
+    content_security_policy: |
+      default-src 'none';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data:;
+      font-src 'self';
+      connect-src 'self';
+      form-action 'self';
+      frame-ancestors 'none';
+      base-uri 'self';
+  
+  # Evidence Service - Allow file uploads
+  evidence-service:
+    x_frame_options: "SAMEORIGIN"
+    content_security_policy: |
+      default-src 'self';
+      script-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: blob:;
+      media-src 'self' blob:;
+      connect-src 'self';
+      object-src 'self';
+  
+  # Reporting Service - Allow PDF generation
+  reporting-service:
+    x_frame_options: "SAMEORIGIN"
+    content_security_policy: |
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: blob:;
+      font-src 'self' data:;
+      connect-src 'self';
+      object-src 'self' blob:;
+  
+  # Integration Service - External connections
+  integration-service:
+    content_security_policy: |
+      default-src 'self';
+      connect-src 'self' https:;
+      form-action 'self' https:;
+
+# Response transformation rules
+response_transformations:
+  # Remove sensitive headers
+  remove_headers:
+    - Server
+    - X-Powered-By
+    - X-AspNet-Version
+    - X-AspNetMvc-Version
+    - X-Runtime
+    - X-Version
+  
+  # Add security headers
+  add_headers:
+    global:
+      - "X-Frame-Options: ${x_frame_options}"
+      - "X-Content-Type-Options: ${x_content_type_options}"
+      - "X-XSS-Protection: ${x_xss_protection}"
+      - "Referrer-Policy: ${referrer_policy}"
+      - "Cache-Control: no-store, no-cache, must-revalidate, private"
+      - "Pragma: no-cache"
+      - "X-Download-Options: noopen"
+      - "X-Permitted-Cross-Domain-Policies: none"
+    
+    production:
+      - "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload"
+      - "Content-Security-Policy: ${content_security_policy.production}"
+      - "Expect-CT: max-age=86400, enforce"
+    
+    api_responses:
+      - "Content-Type: application/json; charset=utf-8"
+      - "X-Content-Type-Options: nosniff"
+
+# Cookie security settings
+cookie_security:
+  # Global cookie attributes
+  attributes:
+    secure: true
+    httponly: true
+    samesite: "Strict"
+    path: "/"
+    domain: ".soc-platform.com"
+  
+  # Cookie name prefixes
+  prefixes:
+    secure: "__Secure-"
+    host: "__Host-"
+  
+  # Session cookie settings
+  session_cookie:
+    name: "__Secure-soc-session"
+    max_age: 3600  # 1 hour
+    rolling: true
+  
+  # Auth token cookie
+  auth_cookie:
+    name: "__Secure-auth-token"
+    max_age: 1800  # 30 minutes
+    httponly: true
+    secure: true
+    samesite: "Strict"
+
+# MIME type security
+mime_security:
+  # Allowed MIME types
+  allowed_types:
+    - application/json
+    - application/pdf
+    - application/zip
+    - application/x-zip-compressed
+    - text/plain
+    - text/csv
+    - image/jpeg
+    - image/png
+    - image/gif
+    - image/webp
+    - image/svg+xml
+  
+  # Blocked MIME types
+  blocked_types:
+    - application/x-shockwave-flash
+    - application/x-java-applet
+    - application/x-msdownload
+    - application/x-executable
+  
+  # File upload restrictions
+  upload_restrictions:
+    max_size: 104857600  # 100MB
+    allowed_extensions:
+      - pdf
+      - doc
+      - docx
+      - xls
+      - xlsx
+      - csv
+      - txt
+      - jpg
+      - jpeg
+      - png
+      - gif
+      - zip
+    virus_scan: true
+
+# API security configurations
+api_security:
+  # API versioning
+  versioning:
+    header: "X-API-Version"
+    default: "1.0"
+    supported:
+      - "1.0"
+      - "2.0"
+  
+  # Request validation
+  request_validation:
+    max_uri_length: 2048
+    max_header_size: 8192
+    max_body_size: 10485760  # 10MB default
+  
+  # Response security
+  response_security:
+    remove_error_details: true
+    generic_error_message: "An error occurred processing your request"
+    include_request_id: true

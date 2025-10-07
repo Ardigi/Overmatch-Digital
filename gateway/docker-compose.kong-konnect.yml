@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  kong-konnect:
+    image: kong/kong-gateway:3.9.0.0
+    container_name: kong-konnect-dp
+    environment:
+      KONG_ROLE: data_plane
+      KONG_DATABASE: "off"
+      KONG_VITALS: "off"
+      KONG_CLUSTER_MTLS: pki
+      KONG_CLUSTER_CONTROL_PLANE: 2eda25cf1d.us.cp.konghq.com:443
+      KONG_CLUSTER_SERVER_NAME: 2eda25cf1d.us.cp.konghq.com
+      KONG_CLUSTER_TELEMETRY_ENDPOINT: 2eda25cf1d.us.tp.konghq.com:443
+      KONG_CLUSTER_TELEMETRY_SERVER_NAME: 2eda25cf1d.us.tp.konghq.com
+      KONG_CLUSTER_CERT: |
+        -----BEGIN CERTIFICATE-----
+        MIICNjCCAdygAwIBAgIBATAKBggqhkjOPQQDBDBMMUowCQYDVQQGEwJVUzA9BgNV
+        BAMeNgBrAG8AbgBuAGUAYwB0AC0AYwBvAG0AcABsAGkAYQBuAGMAZQAtAHAAbABh
+        AHQAZgBvAHIAbTAeFw0yNTA4MTIxOTQyMTFaFw0zNTA4MTIxOTQyMTFaMEwxSjAJ
+        BgNVBAYTAlVTMD0GA1UEAx42AGsAbwBuAG4AZQBjAHQALQBjAG8AbQBwAGwAaQBh
+        AG4AYwBlAC0AcABsAGEAdABmAG8AcgBtMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcD
+        QgAEsHNxgZW5exB2PcNjB8SBlAsBEE8yJpyVgtEkv68fYTfKZl1FjGIh/9lXoKsd
+        yHvzRhDqdyjv2xCZWQ5nxUX+VKOBrjCBqzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQE
+        AwIABjAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwFwYJKwYBBAGCNxQC
+        BAoMCGNlcnRUeXBlMCMGCSsGAQQBgjcVAgQWBBQBAQEBAQEBAQEBAQEBAQEBAQEB
+        ATAcBgkrBgEEAYI3FQcEDzANBgUpAQEBAQIBCgIBFDATBgkrBgEEAYI3FQEEBgIE
+        ABQACjAKBggqhkjOPQQDBANIADBFAiEAjyXIIwB/Wae+rTxOtXEcpOKrn249rJEP
+        754koA4JIusCIDCKW1kvEBqc3eZy/Ckt8uIcscz56NGdfW9W4wx8P0GF
+        -----END CERTIFICATE-----
+      KONG_CLUSTER_CERT_KEY: |
+        -----BEGIN PRIVATE KEY-----
+        MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQg8Zn+zBM4K5MvEk6J
+        vus+VUazyew1oGTAgQeoMDvuOdmgCgYIKoZIzj0DAQehRANCAASwc3GBlbl7EHY9
+        w2MHxIGUCwEQTzImnJWC0SS/rx9hN8pmXUWMYiH/2Vegqx3Ie/NGEOp3KO/bEJlZ
+        DmfFRf5U
+        -----END PRIVATE KEY-----
+      KONG_LUA_SSL_TRUSTED_CERTIFICATE: system
+      KONG_KONNECT_MODE: "on"
+      KONG_PROXY_LISTEN: 0.0.0.0:8000
+      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
+    ports:
+      - "8000:8000"  # Proxy
+      - "8443:8443"  # Proxy SSL
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "auth-service:host-gateway"
+      - "client-service:host-gateway"
+      - "control-service:host-gateway"
+      - "policy-service:host-gateway"
+      - "evidence-service:host-gateway"
+      - "workflow-service:host-gateway"
+      - "reporting-service:host-gateway"
+      - "audit-service:host-gateway"
+      - "integration-service:host-gateway"
+      - "notification-service:host-gateway"
+      - "ai-service:host-gateway"
+
+networks:
+  default:
+    name: overmatch-digital_soc-network
+    external: true

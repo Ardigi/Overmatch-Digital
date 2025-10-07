@@ -1,0 +1,318 @@
+groups:
+  - name: soc_platform_alerts
+    interval: 30s
+    rules:
+      # Service Health Alerts
+      - alert: ServiceDown
+        expr: up{job="soc-services"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Service {{ $labels.instance }} is down"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
+          runbook_url: "https://docs.soc-platform.com/runbooks/service-down"
+
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)
+            /
+            sum(rate(http_requests_total[5m])) by (service)
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High error rate on {{ $labels.service }}"
+          description: "{{ $labels.service }} has error rate of {{ $value | humanizePercentage }} (threshold: 5%)"
+          dashboard: "https://grafana.soc-platform.com/d/soc-platform-overview"
+
+      - alert: CriticalErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)
+            /
+            sum(rate(http_requests_total[5m])) by (service)
+          ) > 0.10
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Critical error rate on {{ $labels.service }}"
+          description: "{{ $labels.service }} has error rate of {{ $value | humanizePercentage }} (threshold: 10%)"
+          dashboard: "https://grafana.soc-platform.com/d/soc-platform-overview"
+
+      # Performance Alerts
+      - alert: HighResponseTime
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(http_request_duration_seconds_bucket[5m])) by (service, le)
+          ) > 0.5
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High response time on {{ $labels.service }}"
+          description: "{{ $labels.service }} p95 response time is {{ $value }}s (threshold: 500ms)"
+
+      - alert: VeryHighResponseTime
+        expr: |
+          histogram_quantile(0.99,
+            sum(rate(http_request_duration_seconds_bucket[5m])) by (service, le)
+          ) > 2.0
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Very high response time on {{ $labels.service }}"
+          description: "{{ $labels.service }} p99 response time is {{ $value }}s (threshold: 2s)"
+
+      # Resource Alerts
+      - alert: HighCPUUsage
+        expr: |
+          (
+            rate(process_cpu_seconds_total[5m]) * 100
+          ) > 80
+        for: 15m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "{{ $labels.instance }} CPU usage is {{ $value | humanize }}% (threshold: 80%)"
+
+      - alert: HighMemoryUsage
+        expr: |
+          (
+            process_resident_memory_bytes / node_memory_MemTotal_bytes * 100
+          ) > 85
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "{{ $labels.instance }} memory usage is {{ $value | humanize }}% (threshold: 85%)"
+
+      # Database Alerts
+      - alert: DatabaseConnectionPoolExhaustion
+        expr: |
+          (
+            pg_stat_database_numbackends{datname=~"soc_.*"}
+            /
+            pg_settings_max_connections
+          ) > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          team: database
+        annotations:
+          summary: "Database connection pool near exhaustion"
+          description: "Database {{ $labels.datname }} using {{ $value | humanizePercentage }} of connection pool"
+
+      - alert: DatabaseSlowQueries
+        expr: |
+          rate(pg_stat_statements_mean_exec_time_seconds[5m]) > 1
+        for: 10m
+        labels:
+          severity: warning
+          team: database
+        annotations:
+          summary: "Slow database queries detected"
+          description: "Mean query execution time is {{ $value }}s (threshold: 1s)"
+
+      - alert: DatabaseReplicationLag
+        expr: |
+          pg_replication_lag_seconds > 10
+        for: 5m
+        labels:
+          severity: critical
+          team: database
+        annotations:
+          summary: "High database replication lag"
+          description: "Replication lag is {{ $value }}s (threshold: 10s)"
+
+      # Kafka Alerts
+      - alert: KafkaConsumerLag
+        expr: |
+          kafka_consumer_lag_sum{topic=~"soc.*"} > 10000
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High Kafka consumer lag"
+          description: "Consumer {{ $labels.consumer_group }} has lag of {{ $value }} messages on topic {{ $labels.topic }}"
+
+      - alert: KafkaBrokerDown
+        expr: |
+          kafka_brokers < 3
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Kafka broker down"
+          description: "Only {{ $value }} Kafka brokers available (expected: 3)"
+
+      # Redis Alerts
+      - alert: RedisDown
+        expr: |
+          redis_up == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Redis instance down"
+          description: "Redis instance {{ $labels.instance }} is down"
+
+      - alert: RedisHighMemoryUsage
+        expr: |
+          redis_memory_used_bytes / redis_memory_max_bytes > 0.9
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Redis high memory usage"
+          description: "Redis using {{ $value | humanizePercentage }} of max memory"
+
+      # Audit & Compliance Alerts
+      - alert: AuditTrailWriteFailure
+        expr: |
+          increase(audit_trail_write_failures_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+          team: compliance
+          compliance: soc2
+        annotations:
+          summary: "Audit trail write failures detected"
+          description: "{{ $value }} audit trail write failures in last 5 minutes"
+          compliance_impact: "SOC 2 CC7.1 requirement violation"
+
+      - alert: ComplianceCheckFailed
+        expr: |
+          soc_compliance_check_status{check_type="critical"} == 0
+        for: 5m
+        labels:
+          severity: critical
+          team: compliance
+          compliance: soc2
+        annotations:
+          summary: "Critical compliance check failed"
+          description: "Compliance check {{ $labels.check_name }} has failed"
+          compliance_requirement: "{{ $labels.requirement }}"
+
+      - alert: UnauthorizedAccessAttempt
+        expr: |
+          increase(auth_unauthorized_attempts_total[5m]) > 100
+        for: 2m
+        labels:
+          severity: warning
+          team: security
+        annotations:
+          summary: "High number of unauthorized access attempts"
+          description: "{{ $value }} unauthorized access attempts in last 5 minutes"
+          action: "Review security logs and consider rate limiting adjustments"
+
+      # Business Metrics Alerts
+      - alert: NoAuditsCreated
+        expr: |
+          increase(soc_audits_created_total[24h]) == 0
+        for: 24h
+        labels:
+          severity: info
+          team: business
+        annotations:
+          summary: "No new audits created in 24 hours"
+          description: "No new audits have been created in the last 24 hours"
+
+      - alert: ControlTestingBehindSchedule
+        expr: |
+          (
+            soc_controls_pending_total / soc_controls_total
+          ) > 0.3
+        for: 6h
+        labels:
+          severity: warning
+          team: compliance
+        annotations:
+          summary: "Control testing behind schedule"
+          description: "{{ $value | humanizePercentage }} of controls pending testing (threshold: 30%)"
+
+      - alert: EvidenceUploadRateDecline
+        expr: |
+          (
+            rate(soc_evidence_uploaded_total[1h])
+            <
+            rate(soc_evidence_uploaded_total[1h] offset 24h) * 0.5
+          )
+        for: 2h
+        labels:
+          severity: info
+          team: business
+        annotations:
+          summary: "Evidence upload rate declined"
+          description: "Evidence upload rate declined by more than 50% compared to same time yesterday"
+
+      # Certificate Expiry Alerts
+      - alert: CertificateExpiringIn30Days
+        expr: |
+          (ssl_cert_expiry_timestamp_seconds - time()) / 86400 < 30
+        for: 1h
+        labels:
+          severity: warning
+          team: security
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "Certificate for {{ $labels.domain }} expires in {{ $value }} days"
+
+      - alert: CertificateExpiringIn7Days
+        expr: |
+          (ssl_cert_expiry_timestamp_seconds - time()) / 86400 < 7
+        for: 1h
+        labels:
+          severity: critical
+          team: security
+        annotations:
+          summary: "SSL certificate expiring very soon"
+          description: "Certificate for {{ $labels.domain }} expires in {{ $value }} days"
+
+      # Disk Space Alerts
+      - alert: DiskSpaceLow
+        expr: |
+          (
+            node_filesystem_avail_bytes{mountpoint="/"}
+            /
+            node_filesystem_size_bytes{mountpoint="/"}
+          ) < 0.15
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Low disk space on {{ $labels.instance }}"
+          description: "Only {{ $value | humanizePercentage }} disk space remaining"
+
+      - alert: DiskSpaceCritical
+        expr: |
+          (
+            node_filesystem_avail_bytes{mountpoint="/"}
+            /
+            node_filesystem_size_bytes{mountpoint="/"}
+          ) < 0.05
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Critical disk space on {{ $labels.instance }}"
+          description: "Only {{ $value | humanizePercentage }} disk space remaining"

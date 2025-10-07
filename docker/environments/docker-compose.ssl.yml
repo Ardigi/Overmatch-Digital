@@ -1,0 +1,237 @@
+version: '3.8'
+
+# SSL-enabled Docker Compose configuration for SOC Compliance Platform
+# This extends the base docker-compose.yml with SSL/TLS support
+
+services:
+  # Kong API Gateway with SSL
+  kong:
+    image: kong:3.4-alpine
+    container_name: soc-kong-ssl
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_PORT: 5432
+      KONG_PG_USER: ${KONG_PG_USER:-kong}
+      KONG_PG_PASSWORD: ${KONG_PG_PASSWORD:-kong_pass}
+      KONG_PG_DATABASE: ${KONG_PG_DATABASE:-kong}
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl http2
+      KONG_SSL_CERT: /etc/kong/certificates/server-cert.pem
+      KONG_SSL_CERT_KEY: /etc/kong/certificates/server-key.pem
+      KONG_SSL_PROTOCOLS: TLSv1.2 TLSv1.3
+      KONG_SSL_CIPHERS: ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+      KONG_SSL_PREFER_SERVER_CIPHERS: on
+      KONG_HEADERS: latency_tokens
+      KONG_TRUSTED_IPS: 0.0.0.0/0,::/0
+      KONG_REAL_IP_HEADER: X-Real-IP
+      KONG_REAL_IP_RECURSIVE: on
+    ports:
+      - "80:8000"      # HTTP (will redirect to HTTPS)
+      - "443:8443"     # HTTPS
+      - "8001:8001"    # Admin API (internal only in production)
+    volumes:
+      - ./gateway/certificates/dev:/etc/kong/certificates:ro
+      - ./gateway/kong-ssl.yml:/usr/local/kong/declarative/kong.yml:ro
+    depends_on:
+      kong-migration:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "kong", "health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - soc-network
+    restart: unless-stopped
+
+  # Kong Migration with SSL support
+  kong-migration:
+    image: kong:3.4-alpine
+    container_name: soc-kong-migration-ssl
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_PORT: 5432
+      KONG_PG_USER: ${KONG_PG_USER:-kong}
+      KONG_PG_PASSWORD: ${KONG_PG_PASSWORD:-kong_pass}
+      KONG_PG_DATABASE: ${KONG_PG_DATABASE:-kong}
+    command: kong migrations bootstrap
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - soc-network
+    restart: on-failure
+
+  # Nginx reverse proxy for frontend (SSL termination)
+  nginx:
+    image: nginx:alpine
+    container_name: soc-nginx-ssl
+    ports:
+      - "3000:80"
+      - "3443:443"
+    volumes:
+      - ./gateway/nginx-ssl.conf:/etc/nginx/nginx.conf:ro
+      - ./gateway/certificates/dev:/etc/nginx/certificates:ro
+      - ./app/.next:/usr/share/nginx/html:ro
+    depends_on:
+      - kong
+    networks:
+      - soc-network
+    restart: unless-stopped
+
+  # Auth Service (internal HTTP, SSL at Kong)
+  auth-service:
+    extends:
+      file: docker-compose.yml
+      service: auth-service
+    environment:
+      - NODE_ENV=production
+      - SECURE_COOKIES=true
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Client Service (internal HTTP, SSL at Kong)
+  client-service:
+    extends:
+      file: docker-compose.yml
+      service: client-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Policy Service (internal HTTP, SSL at Kong)
+  policy-service:
+    extends:
+      file: docker-compose.yml
+      service: policy-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Control Service (internal HTTP, SSL at Kong)
+  control-service:
+    extends:
+      file: docker-compose.yml
+      service: control-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Evidence Service (internal HTTP, SSL at Kong)
+  evidence-service:
+    extends:
+      file: docker-compose.yml
+      service: evidence-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Workflow Service (internal HTTP, SSL at Kong)
+  workflow-service:
+    extends:
+      file: docker-compose.yml
+      service: workflow-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Reporting Service (internal HTTP, SSL at Kong)
+  reporting-service:
+    extends:
+      file: docker-compose.yml
+      service: reporting-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Audit Service (internal HTTP, SSL at Kong)
+  audit-service:
+    extends:
+      file: docker-compose.yml
+      service: audit-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Integration Service (internal HTTP, SSL at Kong)
+  integration-service:
+    extends:
+      file: docker-compose.yml
+      service: integration-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Notification Service (internal HTTP, SSL at Kong)
+  notification-service:
+    extends:
+      file: docker-compose.yml
+      service: notification-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # AI Service (internal HTTP, SSL at Kong)
+  ai-service:
+    extends:
+      file: docker-compose.yml
+      service: ai-service
+    environment:
+      - NODE_ENV=production
+      - TRUST_PROXY=true
+    networks:
+      - soc-network
+
+  # Certificate renewal service (production only)
+  certbot:
+    image: certbot/certbot:latest
+    container_name: soc-certbot
+    volumes:
+      - ./gateway/certificates/prod:/etc/letsencrypt
+      - ./gateway/certificates/prod/webroot:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - soc-network
+    profiles:
+      - production
+
+networks:
+  soc-network:
+    name: soc-compliance-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  postgres-data:
+  redis-data:
+  mongo-data:
+  elasticsearch-data:
+  kafka-data:
+  zookeeper-data:

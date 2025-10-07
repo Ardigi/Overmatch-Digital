@@ -1,0 +1,374 @@
+# Production environment values for SOC Platform
+
+global:
+  environment: production
+  domain: soc-platform.com
+  tls:
+    enabled: true
+    issuer: letsencrypt-prod
+  
+  # Production resource allocations
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 2
+      memory: 2Gi
+
+# Service-specific configurations
+authService:
+  replicaCount: 5
+  env:
+    - name: NODE_ENV
+      value: "production"
+    - name: LOG_LEVEL
+      value: "info"
+    - name: ENABLE_DEBUG_ENDPOINTS
+      value: "false"
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - auth-service
+          topologyKey: kubernetes.io/hostname
+
+clientService:
+  replicaCount: 4
+  resources:
+    requests:
+      cpu: 400m
+      memory: 768Mi
+    limits:
+      cpu: 1
+      memory: 1.5Gi
+
+policyService:
+  replicaCount: 3
+
+controlService:
+  replicaCount: 3
+
+evidenceService:
+  replicaCount: 3
+  storage:
+    size: 500Gi
+    storageClass: fast-ssd
+
+workflowService:
+  replicaCount: 3
+
+reportingService:
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: 1
+      memory: 2Gi
+    limits:
+      cpu: 2
+      memory: 4Gi
+
+auditService:
+  replicaCount: 3
+
+integrationService:
+  replicaCount: 2
+
+notificationService:
+  replicaCount: 2
+  email:
+    provider: "sendgrid"
+    apiKey: "${SENDGRID_API_KEY}"
+
+aiService:
+  replicaCount: 2
+  enableMockMode: false
+  openai:
+    apiKey: "${OPENAI_API_KEY}"
+  resources:
+    requests:
+      cpu: 1
+      memory: 2Gi
+    limits:
+      cpu: 2
+      memory: 4Gi
+
+# Infrastructure components
+postgresql:
+  enabled: true
+  architecture: replication
+  auth:
+    postgresPassword: "${POSTGRES_ADMIN_PASSWORD}"
+    username: soc_prod_user
+    password: "${POSTGRES_USER_PASSWORD}"
+    replicationPassword: "${POSTGRES_REPLICATION_PASSWORD}"
+  primary:
+    persistence:
+      size: 200Gi
+      storageClass: fast-ssd
+    resources:
+      requests:
+        cpu: 2
+        memory: 4Gi
+      limits:
+        cpu: 4
+        memory: 8Gi
+  readReplicas:
+    replicaCount: 2
+    persistence:
+      size: 200Gi
+      storageClass: fast-ssd
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+      limits:
+        cpu: 2
+        memory: 4Gi
+  metrics:
+    enabled: true
+  backup:
+    enabled: true
+    schedule: "0 2 * * *"
+    retentionDays: 30
+
+redis:
+  enabled: true
+  architecture: replication
+  auth:
+    enabled: true
+    password: "${REDIS_PASSWORD}"
+  master:
+    persistence:
+      size: 50Gi
+      storageClass: fast-ssd
+    resources:
+      requests:
+        cpu: 500m
+        memory: 1Gi
+      limits:
+        cpu: 1
+        memory: 2Gi
+  replica:
+    replicaCount: 2
+    persistence:
+      size: 50Gi
+    resources:
+      requests:
+        cpu: 250m
+        memory: 512Mi
+  sentinel:
+    enabled: true
+    quorum: 2
+
+mongodb:
+  enabled: true
+  architecture: replicaset
+  auth:
+    enabled: true
+    rootPassword: "${MONGODB_ROOT_PASSWORD}"
+    replicaSetKey: "${MONGODB_REPLICA_SET_KEY}"
+  replicaCount: 3
+  persistence:
+    size: 100Gi
+    storageClass: fast-ssd
+  resources:
+    requests:
+      cpu: 1
+      memory: 2Gi
+    limits:
+      cpu: 2
+      memory: 4Gi
+
+elasticsearch:
+  enabled: true
+  replicas: 3
+  minimumMasterNodes: 2
+  resources:
+    requests:
+      cpu: 2
+      memory: 4Gi
+    limits:
+      cpu: 4
+      memory: 8Gi
+  volumeClaimTemplate:
+    resources:
+      requests:
+        storage: 200Gi
+    storageClassName: fast-ssd
+
+kafka:
+  enabled: true
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: 1
+      memory: 2Gi
+    limits:
+      cpu: 2
+      memory: 4Gi
+  persistence:
+    size: 100Gi
+    storageClass: fast-ssd
+  zookeeper:
+    replicaCount: 3
+    resources:
+      requests:
+        cpu: 500m
+        memory: 1Gi
+
+# Monitoring
+monitoring:
+  enabled: true
+  prometheus:
+    retention: 30d
+    storage: 100Gi
+    resources:
+      requests:
+        cpu: 1
+        memory: 2Gi
+  grafana:
+    adminPassword: "${GRAFANA_ADMIN_PASSWORD}"
+    persistence:
+      enabled: true
+      size: 10Gi
+  alerts:
+    enabled: true
+    pagerduty:
+      integrationKey: "${PAGERDUTY_INTEGRATION_KEY}"
+    slack:
+      webhookUrl: "${SLACK_WEBHOOK_URL}"
+
+# Kong API Gateway
+kong:
+  enabled: true
+  replicaCount: 3
+  proxy:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+  env:
+    database: "postgres"
+    pg_host: "${KONG_PG_HOST}"
+    pg_password: "${KONG_PG_PASSWORD}"
+  resources:
+    requests:
+      cpu: 1
+      memory: 2Gi
+    limits:
+      cpu: 2
+      memory: 4Gi
+  
+# Ingress configuration
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rate-limit: "1000"
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
+    nginx.ingress.kubernetes.io/ssl-ciphers: "HIGH:!aNULL:!MD5"
+  hosts:
+    - host: api.soc-platform.com
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: soc-platform.com
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: www.soc-platform.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: prod-tls-secret
+      hosts:
+        - api.soc-platform.com
+        - soc-platform.com
+        - www.soc-platform.com
+
+# Autoscaling
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 60
+  targetMemoryUtilizationPercentage: 70
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Percent
+          value: 10
+          periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 15
+        - type: Pods
+          value: 4
+          periodSeconds: 15
+
+# Pod Disruption Budgets
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 2
+
+# Network Policies
+networkPolicy:
+  enabled: true
+  policyTypes:
+    - Ingress
+    - Egress
+
+# Security Context
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+
+# Feature flags
+features:
+  enableDebugMode: false
+  enableMockIntegrations: false
+  enableTestEndpoints: false
+  rateLimit:
+    enabled: true
+    requestsPerMinute: 100
+    requestsPerHour: 5000
+  
+# Backup configuration
+backup:
+  enabled: true
+  schedule: "0 2 * * *"
+  retention:
+    days: 30
+    weeks: 12
+    months: 12
+  destination: "s3://soc-platform-backups/production/"
+
+# Disaster Recovery
+disasterRecovery:
+  enabled: true
+  crossRegionReplication: true
+  targetRegion: "us-west-2"
+  rpo: "1h"  # Recovery Point Objective
+  rto: "4h"  # Recovery Time Objective

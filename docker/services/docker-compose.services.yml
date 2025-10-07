@@ -1,0 +1,200 @@
+version: '3.8'
+
+services:
+  auth-service:
+    image: overmatch-digital-auth-service:latest
+    container_name: soc-auth-service
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_auth
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+      - KAFKA_BROKERS=kafka:9092
+      - JWT_SECRET=your-secret-key-change-in-production
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    networks:
+      - soc-network
+    restart: unless-stopped
+
+  client-service:
+    image: overmatch-digital-client-service:latest
+    container_name: soc-client-service
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_clients
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+      - KAFKA_BROKERS=kafka:9092
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    networks:
+      - soc-network
+    restart: unless-stopped
+
+  policy-service:
+    image: soc-compliance/policy-service:latest
+    container_name: soc-policy-service
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_policies
+      - KAFKA_BROKERS=kafka:9092
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - soc-network
+    restart: unless-stopped
+
+  control-service:
+    image: overmatch-digital-control-service:latest
+    container_name: soc-control-service
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_controls
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+    restart: unless-stopped
+
+  evidence-service:
+    image: soc-compliance/evidence-service:latest
+    container_name: soc-evidence-service
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_evidence
+      - MONGODB_URI=mongodb://mongodb:27017/soc_evidence
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
+    networks:
+      - soc-network
+
+  workflow-service:
+    image: soc-compliance/workflow-service:latest
+    container_name: soc-workflow-service
+    ports:
+      - "3006:3006"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_workflows
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  reporting-service:
+    image: soc-compliance/reporting-service:latest
+    container_name: soc-reporting-service
+    ports:
+      - "3007:3007"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_reporting
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  audit-service:
+    image: soc-compliance/audit-service:latest
+    container_name: soc-audit-service
+    ports:
+      - "3008:3008"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_audits
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  integration-service:
+    image: soc-compliance/integration-service:latest
+    container_name: soc-integration-service
+    ports:
+      - "3009:3009"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_integrations
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  notification-service:
+    image: soc-compliance/notification-service:latest
+    container_name: soc-notification-service
+    ports:
+      - "3010:3010"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_notifications
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=soc_redis_pass
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - soc-network
+
+  ai-service:
+    image: soc-compliance/ai-service:latest
+    container_name: soc-ai-service
+    ports:
+      - "3011:3011"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_NAME=soc_ai
+    depends_on:
+      - postgres
+    networks:
+      - soc-network
+
+networks:
+  soc-network:
+    external: true

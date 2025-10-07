@@ -1,0 +1,107 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'soc-platform'
+    environment: 'development'
+
+rule_files:
+  - "alerts.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+scrape_configs:
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Node exporter
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  # Container metrics
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  # Redis metrics
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+
+  # PostgreSQL metrics
+  - job_name: 'postgresql'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+
+  # Kafka metrics
+  - job_name: 'kafka'
+    static_configs:
+      - targets: ['kafka-exporter:9308']
+
+  # OpenTelemetry Collector
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8888']
+
+  # Microservices metrics
+  - job_name: 'auth-service'
+    static_configs:
+      - targets: ['auth-service:3001']
+    metrics_path: '/metrics'
+
+  - job_name: 'client-service'
+    static_configs:
+      - targets: ['client-service:3002']
+    metrics_path: '/metrics'
+
+  - job_name: 'policy-service'
+    static_configs:
+      - targets: ['policy-service:3003']
+    metrics_path: '/metrics'
+
+  - job_name: 'control-service'
+    static_configs:
+      - targets: ['control-service:3004']
+    metrics_path: '/metrics'
+
+  - job_name: 'evidence-service'
+    static_configs:
+      - targets: ['evidence-service:3005']
+    metrics_path: '/metrics'
+
+  - job_name: 'workflow-service'
+    static_configs:
+      - targets: ['workflow-service:3006']
+    metrics_path: '/metrics'
+
+  - job_name: 'reporting-service'
+    static_configs:
+      - targets: ['reporting-service:3007']
+    metrics_path: '/metrics'
+
+  - job_name: 'audit-service'
+    static_configs:
+      - targets: ['audit-service:3008']
+    metrics_path: '/metrics'
+
+  - job_name: 'integration-service'
+    static_configs:
+      - targets: ['integration-service:3009']
+    metrics_path: '/metrics'
+
+  - job_name: 'notification-service'
+    static_configs:
+      - targets: ['notification-service:3010']
+    metrics_path: '/metrics'
+
+  - job_name: 'ai-service'
+    static_configs:
+      - targets: ['ai-service:3011']
+    metrics_path: '/metrics'

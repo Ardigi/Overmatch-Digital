@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: soc-compliance
+  labels:
+    app.kubernetes.io/name: soc-compliance
+    app.kubernetes.io/part-of: soc-compliance-platform

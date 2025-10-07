@@ -1,0 +1,84 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: soc-compliance-prod
+
+bases:
+  - ../../base
+
+patchesStrategicMerge:
+  - deployment-patches.yaml
+  - ingress-patch.yaml
+
+configMapGenerator:
+  - name: environment-config
+    literals:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+      - ENABLE_METRICS=true
+      - ENABLE_TRACING=true
+
+secretGenerator:
+  - name: database-credentials
+    envs:
+      - secrets/database.env
+  - name: redis-credentials
+    envs:
+      - secrets/redis.env
+  - name: auth-secrets
+    envs:
+      - secrets/auth.env
+  - name: aws-credentials
+    envs:
+      - secrets/aws.env
+  - name: integration-secrets
+    envs:
+      - secrets/integrations.env
+
+replicas:
+  - name: auth-service
+    count: 5
+  - name: client-service
+    count: 3
+  - name: audit-service
+    count: 3
+  - name: evidence-service
+    count: 3
+  - name: control-service
+    count: 3
+  - name: reporting-service
+    count: 2
+  - name: notification-service
+    count: 3
+
+images:
+  - name: soc-compliance/auth-service
+    newName: your-registry.amazonaws.com/soc-compliance/auth-service
+    newTag: v1.0.0
+  - name: soc-compliance/client-service
+    newName: your-registry.amazonaws.com/soc-compliance/client-service
+    newTag: v1.0.0
+  - name: soc-compliance/audit-service
+    newName: your-registry.amazonaws.com/soc-compliance/audit-service
+    newTag: v1.0.0
+  - name: soc-compliance/evidence-service
+    newName: your-registry.amazonaws.com/soc-compliance/evidence-service
+    newTag: v1.0.0
+  - name: soc-compliance/policy-service
+    newName: your-registry.amazonaws.com/soc-compliance/policy-service
+    newTag: v1.0.0
+  - name: soc-compliance/control-service
+    newName: your-registry.amazonaws.com/soc-compliance/control-service
+    newTag: v1.0.0
+  - name: soc-compliance/notification-service
+    newName: your-registry.amazonaws.com/soc-compliance/notification-service
+    newTag: v1.0.0
+  - name: soc-compliance/reporting-service
+    newName: your-registry.amazonaws.com/soc-compliance/reporting-service
+    newTag: v1.0.0
+  - name: soc-compliance/integration-service
+    newName: your-registry.amazonaws.com/soc-compliance/integration-service
+    newTag: v1.0.0
+  - name: soc-compliance/ai-service
+    newName: your-registry.amazonaws.com/soc-compliance/ai-service
+    newTag: v1.0.0

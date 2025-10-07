@@ -32,7 +32,7 @@ import type { NotificationsService } from './notifications.service';
 import type { NotificationPreferencesService } from './services/notification-preferences.service';
 import type { NotificationTemplatesService } from './services/notification-templates.service';
 
-@Controller('notifications')
+@Controller('api/v1/notifications')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class NotificationsController {
   constructor(

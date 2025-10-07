@@ -40,7 +40,7 @@ import { NotificationRule } from './entities/notification-rule.entity';
 @ApiTags('notification-rules')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, OrganizationGuard)
-@Controller('notification-rules')
+@Controller('api/v1/notification-rules')
 export class RuleManagementController {
   private readonly logger = new Logger(RuleManagementController.name);
 

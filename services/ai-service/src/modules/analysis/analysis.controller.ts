@@ -33,7 +33,7 @@ import type { UpdateAnalysisDto } from './dto/update-analysis.dto';
 import type { ComplianceAnalysis } from './entities/compliance-analysis.entity';
 
 @ApiTags('AI Analysis')
-@Controller('analysis')
+@Controller('api/v1/analysis')
 @ApiBearerAuth()
 export class AnalysisController {
   constructor(private readonly analysisService: AnalysisService) {}

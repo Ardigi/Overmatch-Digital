@@ -39,7 +39,7 @@ import type { FrameworkMapping } from './entities/framework-mapping.entity';
 import type { MappingsService } from './mappings.service';
 
 @ApiTags('Framework Mappings')
-@Controller('mappings')
+@Controller('api/v1/mappings')
 @ApiBearerAuth()
 export class MappingsController {
   constructor(private readonly mappingsService: MappingsService) {}

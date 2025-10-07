@@ -29,7 +29,7 @@ import type { Remediation, RemediationStep } from './entities/remediation.entity
 import type { RemediationService } from './remediation.service';
 
 @ApiTags('Remediation')
-@Controller('remediation')
+@Controller('api/v1/remediation')
 @ApiBearerAuth()
 export class RemediationController {
   constructor(private readonly remediationService: RemediationService) {}

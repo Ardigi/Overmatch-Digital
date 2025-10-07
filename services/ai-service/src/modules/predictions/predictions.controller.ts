@@ -29,7 +29,7 @@ import type { Prediction } from './entities/prediction.entity';
 import type { PredictionsService } from './predictions.service';
 
 @ApiTags('Predictions')
-@Controller('predictions')
+@Controller('api/v1/predictions')
 @ApiBearerAuth()
 export class PredictionsController {
   constructor(private readonly predictionsService: PredictionsService) {}

@@ -25,7 +25,7 @@ import {
 import { JwtAuthGuard } from '@soc-compliance/auth-common';
 
 @ApiTags('AI Service')
-@Controller()
+@Controller('api/v1/ai')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class AIController {

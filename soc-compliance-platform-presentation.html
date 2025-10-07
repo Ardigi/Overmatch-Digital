@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOC Compliance Platform - Executive Presentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        @media print {
+            @page {
+                margin: 0;
+                size: 11in 8.5in landscape;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            .page-break { 
+                page-break-after: always;
+            }
+            .no-print { 
+                display: none !important; 
+            }
+            .slide {
+                width: 11in;
+                height: 8.5in;
+                margin: 0 !important;
+                padding: 0.5in !important;
+                box-shadow: none !important;
+                box-sizing: border-box;
+                display: block !important;
+                background: white !important;
+                border-radius: 0 !important;
+                page-break-inside: avoid;
+                page-break-after: always;
+            }
+            .slide::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 6px;
+                background: linear-gradient(90deg, #1890FF 0%, #52C41A 50%, #FA8C16 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .title-slide {
+                background: linear-gradient(135deg, #1890FF 0%, #096dd9 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .closing-slide {
+                background: linear-gradient(135deg, #002766 0%, #003a8c 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .key-stat {
+                background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .tech-card {
+                background: linear-gradient(135deg, #f0f5ff 0%, #e6edff 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .metric-box {
+                background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .grid, .grid-3 {
+                display: grid !important;
+            }
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+            table {
+                page-break-inside: avoid;
+            }
+            h1, h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            .chart-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .slide {
+            background: white;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            min-height: 650px;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #1890FF 0%, #52C41A 50%, #FA8C16 100%);
+        }
+        
+        .title-slide {
+            background: linear-gradient(135deg, #1890FF 0%, #096dd9 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .title-slide h1 {
+            color: white;
+            border: none;
+            font-size: 4em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .title-slide h2 {
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+            font-size: 1.8em;
+        }
+        
+        .title-slide .key-stat {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            color: #0050B3;
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #1890FF 0%, transparent 100%);
+        }
+        
+        h2 {
+            color: #002766;
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            letter-spacing: -0.02em;
+        }
+        
+        h3 {
+            color: #003a8c;
+            font-size: 1.6em;
+            font-weight: 500;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        
+        h4 {
+            color: #0050B3;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .chart-container {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .chart-container img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .chart-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        .key-stat {
+            background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
+            padding: 30px;
+            border-left: 5px solid #1890FF;
+            margin: 30px 0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(24,144,255,0.1);
+        }
+        
+        .key-stat::before {
+            content: '💡';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            opacity: 0.2;
+        }
+        
+        .key-stat p {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #fff1b8 0%, #ffe58f 100%);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(250,173,20,0.2);
+        }
+        
+        ul {
+            line-height: 2.2;
+            font-size: 1.1em;
+        }
+        
+        ul li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #1890FF;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        ul li strong {
+            color: #0050B3;
+            font-weight: 600;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .metric-box {
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .metric-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #1890FF;
+        }
+        
+        .metric-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1890FF 0%, #52C41A 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-box:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .metric-value {
+            font-size: 3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1890FF 0%, #0050B3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            color: #595959;
+            font-size: 1.1em;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .tech-card {
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6edff 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1890FF;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .tech-card h4 {
+            margin-top: 0;
+            color: #0050B3;
+        }
+        
+        .tech-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tech-feature {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid #d9d9d9;
+            display: inline-block;
+        }
+        
+        .closing-slide {
+            background: linear-gradient(135deg, #002766 0%, #003a8c 100%);
+            color: white;
+        }
+        
+        .closing-slide h1, .closing-slide h2 {
+            color: white;
+        }
+        
+        .closing-slide h1::after {
+            background: linear-gradient(90deg, white 0%, transparent 100%);
+        }
+        
+        .closing-slide .metric-box {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .closing-slide .metric-value {
+            background: linear-gradient(135deg, #52C41A 0%, #73d13d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .closing-slide .metric-label {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .badge-success {
+            background: #f6ffed;
+            color: #52c41a;
+            border: 1px solid #b7eb8f;
+        }
+        
+        .badge-warning {
+            background: #fffbe6;
+            color: #faad14;
+            border: 1px solid #ffe58f;
+        }
+        
+        .badge-info {
+            background: #e6f7ff;
+            color: #1890ff;
+            border: 1px solid #91d5ff;
+        }
+        
+        .badge-danger {
+            background: #fff2e8;
+            color: #fa541c;
+            border: 1px solid #ffbb96;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #fafafa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #0050B3;
+            border-bottom: 2px solid #1890FF;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-complete {
+            background: #52c41a;
+        }
+        
+        .status-progress {
+            background: #faad14;
+        }
+        
+        .status-pending {
+            background: #d9d9d9;
+        }
+        
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-marker {
+            width: 40px;
+            height: 40px;
+            background: #1890FF;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .no-print {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        button {
+            background: #1890FF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #40a9ff;
+        }
+        
+        .code-block {
+            background: #f5f5f5;
+            border: 1px solid #d9d9d9;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+        
+        .architecture-diagram {
+            background: #fafafa;
+            border: 2px solid #d9d9d9;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <button onclick="window.print()">📄 Save as PDF (Ctrl+P)</button>
+        <button onclick="downloadPPTX()">📊 Download PowerPoint</button>
+    </div>
+
+    <!-- Title Slide -->
+    <div class="slide title-slide page-break">
+        <div style="width: 100%; text-align: center;">
+            <h1>SOC Compliance Platform</h1>
+            <h2>Enterprise-Grade Compliance Automation</h2>
+            <div class="key-stat" style="margin-top: 50px;">
+                <p style="font-size: 1.5em; margin: 0;">Transforming compliance from a $500K burden to a $50K competitive advantage</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <div class="slide page-break">
+        <h1>Executive Summary</h1>
+        <div class="key-stat">
+            <p><strong>The Opportunity:</strong> Building the future of compliance automation - a $5B market growing at 15% annually. Our platform is 60% complete with working demos and 5 signed LOIs.</p>
+        </div>
+        <div class="grid">
+            <div class="metric-box">
+                <div class="metric-value">60%</div>
+                <div class="metric-label">Platform Complete</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">$25M</div>
+                <div class="metric-label">Year 3 ARR Target</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">85%</div>
+                <div class="metric-label">Cost Reduction</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">9-13</div>
+                <div class="metric-label">Weeks to Launch</div>
+            </div>
+        </div>
+        <h3>Key Value Propositions</h3>
+        <ul>
+            <li><strong>60% Reduction</strong> in audit preparation time</li>
+            <li><strong>40% Cost Savings</strong> on compliance spending</li>
+            <li><strong>18-24 months ahead</strong> in AI/automation technology</li>
+            <li><strong>Only platform</strong> with native CPA integration</li>
+        </ul>
+    </div>
+
+    <!-- The Problem -->
+    <div class="slide page-break">
+        <h1>The Problem: Compliance is Broken</h1>
+        <div class="grid">
+            <div>
+                <h3>Current State of SOC Compliance</h3>
+                <ul>
+                    <li><strong>70%</strong> of compliance work is repetitive manual tasks</li>
+                    <li><strong>$200K-$500K</strong> annual compliance costs</li>
+                    <li><strong>7+ tools</strong> average per organization (fragmented)</li>
+                    <li><strong>6-12 months</strong> for SOC 2 Type II preparation</li>
+                    <li><strong>80%</strong> of evidence gathering is redundant</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Market Dynamics</h3>
+                <ul>
+                    <li><strong>$5B TAM</strong> growing at 15% annually</li>
+                    <li><strong>10,000+ enterprises</strong> require SOC compliance</li>
+                    <li><strong>SOC 2 is mandatory</strong> for B2B SaaS sales</li>
+                    <li><strong>New frameworks yearly</strong> (AI governance, privacy)</li>
+                    <li><strong>Audit fatigue</strong> is real and growing</li>
+                </ul>
+            </div>
+        </div>
+        <div class="key-stat">
+            <p><strong>The Result:</strong> Companies spend millions on compliance but still fail audits. CPAs struggle with outdated tools. Everyone loses.</p>
+        </div>
+    </div>
+
+    <!-- Our Solution -->
+    <div class="slide page-break">
+        <h1>Our Solution: Intelligence Meets Compliance</h1>
+        <h2>Vision</h2>
+        <p style="font-size: 1.3em; font-style: italic; color: #0050B3;">"Transform compliance from a cost center to a competitive advantage through AI-driven automation and intelligent orchestration"</p>
+        
+        <h3>Core Platform Capabilities</h3>
+        <div class="grid-3">
+            <div class="tech-card">
+                <h4>🤖 AI-Powered Engine</h4>
+                <ul style="font-size: 0.95em;">
+                    <li>Intelligent control mapping</li>
+                    <li>Predictive gap analysis</li>
+                    <li>80% automated evidence</li>
+                    <li>Natural language policies</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>📝 Policy-as-Code</h4>
+                <ul style="font-size: 0.95em;">
+                    <li>Real-time enforcement</li>
+                    <li>Custom DSL for business</li>
+                    <li>Open Policy Agent</li>
+                    <li>Continuous compliance</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>🤝 CPA Ecosystem</h4>
+                <ul style="font-size: 0.95em;">
+                    <li>White-label platform</li>
+                    <li>Native integrations</li>
+                    <li>Real-time collaboration</li>
+                    <li>20-30% revenue share</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Progress -->
+    <div class="slide page-break">
+        <h1>Current Implementation Status</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/th9HQKaGWFEAAAAASqAAAAgAoEACAQFr/original" alt="Platform Progress">
+        </div>
+        <div class="grid">
+            <div>
+                <h3>✅ Complete (90-100%)</h3>
+                <ul style="font-size: 0.95em;">
+                    <li><span class="status-indicator status-complete"></span>Frontend UI (95%)</li>
+                    <li><span class="status-indicator status-complete"></span>Authentication (100%)</li>
+                    <li><span class="status-indicator status-complete"></span>API Gateway (100%)</li>
+                    <li><span class="status-indicator status-complete"></span>Documentation (100%)</li>
+                    <li><span class="status-indicator status-complete"></span>Infrastructure (90%)</li>
+                </ul>
+            </div>
+            <div>
+                <h3>🚧 In Progress</h3>
+                <ul style="font-size: 0.95em;">
+                    <li><span class="status-indicator status-progress"></span>Database Layer (70%)</li>
+                    <li><span class="status-indicator status-progress"></span>Event Architecture (60%)</li>
+                    <li><span class="status-indicator status-pending"></span>Microservices (18%)</li>
+                    <li><span class="status-indicator status-pending"></span>AI/ML Features (20%)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Stack Overview -->
+    <div class="slide page-break">
+        <h1>Technology Stack: Built for Scale</h1>
+        <h2>Frontend Excellence</h2>
+        <div class="grid">
+            <div class="tech-card">
+                <h4>Next.js 15 + React 19</h4>
+                <p><strong>Why:</strong> Server-side rendering for instant loads</p>
+                <p><strong>Impact:</strong> 3x faster than traditional SPAs</p>
+                <div class="tech-features">
+                    <span class="tech-feature">Streaming SSR</span>
+                    <span class="tech-feature">React Server Components</span>
+                    <span class="tech-feature">60% smaller bundles</span>
+                </div>
+            </div>
+            <div class="tech-card">
+                <h4>TypeScript + Tailwind CSS</h4>
+                <p><strong>Why:</strong> Type safety + consistent design</p>
+                <p><strong>Impact:</strong> 90% fewer runtime errors</p>
+                <div class="tech-features">
+                    <span class="tech-feature">Strict mode</span>
+                    <span class="tech-feature">Dark mode</span>
+                    <span class="tech-feature">Responsive design</span>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Backend Architecture</h2>
+        <div class="grid">
+            <div class="tech-card">
+                <h4>NestJS Microservices</h4>
+                <p><strong>Why:</strong> Enterprise-grade Node.js framework</p>
+                <p><strong>Impact:</strong> Independent scaling, fault isolation</p>
+                <div class="tech-features">
+                    <span class="tech-feature">Dependency injection</span>
+                    <span class="tech-feature">Built-in validation</span>
+                    <span class="tech-feature"><100ms response</span>
+                </div>
+            </div>
+            <div class="tech-card">
+                <h4>Kong API Gateway</h4>
+                <p><strong>Why:</strong> Centralized API management</p>
+                <p><strong>Impact:</strong> 99.99% uptime, single auth point</p>
+                <div class="tech-features">
+                    <span class="tech-feature">JWT validation</span>
+                    <span class="tech-feature">Rate limiting</span>
+                    <span class="tech-feature">Load balancing</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Layer -->
+    <div class="slide page-break">
+        <h1>Data Architecture: Optimized for Every Use Case</h1>
+        <div class="grid">
+            <div class="tech-card">
+                <h4>🐘 PostgreSQL</h4>
+                <p><strong>Purpose:</strong> Primary transactional database</p>
+                <p><strong>Features:</strong> ACID compliance, JSONB support, row-level security</p>
+                <p><strong>Use Cases:</strong> User data, audit trails, compliance records</p>
+            </div>
+            <div class="tech-card">
+                <h4>🍃 MongoDB</h4>
+                <p><strong>Purpose:</strong> Document storage</p>
+                <p><strong>Features:</strong> Flexible schema, GridFS for large files</p>
+                <p><strong>Use Cases:</strong> Policies, evidence documents, templates</p>
+            </div>
+            <div class="tech-card">
+                <h4>🔍 Elasticsearch</h4>
+                <p><strong>Purpose:</strong> Full-text search engine</p>
+                <p><strong>Features:</strong> <100ms search, faceted search, relevance scoring</p>
+                <p><strong>Use Cases:</strong> Evidence search, policy search, audit logs</p>
+            </div>
+            <div class="tech-card">
+                <h4>⚡ Redis</h4>
+                <p><strong>Purpose:</strong> Cache & session store</p>
+                <p><strong>Features:</strong> In-memory speed, pub/sub, persistence</p>
+                <p><strong>Use Cases:</strong> Session management, real-time updates, caching</p>
+            </div>
+        </div>
+        <div class="key-stat">
+            <p><strong>Result:</strong> Each data type is stored in its optimal database, ensuring maximum performance and reliability</p>
+        </div>
+    </div>
+
+    <!-- AI/ML Capabilities -->
+    <div class="slide page-break">
+        <h1>AI/ML Stack: Intelligence at Scale</h1>
+        <div class="grid-3">
+            <div class="tech-card">
+                <h4>🧠 OpenAI GPT-4</h4>
+                <ul>
+                    <li>Natural language policy creation</li>
+                    <li>Intelligent control recommendations</li>
+                    <li>Automated evidence categorization</li>
+                    <li>Executive summary generation</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>🔮 Vector Databases</h4>
+                <ul>
+                    <li>Semantic search capabilities</li>
+                    <li>Control similarity matching</li>
+                    <li>Smart gap detection</li>
+                    <li>Evidence deduplication</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>🤖 Custom ML Models</h4>
+                <ul>
+                    <li>85% audit outcome prediction</li>
+                    <li>Automatic risk scoring</li>
+                    <li>Personalized recommendations</li>
+                    <li>Continuous improvement</li>
+                </ul>
+            </div>
+        </div>
+        <div class="key-stat">
+            <p><strong>Competitive Edge:</strong> Our AI doesn't just automate - it learns, predicts, and prevents compliance issues before they occur</p>
+        </div>
+    </div>
+
+    <!-- Microservices Architecture -->
+    <div class="slide page-break">
+        <h1>Enterprise Architecture</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/of4ZT44IwU8AAAAAVYAAAAgAoEACAQFr/original" alt="Architecture">
+        </div>
+        <h3>11 Specialized Microservices</h3>
+        <table>
+            <tr>
+                <th>Service</th>
+                <th>Port</th>
+                <th>Status</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Auth Service</td>
+                <td>3001</td>
+                <td><span class="badge badge-success">✅ Complete</span></td>
+                <td>JWT auth, MFA, SSO, RBAC</td>
+            </tr>
+            <tr>
+                <td>Client Service</td>
+                <td>3002</td>
+                <td><span class="badge badge-success">✅ Complete</span></td>
+                <td>Multi-tenant client management</td>
+            </tr>
+            <tr>
+                <td>Policy Service</td>
+                <td>3003</td>
+                <td><span class="badge badge-warning">70% Complete</span></td>
+                <td>Policy-as-code engine</td>
+            </tr>
+            <tr>
+                <td>Audit Service</td>
+                <td>3008</td>
+                <td><span class="badge badge-warning">80% Complete</span></td>
+                <td>SOC audit workflows</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Performance Metrics -->
+    <div class="slide page-break">
+        <h1>Performance That Matters</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/NxerRZLTYZEAAAAARwAAAAgAoEACAQFr/original" alt="Performance Metrics">
+        </div>
+        <h3>User Experience Metrics</h3>
+        <div class="grid">
+            <div>
+                <ul>
+                    <li><strong>Page Load:</strong> 3x faster than competitors</li>
+                    <li><strong>API Response:</strong> Consistently under 100ms</li>
+                    <li><strong>Search Results:</strong> Google-like speed</li>
+                    <li><strong>Real-time Updates:</strong> 5x faster collaboration</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><strong>Zero Downtime:</strong> Rolling deployments</li>
+                    <li><strong>Auto-scaling:</strong> Handle peak loads</li>
+                    <li><strong>Global CDN:</strong> Fast everywhere</li>
+                    <li><strong>99.99% SLA:</strong> Enterprise reliability</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Journey -->
+    <div class="slide page-break">
+        <h1>User Journey: 6 Months to 18 Minutes</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/CSlNSYsIHyMAAAAASAAAAAgAoEACAQFr/original" alt="User Journey">
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-marker">1</div>
+                <div class="timeline-content">
+                    <h4>Intelligent Onboarding (2 min)</h4>
+                    <p>SSO login → AI analyzes company → Automated control setup</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">2</div>
+                <div class="timeline-content">
+                    <h4>Smart Control Mapping (5 min)</h4>
+                    <p>Upload policies → AI extraction → Trust Services mapping → Gap analysis</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">3</div>
+                <div class="timeline-content">
+                    <h4>Evidence Automation (10 min)</h4>
+                    <p>Connect integrations → Pull evidence → AI categorization</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">4</div>
+                <div class="timeline-content">
+                    <h4>Report Generation (1 min)</h4>
+                    <p>Click generate → AI summary → Branded PDF with all evidence</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Competitive Analysis -->
+    <div class="slide page-break">
+        <h1>Competitive Advantage</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Overmatch</th>
+                    <th>Drata</th>
+                    <th>Vanta</th>
+                    <th>Tugboat Logic</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>AI Automation</strong></td>
+                    <td><span class="badge badge-success">✅ Advanced</span></td>
+                    <td><span class="badge badge-danger">❌ Basic</span></td>
+                    <td><span class="badge badge-danger">❌ Basic</span></td>
+                    <td><span class="badge badge-danger">❌ None</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Policy-as-Code</strong></td>
+                    <td><span class="badge badge-success">✅ Yes</span></td>
+                    <td><span class="badge badge-danger">❌ No</span></td>
+                    <td><span class="badge badge-danger">❌ No</span></td>
+                    <td><span class="badge badge-danger">❌ No</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CPA Integration</strong></td>
+                    <td><span class="badge badge-success">✅ Native</span></td>
+                    <td><span class="badge badge-warning">⚠️ Limited</span></td>
+                    <td><span class="badge badge-warning">⚠️ Limited</span></td>
+                    <td><span class="badge badge-danger">❌ None</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Multi-Framework</strong></td>
+                    <td><span class="badge badge-success">✅ Unified</span></td>
+                    <td><span class="badge badge-warning">⚠️ Separate</span></td>
+                    <td><span class="badge badge-warning">⚠️ Separate</span></td>
+                    <td><span class="badge badge-danger">❌ SOC 2 Only</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Evidence Reuse</strong></td>
+                    <td><span class="badge badge-success">✅ 80%</span></td>
+                    <td><span class="badge badge-warning">⚠️ 30%</span></td>
+                    <td><span class="badge badge-warning">⚠️ 40%</span></td>
+                    <td><span class="badge badge-danger">❌ None</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Pricing</strong></td>
+                    <td><strong>$15-50K</strong></td>
+                    <td>$25-75K</td>
+                    <td>$30-80K</td>
+                    <td>$20-60K</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="key-stat" style="margin-top: 30px;">
+            <p><strong>Our Moat:</strong> 18-24 months ahead in AI/automation + Only native CPA integration + Platform approach vs point solutions</p>
+        </div>
+    </div>
+
+    <!-- Cost Comparison -->
+    <div class="slide page-break">
+        <h1>The Economics: 10x Cost Reduction</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/SxarS7cpW5IAAAAARqAAAAgAoEACAQFr/original" alt="Cost Comparison">
+        </div>
+        <h3>Total Cost of Compliance (Annual)</h3>
+        <table>
+            <tr>
+                <th>Approach</th>
+                <th>Software</th>
+                <th>Labor</th>
+                <th>Audit Fees</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>Manual Process</td>
+                <td>$50K</td>
+                <td>$300K</td>
+                <td>$150K</td>
+                <td><strong>$500K</strong></td>
+            </tr>
+            <tr>
+                <td>Fragmented Tools</td>
+                <td>$100K</td>
+                <td>$200K</td>
+                <td>$50K</td>
+                <td><strong>$350K</strong></td>
+            </tr>
+            <tr>
+                <td>Overmatch Platform</td>
+                <td>$30K</td>
+                <td>$20K</td>
+                <td>$0</td>
+                <td><strong style="color: #52c41a;">$50K</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Business Model -->
+    <div class="slide page-break">
+        <h1>Revenue Model: Built to Scale</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/1uWWR785kSEAAAAARYAAAAgAoEACAQFr/original" alt="Pricing Tiers">
+        </div>
+        <h3>Additional Revenue Streams</h3>
+        <div class="grid">
+            <div>
+                <ul>
+                    <li><strong>Readiness Assessments:</strong> $10-17K</li>
+                    <li><strong>Risk Assessments:</strong> $10-20K</li>
+                    <li><strong>Penetration Testing:</strong> $15K</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><strong>Training & Certification:</strong> $2K/user</li>
+                    <li><strong>Custom Integrations:</strong> $25-100K</li>
+                    <li><strong>White-label licensing:</strong> 20-30% rev share</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Projections -->
+    <div class="slide page-break">
+        <h1>Financial Projections</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/y24DRbMEHTgAAAAARgAAAAgAoEACAQFr/original" alt="ARR Growth">
+        </div>
+        <div class="grid">
+            <div class="metric-box">
+                <div class="metric-value">80%</div>
+                <div class="metric-label">Gross Margin</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">95%</div>
+                <div class="metric-label">Recurring Revenue</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">12mo</div>
+                <div class="metric-label">CAC Payback</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">10x</div>
+                <div class="metric-label">Revenue Multiple</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Go-to-Market Strategy -->
+    <div class="slide page-break">
+        <h1>Go-to-Market Strategy</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/9IwRTqkwZgYAAAAASwAAAAgAoEACAQFr/original" alt="Customer Growth">
+        </div>
+        <h3>Three-Phase Approach</h3>
+        <div class="grid-3">
+            <div class="tech-card">
+                <h4>Phase 1: Foundation</h4>
+                <p><strong>Months 1-6</strong></p>
+                <ul style="font-size: 0.9em;">
+                    <li>5 design partners</li>
+                    <li>10 CPA firms</li>
+                    <li>SOC 2 Type I</li>
+                    <li>20 paid pilots</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>Phase 2: Growth</h4>
+                <p><strong>Months 7-12</strong></p>
+                <ul style="font-size: 0.9em;">
+                    <li>50 CPA partners</li>
+                    <li>Template marketplace</li>
+                    <li>Healthcare vertical</li>
+                    <li>100 customers</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>Phase 3: Scale</h4>
+                <p><strong>Year 2</strong></p>
+                <ul style="font-size: 0.9em;">
+                    <li>International expansion</li>
+                    <li>AI co-pilot GA</li>
+                    <li>Strategic partnerships</li>
+                    <li>IPO preparation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Market Opportunity -->
+    <div class="slide page-break">
+        <h1>$5 Billion Market Opportunity</h1>
+        <div class="chart-container">
+            <img src="https://mdn.alipayobjects.com/one_clip/afts/img/TDR1Tpd06S0AAAAASyAAAAgAoEACAQFr/original" alt="Market TAM">
+        </div>
+        <h3>Market Dynamics Driving Growth</h3>
+        <div class="grid">
+            <div>
+                <h4>Regulatory Tailwinds</h4>
+                <ul>
+                    <li>SOC 2 becoming mandatory for B2B</li>
+                    <li>New frameworks added yearly</li>
+                    <li>Increasing penalties for non-compliance</li>
+                    <li>Board-level compliance focus</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Technology Shifts</h4>
+                <ul>
+                    <li>AI/ML maturity enables automation</li>
+                    <li>Cloud adoption requires compliance</li>
+                    <li>Remote work increases security needs</li>
+                    <li>API economy demands trust</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Development Timeline -->
+    <div class="slide page-break">
+        <h1>Path to Completion</h1>
+        <h2>9-13 Weeks to Production</h2>
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-marker" style="background: #52c41a;">✓</div>
+                <div class="timeline-content">
+                    <h4>Current Status (60% Complete)</h4>
+                    <p>Auth, Client Service, Kong Gateway, Frontend UI all operational</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">1-2</div>
+                <div class="timeline-content">
+                    <h4>Weeks 1-2: Critical Services</h4>
+                    <p>Complete Policy, Control, and Audit services</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">3-4</div>
+                <div class="timeline-content">
+                    <h4>Weeks 3-4: Supporting Services</h4>
+                    <p>Evidence, Workflow, Integration, Notification services</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">5-6</div>
+                <div class="timeline-content">
+                    <h4>Weeks 5-6: Advanced Features</h4>
+                    <p>AI Service, Reporting, integration testing</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">7-10</div>
+                <div class="timeline-content">
+                    <h4>Weeks 7-10: Feature Completion</h4>
+                    <p>Multi-framework mapping, policy engine, AI features</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">11-13</div>
+                <div class="timeline-content">
+                    <h4>Weeks 11-13: Production Ready</h4>
+                    <p>Testing, security audit, deployment, monitoring</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resource Requirements -->
+    <div class="slide page-break">
+        <h1>Investment Requirements</h1>
+        <h3>Immediate Needs (Next 30 Days)</h3>
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Count</th>
+                <th>Focus Area</th>
+                <th>Cost</th>
+            </tr>
+            <tr>
+                <td>Senior Backend Engineers</td>
+                <td>2</td>
+                <td>Complete 9 microservices</td>
+                <td>$300K</td>
+            </tr>
+            <tr>
+                <td>ML Engineer</td>
+                <td>1</td>
+                <td>AI/ML features</td>
+                <td>$150K</td>
+            </tr>
+            <tr>
+                <td>DevOps Engineer</td>
+                <td>1</td>
+                <td>Production deployment</td>
+                <td>$150K</td>
+            </tr>
+            <tr>
+                <td>Enterprise Sales</td>
+                <td>2</td>
+                <td>Close design partners</td>
+                <td>$200K</td>
+            </tr>
+            <tr>
+                <td>Marketing</td>
+                <td>-</td>
+                <td>Content & demand gen</td>
+                <td>$100K</td>
+            </tr>
+        </table>
+        
+        <h3>Use of Funds</h3>
+        <div class="grid">
+            <div class="metric-box">
+                <div class="metric-value">40%</div>
+                <div class="metric-label">Product Development</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">30%</div>
+                <div class="metric-label">Sales & Marketing</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">20%</div>
+                <div class="metric-label">Operations</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">10%</div>
+                <div class="metric-label">Partnerships</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why We Win -->
+    <div class="slide page-break">
+        <h1>Why This Project Will Succeed</h1>
+        <div class="grid">
+            <div class="tech-card">
+                <h4>🎯 Perfect Timing</h4>
+                <ul>
+                    <li>SOC 2 becoming mandatory</li>
+                    <li>First to apply AI to compliance</li>
+                    <li>Market understands ROI</li>
+                    <li>CPA firms need innovation</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>🚀 Superior Technology</h4>
+                <ul>
+                    <li>Cloud-native architecture</li>
+                    <li>AI differentiation</li>
+                    <li>Developer-friendly APIs</li>
+                    <li>Enterprise-grade security</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>💼 Strong Business Model</h4>
+                <ul>
+                    <li>95% recurring revenue</li>
+                    <li>80% gross margins</li>
+                    <li>Network effects via CPAs</li>
+                    <li>Land and expand strategy</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>⭐ Market Validation</h4>
+                <ul>
+                    <li>5 signed LOIs</li>
+                    <li>50+ customer interviews</li>
+                    <li>15 CPA firms engaged</li>
+                    <li>Gartner positive review</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Ready Features -->
+    <div class="slide page-break">
+        <h1>Demo-Ready Features</h1>
+        <h3>What We Can Show Today</h3>
+        <div class="grid">
+            <div>
+                <h4>✅ Working Now</h4>
+                <ul>
+                    <li>Enterprise authentication with MFA/SSO</li>
+                    <li>Beautiful, responsive UI (all screens)</li>
+                    <li>Client onboarding workflow</li>
+                    <li>Policy management interface</li>
+                    <li>Evidence collection dashboard</li>
+                    <li>Real-time notifications</li>
+                    <li>Kong API Gateway management</li>
+                </ul>
+            </div>
+            <div>
+                <h4>📋 Demo Script</h4>
+                <ol>
+                    <li>Login with SSO + MFA</li>
+                    <li>Create new client</li>
+                    <li>Set up compliance project</li>
+                    <li>Upload policy documents</li>
+                    <li>View evidence dashboard</li>
+                    <li>Generate sample report</li>
+                    <li>Show real-time updates</li>
+                </ol>
+            </div>
+        </div>
+        <div class="key-stat">
+            <p><strong>Quick Win:</strong> With 2 more weeks, we can add Policy Service for full policy management demo</p>
+        </div>
+    </div>
+
+    <!-- Risk Mitigation -->
+    <div class="slide page-break">
+        <h1>Risk Mitigation</h1>
+        <table>
+            <tr>
+                <th>Risk</th>
+                <th>Impact</th>
+                <th>Mitigation Strategy</th>
+            </tr>
+            <tr>
+                <td>Service Complexity</td>
+                <td>Development delays</td>
+                <td>Incremental development, continuous testing, modular architecture</td>
+            </tr>
+            <tr>
+                <td>Integration Challenges</td>
+                <td>Feature delays</td>
+                <td>Mock services first, phased integration, well-defined APIs</td>
+            </tr>
+            <tr>
+                <td>Performance Requirements</td>
+                <td>User experience</td>
+                <td>Caching strategy, event-driven architecture, CDN deployment</td>
+            </tr>
+            <tr>
+                <td>AI Model Training</td>
+                <td>Accuracy concerns</td>
+                <td>Start with rules engine, enhance with ML, continuous learning</td>
+            </tr>
+            <tr>
+                <td>Market Competition</td>
+                <td>Customer acquisition</td>
+                <td>CPA partnerships, superior technology, lower pricing</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Immediate Next Steps -->
+    <div class="slide page-break">
+        <h1>Immediate Action Plan</h1>
+        <h2>Next 2 Weeks: Enhanced Demo</h2>
+        <div class="grid">
+            <div class="tech-card">
+                <h4>Week 1</h4>
+                <ul>
+                    <li>Complete Policy Service (70% → 100%)</li>
+                    <li>Basic workflow engine</li>
+                    <li>Evidence upload feature</li>
+                    <li>Simple reporting</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>Week 2</h4>
+                <ul>
+                    <li>Integration testing</li>
+                    <li>Demo environment setup</li>
+                    <li>Sales collateral creation</li>
+                    <li>Customer demos begin</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2>Options for Rapid Completion</h2>
+        <div class="grid-3">
+            <div class="tech-card">
+                <h4>Option A: Focus</h4>
+                <p>Current team completes 2-3 critical services</p>
+                <p><strong>Timeline:</strong> 12-16 weeks</p>
+                <p><strong>Cost:</strong> $200K</p>
+            </div>
+            <div class="tech-card">
+                <h4>Option B: Contract</h4>
+                <p>Hire 2 contractors for 6 weeks</p>
+                <p><strong>Timeline:</strong> 6-8 weeks</p>
+                <p><strong>Cost:</strong> $300K</p>
+            </div>
+            <div class="tech-card">
+                <h4>Option C: Partner</h4>
+                <p>Dev firm for 8-week sprint</p>
+                <p><strong>Timeline:</strong> 8 weeks</p>
+                <p><strong>Cost:</strong> $400K</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Closing Slide -->
+    <div class="slide closing-slide">
+        <h1>The Opportunity</h1>
+        <div class="key-stat" style="background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);">
+            <p style="font-size: 1.4em; color: white;">We are <strong>60% complete</strong> with working demos and <strong>5 signed LOIs</strong>. With focused investment, we will capture significant market share in the $5B compliance automation market.</p>
+        </div>
+        
+        <h2>What We Need</h2>
+        <ul style="color: white; font-size: 1.2em;">
+            <li><strong>Continued Investment:</strong> Complete the remaining 40% of development</li>
+            <li><strong>Strategic Support:</strong> Introductions to CPA firms and enterprises</li>
+            <li><strong>Team Expansion:</strong> 2 senior developers + 1 ML engineer</li>
+        </ul>
+        
+        <h2>Expected Returns</h2>
+        <div class="grid">
+            <div class="metric-box">
+                <div class="metric-value">Month 18</div>
+                <div class="metric-label">Break-even</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">Month 24</div>
+                <div class="metric-label">Cash Flow Positive</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">$250M+</div>
+                <div class="metric-label">Year 3 Valuation</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">IPO/M&A</div>
+                <div class="metric-label">Exit Options</div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 60px;">
+            <h2 style="color: white; font-size: 2.5em; font-weight: 300;">Together, we will transform compliance</h2>
+            <h2 style="color: #52C41A; font-size: 2.5em; font-weight: 700;">from a burden to a competitive advantage.</h2>
+        </div>
+    </div>
+
+    <script>
+        function downloadPPTX() {
+            alert('To create a PowerPoint:\n\n1. Save this page as PDF first (Ctrl+P)\n2. Use an online PDF to PowerPoint converter like:\n   - iLovePDF.com/pdf_to_powerpoint\n   - SmallPDF.com/pdf-to-ppt\n   - Adobe.com/acrobat/online/pdf-to-ppt\n\n3. Or import the images directly into PowerPoint');
+        }
+    </script>
+</body>
+</html>

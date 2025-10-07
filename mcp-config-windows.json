@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx.cmd",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
+    },
+    "github": {
+      "command": "npx.cmd",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": ""
+      }
+    },
+    "memory": {
+      "command": "npx.cmd",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "fetch": {
+      "command": "npx.cmd",
+      "args": ["-y", "@kazuph/mcp-fetch"]
+    },
+    "chart": {
+      "command": "npx.cmd",
+      "args": ["-y", "@antv/mcp-server-chart"]
+    },
+    "smithery-github": {
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "@smithery-ai/github",
+        "--key",
+        "d4b0205e-71f6-4f11-9728-3642d8423354"
+      ]
+    }
+  }
+}

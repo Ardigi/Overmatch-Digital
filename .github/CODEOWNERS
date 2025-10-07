@@ -1,0 +1,86 @@
+# CODEOWNERS file for SOC Compliance Platform
+# This file defines who is responsible for code review in different parts of the codebase
+
+# Default owners for everything in the repo
+* @soc-platform/engineering
+
+# Frontend code owners
+/app/ @soc-platform/frontend
+/components/ @soc-platform/frontend
+/hooks/ @soc-platform/frontend
+/lib/ @soc-platform/frontend
+/contexts/ @soc-platform/frontend
+*.tsx @soc-platform/frontend
+*.css @soc-platform/frontend
+tailwind.config.ts @soc-platform/frontend
+
+# Backend services owners
+/services/auth-service/ @soc-platform/backend @soc-platform/security
+/services/client-service/ @soc-platform/backend
+/services/policy-service/ @soc-platform/backend @soc-platform/compliance
+/services/control-service/ @soc-platform/backend @soc-platform/compliance
+/services/evidence-service/ @soc-platform/backend
+/services/workflow-service/ @soc-platform/backend
+/services/reporting-service/ @soc-platform/backend
+/services/audit-service/ @soc-platform/backend @soc-platform/compliance
+/services/integration-service/ @soc-platform/backend @soc-platform/integrations
+/services/notification-service/ @soc-platform/backend
+/services/ai-service/ @soc-platform/backend @soc-platform/ai
+
+# Shared packages owners
+/packages/ @soc-platform/architects
+/shared/ @soc-platform/architects
+
+# Infrastructure and DevOps
+/infrastructure/ @soc-platform/devops
+/helm/ @soc-platform/devops
+/.github/ @soc-platform/devops
+/docker-compose*.yml @soc-platform/devops
+Dockerfile @soc-platform/devops
+*.ps1 @soc-platform/devops
+*.sh @soc-platform/devops
+
+# Security-sensitive files
+**/auth* @soc-platform/security
+**/security* @soc-platform/security
+**/crypto* @soc-platform/security
+.env* @soc-platform/security @soc-platform/devops
+
+# Database and migrations
+**/migrations/ @soc-platform/database
+**/entities/ @soc-platform/database
+**/data-source.ts @soc-platform/database
+ormconfig* @soc-platform/database
+
+# Documentation
+/docs/ @soc-platform/technical-writers @soc-platform/architects
+*.md @soc-platform/technical-writers
+README.md @soc-platform/technical-writers @soc-platform/leads
+
+# CI/CD workflows
+/.github/workflows/ @soc-platform/devops @soc-platform/leads
+
+# Critical configuration files
+package.json @soc-platform/leads
+tsconfig.json @soc-platform/architects
+.eslintrc* @soc-platform/architects
+jest.config* @soc-platform/architects
+
+# Compliance and audit files
+**/compliance/ @soc-platform/compliance
+**/audit/ @soc-platform/compliance
+**/soc*/ @soc-platform/compliance
+
+# Test files - optional review
+*.spec.ts
+*.test.ts
+*.spec.js
+*.test.js
+/test/
+/tests/
+
+# Build and generated files - no review needed
+/dist/
+/build/
+*.lock
+*.log

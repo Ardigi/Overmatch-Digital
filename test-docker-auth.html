@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Docker Auth</title>
+</head>
+<body>
+    <h1>Test Authentication with Docker Services</h1>
+    <button onclick="testAuth()">Test Login</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testAuth() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@soc-compliance.com',
+                        password: 'Admin@123!'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.textContent = '✅ SUCCESS!\n\n' + JSON.stringify(data, null, 2);
+                    console.log('Login successful:', data);
+                    
+                    // Extract token from wrapped response
+                    const token = data.data?.accessToken || data.accessToken;
+                    if (token) {
+                        resultDiv.textContent += '\n\n🔑 Token extracted: ' + token.substring(0, 50) + '...';
+                    }
+                } else {
+                    resultDiv.textContent = '❌ FAILED: ' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                resultDiv.textContent = '❌ ERROR: ' + error.message;
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

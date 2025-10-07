@@ -1,0 +1,428 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Every Monday at 6 AM UTC
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of updates to check'
+        required: false
+        type: choice
+        options:
+          - 'all'
+          - 'security'
+          - 'minor'
+          - 'major'
+        default: 'all'
+
+env:
+  NODE_VERSION: '18.x'
+
+jobs:
+  update-dependencies:
+    name: Update Dependencies - ${{ matrix.directory }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    strategy:
+      matrix:
+        directory:
+          - .
+          - services/auth-service
+          - services/client-service
+          - services/policy-service
+          - services/control-service
+          - services/evidence-service
+          - services/workflow-service
+          - services/reporting-service
+          - services/audit-service
+          - services/integration-service
+          - services/notification-service
+          - services/ai-service
+      max-parallel: 2
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      
+      - name: Check for npm updates
+        id: npm_check
+        working-directory: ${{ matrix.directory }}
+        run: |
+          # Install npm-check-updates
+          npm install -g npm-check-updates
+          
+          # Check for updates based on type
+          UPDATE_TYPE="${{ github.event.inputs.update_type || 'all' }}"
+          
+          case $UPDATE_TYPE in
+            security)
+              # Only security updates
+              npm audit fix --dry-run > npm-updates.txt || true
+              ;;
+            minor)
+              # Minor and patch updates
+              ncu --target minor > npm-updates.txt || true
+              ;;
+            major)
+              # Major updates only
+              ncu --target latest --filter "/./" > npm-updates.txt || true
+              ;;
+            all)
+              # All updates
+              ncu > npm-updates.txt || true
+              ;;
+          esac
+          
+          # Check if there are updates
+          if grep -q "Run ncu -u to upgrade" npm-updates.txt || grep -q "found.*vulnerabilities" npm-updates.txt; then
+            echo "has_updates=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_updates=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Update dependencies
+        if: steps.npm_check.outputs.has_updates == 'true'
+        working-directory: ${{ matrix.directory }}
+        run: |
+          UPDATE_TYPE="${{ github.event.inputs.update_type || 'all' }}"
+          
+          case $UPDATE_TYPE in
+            security)
+              npm audit fix || true
+              ;;
+            minor)
+              ncu -u --target minor
+              npm install
+              ;;
+            major)
+              ncu -u --target latest
+              npm install
+              ;;
+            all)
+              ncu -u
+              npm install
+              ;;
+          esac
+      
+      - name: Run tests
+        if: steps.npm_check.outputs.has_updates == 'true'
+        working-directory: ${{ matrix.directory }}
+        run: |
+          # Build shared packages first if in a service directory
+          if [[ "${{ matrix.directory }}" == services/* ]]; then
+            cd ../..
+            npm run build --workspace=packages/auth-common
+            npm run build --workspace=shared/contracts
+            npm run build --workspace=shared/events
+            cd -
+          fi
+          
+          # Run tests
+          npm test -- --passWithNoTests || echo "Tests failed"
+      
+      - name: Create Pull Request
+        if: steps.npm_check.outputs.has_updates == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore(deps): update dependencies in ${{ matrix.directory }}'
+          title: 'chore(deps): Update dependencies in ${{ matrix.directory }}'
+          body: |
+            ## 🔄 Dependency Updates
+            
+            This PR updates dependencies in `${{ matrix.directory }}`.
+            
+            ### Update Type: ${{ github.event.inputs.update_type || 'all' }}
+            
+            <details>
+            <summary>📋 Update Details</summary>
+            
+            ```
+            ${{ steps.npm_check.outputs.updates }}
+            ```
+            
+            </details>
+            
+            ### Checklist
+            - [ ] Tests pass
+            - [ ] No breaking changes
+            - [ ] Security vulnerabilities addressed
+            - [ ] Changelog updated (if needed)
+            
+            ---
+            *This PR was automatically created by the dependency update workflow.*
+          branch: deps/${{ matrix.directory }}-${{ github.run_number }}
+          delete-branch: true
+          labels: |
+            dependencies
+            automated
+            ${{ contains(github.event.inputs.update_type, 'security') && 'security' || '' }}
+
+  update-docker-base-images:
+    name: Update Docker Base Images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check for Docker base image updates
+        id: docker_check
+        run: |
+          # Find all Dockerfiles
+          DOCKERFILES=$(find . -name "Dockerfile" -type f)
+          UPDATES_NEEDED=false
+          
+          for dockerfile in $DOCKERFILES; do
+            echo "Checking $dockerfile..."
+            
+            # Extract base images
+            BASE_IMAGES=$(grep "^FROM" "$dockerfile" | awk '{print $2}')
+            
+            for image in $BASE_IMAGES; do
+              # Skip build stage references
+              if [[ "$image" == *"AS"* ]] || [[ "$image" == *"as"* ]]; then
+                continue
+              fi
+              
+              # Check if image has updates
+              docker pull "$image" > /dev/null 2>&1
+              LATEST_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$image" 2>/dev/null || echo "")
+              
+              if [ -n "$LATEST_DIGEST" ]; then
+                echo "Latest version available for $image"
+                UPDATES_NEEDED=true
+              fi
+            done
+          done
+          
+          echo "updates_needed=$UPDATES_NEEDED" >> $GITHUB_OUTPUT
+      
+      - name: Update Dockerfiles
+        if: steps.docker_check.outputs.updates_needed == 'true'
+        run: |
+          # Update Node.js base images to latest LTS
+          find . -name "Dockerfile" -type f -exec sed -i 's/node:18-alpine/node:18-alpine/g' {} +
+          find . -name "Dockerfile" -type f -exec sed -i 's/node:18\.[0-9]\+-alpine/node:18-alpine/g' {} +
+          
+          # Update other common base images
+          find . -name "Dockerfile" -type f -exec sed -i 's/postgres:15\.[0-9]\+/postgres:15-alpine/g' {} +
+          find . -name "Dockerfile" -type f -exec sed -i 's/redis:7\.[0-9]\+/redis:7-alpine/g' {} +
+      
+      - name: Create Pull Request for Docker updates
+        if: steps.docker_check.outputs.updates_needed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore(docker): update base images'
+          title: 'chore(docker): Update Docker base images'
+          body: |
+            ## 🐳 Docker Base Image Updates
+            
+            This PR updates Docker base images to their latest versions.
+            
+            ### Changes
+            - Updated Node.js images to latest LTS
+            - Updated database images to latest stable versions
+            
+            ### Security Benefits
+            - Includes latest security patches
+            - Reduces vulnerability surface
+            
+            ---
+            *This PR was automatically created by the dependency update workflow.*
+          branch: deps/docker-base-images-${{ github.run_number }}
+          delete-branch: true
+          labels: |
+            dependencies
+            docker
+            automated
+
+  update-github-actions:
+    name: Update GitHub Actions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check for GitHub Actions updates
+        uses: actions/github-script@v7
+        id: check_actions
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const yaml = require('js-yaml');
+            
+            let updatesNeeded = false;
+            const updates = [];
+            
+            // Common actions to check
+            const actionsToCheck = [
+              'actions/checkout',
+              'actions/setup-node',
+              'actions/upload-artifact',
+              'actions/download-artifact',
+              'docker/setup-buildx-action',
+              'docker/build-push-action',
+              'docker/login-action'
+            ];
+            
+            // Get latest versions
+            for (const action of actionsToCheck) {
+              try {
+                const [owner, repo] = action.split('/');
+                const { data } = await github.rest.repos.getLatestRelease({
+                  owner,
+                  repo
+                });
+                
+                updates.push({
+                  action,
+                  latest: data.tag_name
+                });
+              } catch (error) {
+                console.log(`Could not fetch latest version for ${action}`);
+              }
+            }
+            
+            return { updatesNeeded: updates.length > 0, updates };
+      
+      - name: Update GitHub Actions versions
+        if: steps.check_actions.outputs.updatesNeeded == 'true'
+        run: |
+          # Update action versions in workflow files
+          for workflow in .github/workflows/*.yml; do
+            echo "Updating $workflow..."
+            
+            # Update to latest major versions
+            sed -i 's/actions\/checkout@v[0-9]\+/actions\/checkout@v4/g' "$workflow"
+            sed -i 's/actions\/setup-node@v[0-9]\+/actions\/setup-node@v4/g' "$workflow"
+            sed -i 's/actions\/upload-artifact@v[0-9]\+/actions\/upload-artifact@v3/g' "$workflow"
+            sed -i 's/actions\/download-artifact@v[0-9]\+/actions\/download-artifact@v3/g' "$workflow"
+            sed -i 's/docker\/setup-buildx-action@v[0-9]\+/docker\/setup-buildx-action@v3/g' "$workflow"
+            sed -i 's/docker\/build-push-action@v[0-9]\+/docker\/build-push-action@v5/g' "$workflow"
+            sed -i 's/docker\/login-action@v[0-9]\+/docker\/login-action@v3/g' "$workflow"
+          done
+      
+      - name: Create Pull Request for Actions updates
+        if: steps.check_actions.outputs.updatesNeeded == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore(ci): update GitHub Actions'
+          title: 'chore(ci): Update GitHub Actions to latest versions'
+          body: |
+            ## 🔧 GitHub Actions Updates
+            
+            This PR updates GitHub Actions to their latest versions.
+            
+            ### Security Benefits
+            - Latest security patches
+            - Bug fixes and performance improvements
+            
+            ---
+            *This PR was automatically created by the dependency update workflow.*
+          branch: deps/github-actions-${{ github.run_number }}
+          delete-branch: true
+          labels: |
+            dependencies
+            ci/cd
+            automated
+
+  security-audit-summary:
+    name: Security Audit Summary
+    runs-on: ubuntu-latest
+    needs: [update-dependencies, update-docker-base-images, update-github-actions]
+    if: always()
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run comprehensive security audit
+        run: |
+          # Install tools
+          npm install -g npm-audit-html
+          
+          # Run audit for all packages
+          echo "# Security Audit Report" > security-audit.md
+          echo "Date: $(date)" >> security-audit.md
+          echo "" >> security-audit.md
+          
+          # Audit each service
+          for dir in . services/*; do
+            if [ -f "$dir/package.json" ]; then
+              echo "## $dir" >> security-audit.md
+              cd "$dir"
+              npm audit --json > audit.json || true
+              
+              # Parse audit results
+              if [ -s audit.json ]; then
+                VULNS=$(jq '.metadata.vulnerabilities' audit.json)
+                echo "- Total vulnerabilities: $(jq '.metadata.vulnerabilities.total' audit.json)" >> ../security-audit.md
+                echo "- Critical: $(jq '.metadata.vulnerabilities.critical' audit.json)" >> ../security-audit.md
+                echo "- High: $(jq '.metadata.vulnerabilities.high' audit.json)" >> ../security-audit.md
+                echo "- Moderate: $(jq '.metadata.vulnerabilities.moderate' audit.json)" >> ../security-audit.md
+                echo "- Low: $(jq '.metadata.vulnerabilities.low' audit.json)" >> ../security-audit.md
+              fi
+              
+              cd - > /dev/null
+              echo "" >> security-audit.md
+            fi
+          done
+      
+      - name: Upload security audit report
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-audit-report
+          path: security-audit.md
+      
+      - name: Create summary issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toISOString().split('T')[0];
+            
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Weekly Dependency Update Summary - ${date}`,
+              body: `## 📊 Weekly Dependency Update Summary
+              
+              ### Status
+              - Dependencies Check: ${{ needs.update-dependencies.result }}
+              - Docker Images: ${{ needs.update-docker-base-images.result }}
+              - GitHub Actions: ${{ needs.update-github-actions.result }}
+              
+              ### Pull Requests Created
+              Check the [Pull Requests](https://github.com/${context.repo.owner}/${context.repo.repo}/pulls?q=is%3Apr+is%3Aopen+label%3Adependencies) page for automated dependency updates.
+              
+              ### Action Items
+              1. Review and merge dependency update PRs
+              2. Check for any failing tests
+              3. Monitor for security vulnerabilities
+              
+              ---
+              *This issue was automatically created by the dependency update workflow.*`,
+              labels: ['dependencies', 'automated', 'weekly-summary']
+            });

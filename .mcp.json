@@ -1,0 +1,162 @@
+{
+  "version": "1.0.0",
+  "profile": "full",
+  "serverSets": {
+    "core": ["filesystem", "git", "basic-memory", "fetch", "sequential-thinking"],
+    "design": ["chart", "puppeteer", "figma", "cursor-figma", "design-system-extractor"],
+    "backend": ["grep", "sqlite", "postgres", "redis", "docker", "k8s"],
+    "integration": ["github", "notion", "linear", "stripe", "slack"],
+    "testing": ["selenium", "globalping", "llm-api-benchmark"],
+    "all": [
+      "filesystem", "git", "basic-memory", "fetch", "sequential-thinking",
+      "chart", "puppeteer", "figma", "cursor-figma", "design-system-extractor",
+      "grep", "sqlite", "postgres", "redis", "docker", "k8s",
+      "github", "notion", "linear", "stripe", "slack",
+      "selenium", "globalping", "llm-api-benchmark"
+    ]
+  },
+  "activeSet": "all",
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "env": {
+        "FILESYSTEM_READ_ONLY": "false"
+      }
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"],
+      "env": {
+        "GIT_COMMIT_MESSAGE_TEMPLATE": "feat: {{description}}\n\n🤖 AI-generated commit"
+      }
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_API_TOKEN": "${GITHUB_API_TOKEN}",
+        "GITHUB_DEFAULT_REPO": "${GITHUB_DEFAULT_REPO}"
+      }
+    },
+    "grep": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-grep"]
+    },
+    "chart": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-chart"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite"],
+      "env": {
+        "SQLITE_DB_PATH": "${SQLITE_DB_PATH}"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_URL": "${POSTGRES_URL}"
+      }
+    },
+    "redis": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-redis"],
+      "env": {
+        "REDIS_URL": "${REDIS_URL}"
+      }
+    },
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-docker"]
+    },
+    "selenium": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-selenium"]
+    },
+    "globalping": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-globalping"]
+    },
+    "k8s": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-k8s"],
+      "env": {
+        "KUBECONFIG": "${KUBECONFIG}"
+      }
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-figma"],
+      "env": {
+        "FIGMA_API_TOKEN": "${FIGMA_API_TOKEN}"
+      }
+    },
+    "cursor-figma": {
+      "command": "npx",
+      "args": ["-y", "@cursor-ai/server-figma"],
+      "env": {
+        "FIGMA_PERSONAL_ACCESS_TOKEN": "${FIGMA_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "design-system-extractor": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-design-system-extractor"]
+    },
+    "llm-api-benchmark": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-llm-api-benchmark"],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+      }
+    },
+    "basic-memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-basic-memory"]
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-notion"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}"
+      }
+    },
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-linear"],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}"
+      }
+    },
+    "stripe": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-stripe"],
+      "env": {
+        "STRIPE_API_KEY": "${STRIPE_API_KEY}",
+        "STRIPE_WEBHOOK_SECRET": "${STRIPE_WEBHOOK_SECRET}"
+      }
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_API_TOKEN": "${SLACK_API_TOKEN}"
+      }
+    }
+  }
+}

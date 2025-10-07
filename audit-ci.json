@@ -1,0 +1,22 @@
+{
+  "low": true,
+  "moderate": true,
+  "high": true,
+  "critical": true,
+  "allowlist": [
+    "GHSA-w7rc-rwvf-8q5r",
+    "GHSA-r683-j2x4-v87g"
+  ],
+  "registry": "https://registry.npmjs.org",
+  "report-type": "important",
+  "show-not-found": false,
+  "show-found": true,
+  "output-format": "text",
+  "pass-enoaudit": true,
+  "skip-dev": false,
+  "packages": {
+    "exclude": [
+      "example-package"
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "branch_protection_rules": {
+    "main": {
+      "required_status_checks": {
+        "strict": true,
+        "contexts": ["lint", "test-services", "test-frontend", "build-docker", "security-scan"]
+      },
+      "enforce_admins": true,
+      "required_pull_request_reviews": {
+        "required_approving_review_count": 2,
+        "dismiss_stale_reviews": true,
+        "require_code_owner_reviews": true,
+        "dismissal_restrictions": {
+          "users": [],
+          "teams": ["leads", "architects"]
+        }
+      },
+      "restrictions": {
+        "users": [],
+        "teams": ["maintainers"],
+        "apps": []
+      },
+      "allow_force_pushes": false,
+      "allow_deletions": false,
+      "required_conversation_resolution": true,
+      "lock_branch": false,
+      "allow_fork_syncing": false,
+      "required_deployments": {
+        "contexts": ["production"]
+      }
+    },
+    "develop": {
+      "required_status_checks": {
+        "strict": true,
+        "contexts": ["lint", "test-services", "test-frontend", "build-docker"]
+      },
+      "enforce_admins": false,
+      "required_pull_request_reviews": {
+        "required_approving_review_count": 1,
+        "dismiss_stale_reviews": true,
+        "require_code_owner_reviews": false
+      },
+      "restrictions": null,
+      "allow_force_pushes": false,
+      "allow_deletions": false,
+      "required_conversation_resolution": true,
+      "lock_branch": false,
+      "allow_fork_syncing": true
+    }
+  },
+  "environments": {
+    "staging": {
+      "wait_timer": 0,
+      "reviewers": {
+        "users": [],
+        "teams": []
+      },
+      "deployment_branch_policy": {
+        "protected_branches": false,
+        "custom_branch_policies": {
+          "name": "develop"
+        }
+      }
+    },
+    "production": {
+      "wait_timer": 300,
+      "reviewers": {
+        "users": [],
+        "teams": ["leads", "devops"]
+      },
+      "deployment_branch_policy": {
+        "protected_branches": true,
+        "custom_branch_policies": null
+      }
+    },
+    "production-approval": {
+      "wait_timer": 0,
+      "reviewers": {
+        "users": [],
+        "teams": ["leads", "product-owners"]
+      },
+      "deployment_branch_policy": {
+        "protected_branches": true,
+        "custom_branch_policies": null
+      }
+    },
+    "production-rollback": {
+      "wait_timer": 0,
+      "reviewers": {
+        "users": [],
+        "teams": ["devops", "on-call"]
+      },
+      "deployment_branch_policy": {
+        "protected_branches": false,
+        "custom_branch_policies": null
+      }
+    }
+  }
+}

@@ -1,0 +1,225 @@
+name: Daily Regression Tests
+
+on:
+  schedule:
+    # Run at 2 AM UTC every day
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      verbose:
+        description: 'Run tests in verbose mode'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  NODE_VERSION: '20'
+  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+jobs:
+  full-regression:
+    name: Full Platform Regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: |
+        npm ci
+        npm install -g wait-on newman
+
+    - name: Start Full Platform
+      run: |
+        # Start all services
+        docker-compose up -d
+        docker-compose -f docker-compose.services.yml up -d
+        
+        # Wait for all services to be healthy
+        echo "Waiting for all services to start..."
+        sleep 60
+
+    - name: Run Full E2E Test Suite
+      id: e2e-full
+      run: |
+        # Run comprehensive tests
+        node test/e2e/full-platform.test.js > test-results-e2e.txt 2>&1
+        E2E_EXIT=$?
+        
+        # Extract metrics
+        TOTAL=$(grep "Total Tests:" test-results-e2e.txt | awk '{print $3}')
+        PASSED=$(grep "✅ Passed:" test-results-e2e.txt | awk '{print $3}')
+        FAILED=$(grep "❌ Failed:" test-results-e2e.txt | awk '{print $3}')
+        
+        echo "e2e-total=$TOTAL" >> $GITHUB_OUTPUT
+        echo "e2e-passed=$PASSED" >> $GITHUB_OUTPUT
+        echo "e2e-failed=$FAILED" >> $GITHUB_OUTPUT
+        
+        exit $E2E_EXIT
+
+    - name: Run Performance Tests
+      id: perf-tests
+      if: success()
+      run: |
+        echo "Running performance benchmarks..."
+        
+        # Test auth service performance
+        ab -n 1000 -c 10 -T application/json -p test/fixtures/login.json http://localhost:3001/auth/login > perf-auth.txt
+        
+        # Extract metrics
+        AUTH_RPS=$(grep "Requests per second" perf-auth.txt | awk '{print $4}')
+        AUTH_TIME=$(grep "Time per request" perf-auth.txt | grep "(mean)" | awk '{print $4}')
+        
+        echo "auth-rps=$AUTH_RPS" >> $GITHUB_OUTPUT
+        echo "auth-response-time=$AUTH_TIME" >> $GITHUB_OUTPUT
+        
+        # Fail if performance degrades
+        if (( $(echo "$AUTH_RPS < 100" | bc -l) )); then
+          echo "::error::Auth service performance degraded: $AUTH_RPS RPS (expected > 100)"
+          exit 1
+        fi
+
+    - name: Run Security Scan
+      id: security-scan
+      if: success()
+      run: |
+        echo "Running security scans..."
+        
+        # OWASP ZAP baseline scan
+        docker run -t owasp/zap2docker-stable zap-baseline.py \
+          -t http://localhost:8000 \
+          -r security-report.html \
+          -J security-report.json || true
+        
+        # Check for critical vulnerabilities
+        if [ -f security-report.json ]; then
+          CRITICAL=$(jq '[.alerts[] | select(.risk == "High")] | length' security-report.json)
+          echo "critical-vulns=$CRITICAL" >> $GITHUB_OUTPUT
+          
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "::error::Found $CRITICAL critical security vulnerabilities"
+          fi
+        fi
+
+    - name: Run API Contract Tests
+      if: success()
+      run: |
+        echo "Running API contract tests..."
+        
+        # Run Postman/Newman tests
+        newman run test/postman/soc-compliance-api.json \
+          --environment test/postman/local-env.json \
+          --reporters cli,json \
+          --reporter-json-export newman-results.json || true
+
+    - name: Database Integrity Check
+      if: success()
+      run: |
+        echo "Checking database integrity..."
+        
+        # Check for orphaned records
+        docker exec $(docker ps -q -f name=postgres) psql -U soc_user -d soc_auth -c "
+          SELECT 'Users without organizations' as check, COUNT(*) as count
+          FROM users u
+          LEFT JOIN organizations o ON u.organization_id = o.id
+          WHERE u.organization_id IS NOT NULL AND o.id IS NULL;
+        "
+        
+        # Check for missing indexes
+        docker exec $(docker ps -q -f name=postgres) psql -U soc_user -d soc_auth -c "
+          SELECT schemaname, tablename, indexname
+          FROM pg_indexes
+          WHERE schemaname = 'public'
+          ORDER BY tablename, indexname;
+        "
+
+    - name: Generate Regression Report
+      if: always()
+      run: |
+        echo "# Daily Regression Test Report" > regression-report.md
+        echo "Date: $(date -u +"%Y-%m-%d %H:%M UTC")" >> regression-report.md
+        echo "" >> regression-report.md
+        
+        echo "## E2E Tests" >> regression-report.md
+        echo "- Total: ${{ steps.e2e-full.outputs.e2e-total }}" >> regression-report.md
+        echo "- Passed: ${{ steps.e2e-full.outputs.e2e-passed }}" >> regression-report.md
+        echo "- Failed: ${{ steps.e2e-full.outputs.e2e-failed }}" >> regression-report.md
+        echo "" >> regression-report.md
+        
+        echo "## Performance" >> regression-report.md
+        echo "- Auth Service: ${{ steps.perf-tests.outputs.auth-rps }} RPS" >> regression-report.md
+        echo "- Response Time: ${{ steps.perf-tests.outputs.auth-response-time }}ms" >> regression-report.md
+        echo "" >> regression-report.md
+        
+        echo "## Security" >> regression-report.md
+        echo "- Critical Vulnerabilities: ${{ steps.security-scan.outputs.critical-vulns || 0 }}" >> regression-report.md
+        echo "" >> regression-report.md
+        
+        # Create summary
+        if [ "${{ steps.e2e-full.outcome }}" == "success" ] && 
+           [ "${{ steps.perf-tests.outcome }}" == "success" ] && 
+           [ "${{ steps.security-scan.outputs.critical-vulns }}" == "0" ]; then
+          echo "## ✅ All Tests Passed" >> regression-report.md
+        else
+          echo "## ❌ Regression Detected" >> regression-report.md
+        fi
+
+    - name: Upload Test Artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: regression-test-results-${{ github.run_number }}
+        path: |
+          test-results-*.txt
+          perf-*.txt
+          security-report.*
+          newman-results.json
+          regression-report.md
+          logs/
+        retention-days: 30
+
+    - name: Notify Team
+      if: failure()
+      run: |
+        # Send Slack notification
+        if [ -n "$SLACK_WEBHOOK" ]; then
+          curl -X POST $SLACK_WEBHOOK \
+            -H 'Content-type: application/json' \
+            -d '{
+              "text": "⚠️ Daily Regression Tests Failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Daily Regression Tests Failed*\n\nE2E Tests: ${{ steps.e2e-full.outputs.e2e-passed }}/${{ steps.e2e-full.outputs.e2e-total }} passed\nPerformance: ${{ steps.perf-tests.outcome }}\nSecurity: ${{ steps.security-scan.outputs.critical-vulns }} critical issues\n\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Details>"
+                  }
+                }
+              ]
+            }'
+        fi
+
+  track-metrics:
+    name: Track Quality Metrics
+    runs-on: ubuntu-latest
+    needs: full-regression
+    if: always()
+
+    steps:
+    - name: Update Metrics Dashboard
+      run: |
+        echo "## Platform Quality Metrics" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Trend (Last 7 Days)" >> $GITHUB_STEP_SUMMARY
+        echo "| Date | Pass Rate | Performance | Security |" >> $GITHUB_STEP_SUMMARY
+        echo "|------|-----------|-------------|----------|" >> $GITHUB_STEP_SUMMARY
+        # This would normally query a metrics database
+        echo "| Today | ${{ needs.full-regression.outputs.pass-rate }}% | ${{ needs.full-regression.outputs.auth-rps }} RPS | ${{ needs.full-regression.outputs.critical-vulns }} issues |" >> $GITHUB_STEP_SUMMARY

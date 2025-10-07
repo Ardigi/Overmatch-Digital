@@ -1,0 +1,276 @@
+name: Release Notes Generator
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to generate notes for'
+        required: true
+        type: string
+
+jobs:
+  generate-release-notes:
+    name: Generate Release Notes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+      issues: read
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+          else
+            VERSION=${{ github.event.inputs.version }}
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Generating release notes for version: $VERSION"
+      
+      - name: Get previous tag
+        id: previous_tag
+        run: |
+          # Get the previous tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 ${{ steps.version.outputs.version }}^ 2>/dev/null || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            PREVIOUS_TAG=$(git rev-list --max-parents=0 HEAD)
+          fi
+          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+          echo "Previous tag: $PREVIOUS_TAG"
+      
+      - name: Generate changelog
+        id: changelog
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: commits } = await github.rest.repos.compareCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: '${{ steps.previous_tag.outputs.previous_tag }}',
+              head: '${{ steps.version.outputs.version }}'
+            });
+            
+            // Categorize commits
+            const features = [];
+            const fixes = [];
+            const breaking = [];
+            const chores = [];
+            const docs = [];
+            const tests = [];
+            const other = [];
+            
+            for (const commit of commits.commits) {
+              const message = commit.commit.message;
+              const sha = commit.sha.substring(0, 7);
+              const author = commit.author?.login || commit.commit.author.name;
+              
+              if (message.includes('BREAKING CHANGE:') || message.includes('!:')) {
+                breaking.push({ sha, message, author });
+              } else if (message.startsWith('feat:') || message.startsWith('feature:')) {
+                features.push({ sha, message, author });
+              } else if (message.startsWith('fix:')) {
+                fixes.push({ sha, message, author });
+              } else if (message.startsWith('docs:')) {
+                docs.push({ sha, message, author });
+              } else if (message.startsWith('test:')) {
+                tests.push({ sha, message, author });
+              } else if (message.startsWith('chore:')) {
+                chores.push({ sha, message, author });
+              } else {
+                other.push({ sha, message, author });
+              }
+            }
+            
+            // Get PRs merged since last release
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed',
+              base: 'main',
+              sort: 'updated',
+              direction: 'desc',
+              per_page: 100
+            });
+            
+            const mergedPRs = prs.filter(pr => 
+              pr.merged_at && 
+              new Date(pr.merged_at) > new Date(commits.commits[0]?.commit.author.date || '1970-01-01')
+            );
+            
+            return {
+              features,
+              fixes,
+              breaking,
+              chores,
+              docs,
+              tests,
+              other,
+              totalCommits: commits.commits.length,
+              mergedPRs: mergedPRs.length
+            };
+      
+      - name: Get contributors
+        id: contributors
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: contributors } = await github.rest.repos.listContributors({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              since: '${{ steps.previous_tag.outputs.previous_tag }}',
+              until: '${{ steps.version.outputs.version }}'
+            });
+            
+            return contributors.map(c => `@${c.login}`).join(', ');
+      
+      - name: Create release notes
+        id: release_notes
+        run: |
+          cat > release-notes.md << 'EOF'
+          # Release ${{ steps.version.outputs.version }}
+          
+          Released on $(date +%Y-%m-%d)
+          
+          ## 📊 Summary
+          
+          - **Total Commits**: ${{ fromJson(steps.changelog.outputs.result).totalCommits }}
+          - **Merged PRs**: ${{ fromJson(steps.changelog.outputs.result).mergedPRs }}
+          - **Contributors**: ${{ steps.contributors.outputs.result }}
+          
+          EOF
+          
+          # Add breaking changes if any
+          if [ -n "${{ fromJson(steps.changelog.outputs.result).breaking }}" ]; then
+            echo "## 🚨 Breaking Changes" >> release-notes.md
+            echo "" >> release-notes.md
+          fi
+          
+          # Add features if any
+          if [ -n "${{ fromJson(steps.changelog.outputs.result).features }}" ]; then
+            echo "## ✨ New Features" >> release-notes.md
+            echo "" >> release-notes.md
+          fi
+          
+          # Add fixes if any
+          if [ -n "${{ fromJson(steps.changelog.outputs.result).fixes }}" ]; then
+            echo "## 🐛 Bug Fixes" >> release-notes.md
+            echo "" >> release-notes.md
+          fi
+          
+          # Add other sections
+          echo "## 📚 Documentation" >> release-notes.md
+          echo "" >> release-notes.md
+          
+          echo "## 🧪 Tests" >> release-notes.md
+          echo "" >> release-notes.md
+          
+          echo "## 🔧 Maintenance" >> release-notes.md
+          echo "" >> release-notes.md
+          
+          # Add deployment notes
+          cat >> release-notes.md << 'EOF'
+          
+          ## 🚀 Deployment Notes
+          
+          ### Prerequisites
+          - Ensure all environment variables are set
+          - Database migrations have been tested
+          - Backup production database before deployment
+          
+          ### Breaking Changes
+          Review breaking changes section above and ensure compatibility.
+          
+          ### Migration Steps
+          ```bash
+          # 1. Backup database
+          npm run db:backup
+          
+          # 2. Run migrations
+          npm run db:migrate
+          
+          # 3. Deploy services
+          kubectl apply -f k8s/
+          ```
+          
+          ## 📋 Upgrade Guide
+          
+          ### From ${{ steps.previous_tag.outputs.previous_tag }}
+          
+          1. Review breaking changes
+          2. Update environment variables
+          3. Run database migrations
+          4. Deploy new version
+          5. Verify health checks
+          
+          ## 🔗 Links
+          
+          - [Full Changelog](https://github.com/${{ github.repository }}/compare/${{ steps.previous_tag.outputs.previous_tag }}...${{ steps.version.outputs.version }})
+          - [Documentation](https://docs.soc-platform.com)
+          - [API Reference](https://api.soc-platform.com/docs)
+          
+          ---
+          
+          **Docker Images**:
+          ```
+          ghcr.io/${{ github.repository }}/auth-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/client-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/policy-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/control-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/evidence-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/workflow-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/reporting-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/audit-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/integration-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/notification-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/ai-service:${{ steps.version.outputs.version }}
+          ghcr.io/${{ github.repository }}/frontend:${{ steps.version.outputs.version }}
+          ```
+          EOF
+      
+      - name: Create GitHub Release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const releaseNotes = fs.readFileSync('release-notes.md', 'utf8');
+            
+            const release = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: '${{ steps.version.outputs.version }}',
+              name: 'Release ${{ steps.version.outputs.version }}',
+              body: releaseNotes,
+              draft: false,
+              prerelease: ${{ contains(steps.version.outputs.version, '-beta') || contains(steps.version.outputs.version, '-rc') }}
+            });
+            
+            console.log(`Created release: ${release.data.html_url}`);
+      
+      - name: Post to Slack
+        if: success()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              text: "🎉 New Release Published",
+              attachments: [{
+                color: 'good',
+                fields: [
+                  { title: 'Version', value: '${{ steps.version.outputs.version }}', short: true },
+                  { title: 'Changes', value: '${{ fromJson(steps.changelog.outputs.result).totalCommits }} commits', short: true },
+                  { title: 'Release Notes', value: 'https://github.com/${{ github.repository }}/releases/tag/${{ steps.version.outputs.version }}', short: false }
+                ]
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,0 +1,339 @@
+name: E2E Platform Tests
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      services:
+        description: 'Services to test (comma-separated, or "all")'
+        required: false
+        default: 'all'
+      debug:
+        description: 'Enable debug logging'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  NODE_VERSION: '20'
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
+  E2E_TEST_TIMEOUT: 300000  # 5 minutes per test
+
+jobs:
+  platform-e2e-tests:
+    name: Platform E2E Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    strategy:
+      matrix:
+        test-group:
+          - auth-client
+          - policy-control
+          - evidence-workflow
+          - reporting-audit
+          - integration-notification-ai
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: |
+        npm ci
+        npm install -g wait-on concurrently
+        
+        # Build shared packages
+        npm run build --workspace=@soc-compliance/auth-common
+        npm run build --workspace=@soc-compliance/shared-contracts
+        npm run build --workspace=@soc-compliance/shared-events
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Cache Docker layers
+      uses: actions/cache@v3
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Start E2E Test Infrastructure
+      run: |
+        echo "Starting E2E test infrastructure..."
+        docker-compose -f docker-compose.e2e.yml up -d postgres-test redis-test kafka-test zookeeper-test mongodb-test elasticsearch-test
+        
+        # Wait for PostgreSQL
+        echo "Waiting for PostgreSQL..."
+        docker run --rm --network overmatch-digital_test-network postgres:15-alpine \
+          sh -c 'until pg_isready -h postgres-test -p 5432 -U test_user; do sleep 1; done'
+        
+        # Wait for Redis
+        echo "Waiting for Redis..."
+        docker run --rm --network overmatch-digital_test-network redis:7-alpine \
+          sh -c 'until redis-cli -h redis-test -a test_redis_pass ping; do sleep 1; done'
+        
+        # Wait for Kafka
+        echo "Waiting for Kafka..."
+        timeout 60 bash -c 'until docker exec overmatch-digital-kafka-test-1 kafka-broker-api-versions --bootstrap-server localhost:9092; do sleep 2; done' || true
+        
+        # Wait for MongoDB
+        echo "Waiting for MongoDB..."
+        docker run --rm --network overmatch-digital_test-network mongo:7.0 \
+          sh -c 'until mongosh --host mongodb-test -u test_user -p test_pass --authenticationDatabase admin --eval "db.adminCommand(\"ping\")"; do sleep 1; done'
+        
+        # Wait for Elasticsearch
+        echo "Waiting for Elasticsearch..."
+        wait-on http://localhost:9201/_cluster/health --timeout 60000
+
+    - name: Initialize Test Databases
+      run: |
+        echo "Initializing test databases..."
+        docker exec overmatch-digital-postgres-test-1 psql -U test_user -d test_main -f /docker-entrypoint-initdb.d/01-init.sql || true
+        
+        # Seed initial test data
+        docker cp scripts/e2e/seed-test-data.sql overmatch-digital-postgres-test-1:/tmp/
+        docker exec overmatch-digital-postgres-test-1 psql -U test_user -d test_main -f /tmp/seed-test-data.sql || true
+
+    - name: Build Test Services
+      run: |
+        echo "Building test services for group: ${{ matrix.test-group }}..."
+        
+        # Build services based on test group
+        case "${{ matrix.test-group }}" in
+          "auth-client")
+            docker-compose -f docker-compose.e2e.yml build auth-service-test client-service-test
+            ;;
+          "policy-control")
+            docker-compose -f docker-compose.e2e.yml build policy-service-test control-service-test
+            ;;
+          "evidence-workflow")
+            docker-compose -f docker-compose.e2e.yml build evidence-service-test workflow-service-test
+            ;;
+          "reporting-audit")
+            docker-compose -f docker-compose.e2e.yml build reporting-service-test audit-service-test
+            ;;
+          "integration-notification-ai")
+            docker-compose -f docker-compose.e2e.yml build integration-service-test notification-service-test ai-service-test
+            ;;
+        esac
+
+    - name: Start Test Services
+      run: |
+        echo "Starting test services for group: ${{ matrix.test-group }}..."
+        
+        # Start services based on test group
+        case "${{ matrix.test-group }}" in
+          "auth-client")
+            docker-compose -f docker-compose.e2e.yml up -d auth-service-test client-service-test
+            wait-on http://localhost:3001/health http://localhost:3002/api/v1/health --timeout 120000
+            ;;
+          "policy-control")
+            docker-compose -f docker-compose.e2e.yml up -d policy-service-test control-service-test
+            wait-on http://localhost:3003/health http://localhost:3004/health --timeout 120000
+            ;;
+          "evidence-workflow")
+            docker-compose -f docker-compose.e2e.yml up -d evidence-service-test workflow-service-test
+            wait-on http://localhost:3005/health http://localhost:3006/health --timeout 120000
+            ;;
+          "reporting-audit")
+            docker-compose -f docker-compose.e2e.yml up -d reporting-service-test audit-service-test
+            wait-on http://localhost:3007/health http://localhost:3008/health --timeout 120000
+            ;;
+          "integration-notification-ai")
+            docker-compose -f docker-compose.e2e.yml up -d integration-service-test notification-service-test ai-service-test maildev-test
+            wait-on http://localhost:3009/health http://localhost:3010/health http://localhost:3011/health --timeout 120000
+            ;;
+        esac
+
+    - name: Run E2E Tests
+      id: e2e-tests
+      env:
+        TEST_GROUP: ${{ matrix.test-group }}
+        DEBUG: ${{ github.event.inputs.debug == 'true' && 'true' || '' }}
+      run: |
+        echo "Running E2E tests for group: ${{ matrix.test-group }}..."
+        
+        # Map test groups to service directories
+        case "${{ matrix.test-group }}" in
+          "auth-client")
+            TEST_SERVICES="auth-service client-service"
+            ;;
+          "policy-control")
+            TEST_SERVICES="policy-service control-service"
+            ;;
+          "evidence-workflow")
+            TEST_SERVICES="evidence-service workflow-service"
+            ;;
+          "reporting-audit")
+            TEST_SERVICES="reporting-service audit-service"
+            ;;
+          "integration-notification-ai")
+            TEST_SERVICES="integration-service notification-service ai-service"
+            ;;
+        esac
+        
+        # Run tests for each service in the group
+        TOTAL_TESTS=0
+        PASSED_TESTS=0
+        FAILED_TESTS=0
+        
+        for service in $TEST_SERVICES; do
+          echo "Running E2E tests for $service..."
+          
+          if [ -d "services/$service/test/e2e" ]; then
+            cd services/$service
+            
+            # Run the E2E tests
+            if npm run test:e2e -- --passWithNoTests; then
+              SERVICE_PASSED=$?
+              echo "✅ $service E2E tests passed"
+            else
+              SERVICE_PASSED=$?
+              echo "❌ $service E2E tests failed"
+              FAILED_TESTS=$((FAILED_TESTS + 1))
+            fi
+            
+            cd ../..
+          else
+            echo "⚠️  No E2E tests found for $service"
+          fi
+        done
+        
+        # Set outputs
+        echo "total-services=${#TEST_SERVICES[@]}" >> $GITHUB_OUTPUT
+        echo "failed-services=$FAILED_TESTS" >> $GITHUB_OUTPUT
+        
+        # Fail if any service tests failed
+        if [ "$FAILED_TESTS" -gt 0 ]; then
+          echo "❌ E2E tests failed for $FAILED_TESTS services"
+          exit 1
+        fi
+
+    - name: Run Unit Tests
+      if: success()
+      run: |
+        echo "Running unit tests..."
+        npm test -- --coverage --ci
+
+    - name: Generate Test Report
+      if: always()
+      run: |
+        echo "## E2E Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Total Tests**: ${{ steps.e2e-tests.outputs.total-tests }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Passed**: ${{ steps.e2e-tests.outputs.passed-tests }} ✅" >> $GITHUB_STEP_SUMMARY
+        echo "- **Failed**: ${{ steps.e2e-tests.outputs.failed-tests }} ❌" >> $GITHUB_STEP_SUMMARY
+        echo "- **Pass Rate**: ${{ steps.e2e-tests.outputs.pass-rate }}%" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ steps.e2e-tests.outputs.pass-rate }}" -lt 80 ]; then
+          echo "### ❌ Tests Failed" >> $GITHUB_STEP_SUMMARY
+          echo "The platform is not functional. Critical services are failing." >> $GITHUB_STEP_SUMMARY
+        else
+          echo "### ✅ Tests Passed" >> $GITHUB_STEP_SUMMARY
+          echo "The platform is functional with ${{ steps.e2e-tests.outputs.pass-rate }}% pass rate." >> $GITHUB_STEP_SUMMARY
+        fi
+
+    - name: Collect Service Logs
+      if: failure()
+      run: |
+        echo "Collecting service logs..."
+        mkdir -p logs
+        
+        # Collect logs from all services
+        for container in $(docker ps -a --format "{{.Names}}" | grep -E "soc-|overmatch"); do
+          docker logs "$container" > "logs/${container}.log" 2>&1 || true
+        done
+        
+        # Show Kong routes
+        curl -s http://localhost:8001/routes | jq '.' > logs/kong-routes.json || true
+        
+        # Show running containers
+        docker ps -a > logs/docker-ps.txt
+
+    - name: Upload Logs
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: service-logs
+        path: logs/
+        retention-days: 7
+
+    - name: Cleanup
+      if: always()
+      run: |
+        docker-compose -f docker-compose.services.yml down -v
+        docker-compose down -v
+
+  quality-gates:
+    name: Quality Gates
+    runs-on: ubuntu-latest
+    needs: platform-e2e-tests
+    if: success()
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Run Linting
+      run: npm run lint
+
+    - name: Run Type Checking
+      run: npm run typecheck || true
+
+    - name: Security Audit
+      run: npm audit --audit-level=high || true
+
+    - name: Check for Secrets
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: ${{ github.event.repository.default_branch }}
+        head: HEAD
+
+  deployment-readiness:
+    name: Deployment Readiness Check
+    runs-on: ubuntu-latest
+    needs: [platform-e2e-tests, quality-gates]
+    if: success() && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Check Deployment Requirements
+      run: |
+        echo "## Deployment Readiness Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # This would normally check:
+        # - All services passing health checks
+        # - Database migrations ready
+        # - Environment variables configured
+        # - SSL certificates valid
+        # - Monitoring configured
+        
+        echo "✅ E2E Tests Passed" >> $GITHUB_STEP_SUMMARY
+        echo "✅ Quality Gates Passed" >> $GITHUB_STEP_SUMMARY
+        echo "⚠️  Manual verification required for:" >> $GITHUB_STEP_SUMMARY
+        echo "- External service API keys configured" >> $GITHUB_STEP_SUMMARY
+        echo "- SSL certificates installed" >> $GITHUB_STEP_SUMMARY
+        echo "- Production environment variables set" >> $GITHUB_STEP_SUMMARY

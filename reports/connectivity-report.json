@@ -1,0 +1,177 @@
+{
+  "infrastructure": {
+    "postgres_soc_auth": {
+      "status": "connected",
+      "timestamp": "2025-07-24T20:28:04.949Z",
+      "tables": 12
+    },
+    "postgres_soc_clients": {
+      "status": "connected",
+      "timestamp": "2025-07-24T20:28:05.044Z",
+      "tables": 0
+    },
+    "postgres_soc_policies": {
+      "status": "connected",
+      "timestamp": "2025-07-24T20:28:05.112Z",
+      "tables": 6
+    },
+    "postgres_soc_controls": {
+      "status": "connected",
+      "timestamp": "2025-07-24T20:28:05.181Z",
+      "tables": 0
+    },
+    "redis": {
+      "status": "connected",
+      "testValue": "ok",
+      "info": "# Server\r\nredis_version:7.4.5\r\nredis_git_sha1:00000000\r\nredis_git_dirty:0\r\nredis_build_id:14ef7c78d3983ab\r\nredis_mode:standalone\r\nos:Linux 6.6.87.1-microsoft-standard-WSL2 x86_64\r\narch_bits:64\r\nmonotonic_clock:POSIX clock_gettime\r\nmultiplexing_api:epoll\r\natomicvar_api:c11-builtin\r\ngcc_version:14.2.0\r\nprocess_id:1\r\nprocess_supervised:no\r\nrun_id:d9ff3e653096e82a3d101d4958311986623b247f\r\ntcp_port:6379\r\nserver_time_usec:1753388885318851\r\nuptime_in_seconds:1752\r\nuptime_in_days:0\r\nhz:10\r\nconfigured_hz:10\r\nlru_clock:8558421\r\nexecutable:/data/redis-server\r\nconfig_file:\r\nio_threads_active:0\r\nlistener0:name=tcp,bind=*,bind=-::*,port=6379\r\n"
+    },
+    "kafka": {
+      "status": "connected",
+      "brokers": 1,
+      "controller": 1,
+      "topics": 4,
+      "topicList": ["notification-requests", "auth-events", "audit-events", "__consumer_offsets"]
+    },
+    "elasticsearch": {
+      "status": "connected",
+      "clusterName": "docker-cluster",
+      "clusterStatus": "green",
+      "numberOfNodes": 1
+    },
+    "mongodb": {
+      "status": "connected",
+      "statusCode": 200
+    }
+  },
+  "services": {
+    "auth-service": {
+      "status": "healthy",
+      "port": 3001,
+      "healthData": {
+        "status": "ok"
+      }
+    },
+    "client-service": {
+      "status": "healthy",
+      "port": 3002,
+      "healthData": {
+        "status": "ok",
+        "info": {
+          "database": {
+            "status": "up"
+          },
+          "memory_heap": {
+            "status": "up"
+          },
+          "memory_rss": {
+            "status": "up"
+          },
+          "storage": {
+            "status": "up"
+          }
+        },
+        "error": {},
+        "details": {
+          "database": {
+            "status": "up"
+          },
+          "memory_heap": {
+            "status": "up"
+          },
+          "memory_rss": {
+            "status": "up"
+          },
+          "storage": {
+            "status": "up"
+          }
+        }
+      }
+    },
+    "policy-service": {
+      "status": "unhealthy",
+      "port": 3003,
+      "error": "Cannot GET /health",
+      "statusCode": 404
+    },
+    "control-service": {
+      "status": "unhealthy",
+      "port": 3004,
+      "error": ""
+    },
+    "evidence-service": {
+      "status": "unhealthy",
+      "port": 3005,
+      "error": ""
+    },
+    "workflow-service": {
+      "status": "unhealthy",
+      "port": 3006,
+      "error": ""
+    },
+    "reporting-service": {
+      "status": "unhealthy",
+      "port": 3007,
+      "error": ""
+    },
+    "audit-service": {
+      "status": "unhealthy",
+      "port": 3008,
+      "error": ""
+    },
+    "integration-service": {
+      "status": "unhealthy",
+      "port": 3009,
+      "error": ""
+    },
+    "notification-service": {
+      "status": "unhealthy",
+      "port": 3010,
+      "error": ""
+    },
+    "ai-service": {
+      "status": "unhealthy",
+      "port": 3011,
+      "error": ""
+    }
+  },
+  "connections": {
+    "kong": {
+      "status": "operational",
+      "services": 10,
+      "serviceList": [
+        "policy-service",
+        "client-service",
+        "audit-service",
+        "ai-service",
+        "integration-service",
+        "project-service",
+        "control-service",
+        "evidence-service",
+        "notification-service",
+        "auth-service"
+      ]
+    },
+    "kongRouting": {
+      "status": "working",
+      "authServiceViaKong": true
+    }
+  },
+  "errors": [],
+  "timestamp": "2025-07-24T20:28:05.165Z",
+  "summary": {
+    "stats": {
+      "infrastructure": {
+        "total": 8,
+        "connected": 8,
+        "failed": 0
+      },
+      "services": {
+        "total": 11,
+        "healthy": 2,
+        "unhealthy": 9
+      }
+    },
+    "healthScore": 53,
+    "criticalIssues": []
+  }
+}

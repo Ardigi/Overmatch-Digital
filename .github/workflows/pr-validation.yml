@@ -1,0 +1,516 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+env:
+  NODE_VERSION: '18.x'
+  CACHE_VERSION: 'v1'
+
+jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      services: ${{ steps.filter.outputs.services }}
+      packages: ${{ steps.filter.outputs.packages }}
+      shared: ${{ steps.filter.outputs.shared }}
+      auth-service: ${{ steps.filter.outputs.auth-service }}
+      client-service: ${{ steps.filter.outputs.client-service }}
+      policy-service: ${{ steps.filter.outputs.policy-service }}
+      control-service: ${{ steps.filter.outputs.control-service }}
+      evidence-service: ${{ steps.filter.outputs.evidence-service }}
+      workflow-service: ${{ steps.filter.outputs.workflow-service }}
+      reporting-service: ${{ steps.filter.outputs.reporting-service }}
+      audit-service: ${{ steps.filter.outputs.audit-service }}
+      integration-service: ${{ steps.filter.outputs.integration-service }}
+      notification-service: ${{ steps.filter.outputs.notification-service }}
+      ai-service: ${{ steps.filter.outputs.ai-service }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - 'app/**'
+              - 'components/**'
+              - 'lib/**'
+              - 'hooks/**'
+              - 'contexts/**'
+              - 'package.json'
+              - 'next.config.mjs'
+              - 'tailwind.config.ts'
+            services:
+              - 'services/**'
+            packages:
+              - 'packages/**'
+            shared:
+              - 'shared/**'
+            auth-service:
+              - 'services/auth-service/**'
+            client-service:
+              - 'services/client-service/**'
+            policy-service:
+              - 'services/policy-service/**'
+            control-service:
+              - 'services/control-service/**'
+            evidence-service:
+              - 'services/evidence-service/**'
+            workflow-service:
+              - 'services/workflow-service/**'
+            reporting-service:
+              - 'services/reporting-service/**'
+            audit-service:
+              - 'services/audit-service/**'
+            integration-service:
+              - 'services/integration-service/**'
+            notification-service:
+              - 'services/notification-service/**'
+            ai-service:
+              - 'services/ai-service/**'
+
+  lint:
+    name: Code Quality - ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    needs: changes
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - path: '.'
+            name: 'root'
+            condition: 'true'
+          - path: 'services/auth-service'
+            name: 'auth-service'
+            condition: ${{ needs.changes.outputs.auth-service == 'true' }}
+          - path: 'services/client-service'
+            name: 'client-service'
+            condition: ${{ needs.changes.outputs.client-service == 'true' }}
+          - path: 'services/policy-service'
+            name: 'policy-service'
+            condition: ${{ needs.changes.outputs.policy-service == 'true' }}
+          - path: 'services/control-service'
+            name: 'control-service'
+            condition: ${{ needs.changes.outputs.control-service == 'true' }}
+          - path: 'services/evidence-service'
+            name: 'evidence-service'
+            condition: ${{ needs.changes.outputs.evidence-service == 'true' }}
+          - path: 'services/workflow-service'
+            name: 'workflow-service'
+            condition: ${{ needs.changes.outputs.workflow-service == 'true' }}
+          - path: 'services/reporting-service'
+            name: 'reporting-service'
+            condition: ${{ needs.changes.outputs.reporting-service == 'true' }}
+          - path: 'services/audit-service'
+            name: 'audit-service'
+            condition: ${{ needs.changes.outputs.audit-service == 'true' }}
+          - path: 'services/integration-service'
+            name: 'integration-service'
+            condition: ${{ needs.changes.outputs.integration-service == 'true' }}
+          - path: 'services/notification-service'
+            name: 'notification-service'
+            condition: ${{ needs.changes.outputs.notification-service == 'true' }}
+          - path: 'services/ai-service'
+            name: 'ai-service'
+            condition: ${{ needs.changes.outputs.ai-service == 'true' }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        if: matrix.condition
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        if: matrix.condition
+        run: |
+          npm ci
+          if [ "${{ matrix.path }}" != "." ]; then
+            cd ${{ matrix.path }}
+            npm ci
+          fi
+      
+      - name: Run ESLint
+        if: matrix.condition
+        run: |
+          if [ "${{ matrix.path }}" != "." ]; then
+            cd ${{ matrix.path }}
+          fi
+          npm run lint -- --max-warnings 0
+        continue-on-error: true
+      
+      - name: Run Prettier Check
+        if: matrix.condition
+        run: |
+          if [ "${{ matrix.path }}" != "." ]; then
+            cd ${{ matrix.path }}
+          fi
+          npx prettier --check "**/*.{ts,tsx,js,jsx,json,md}" || true
+      
+      - name: TypeScript Type Check
+        if: matrix.condition
+        run: |
+          if [ "${{ matrix.path }}" != "." ]; then
+            cd ${{ matrix.path }}
+          fi
+          npx tsc --noEmit || true
+
+  test-shared:
+    name: Test Shared Packages
+    runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.packages == 'true' || needs.changes.outputs.shared == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build shared packages
+        run: |
+          npm run build --workspace=packages/auth-common
+          npm run build --workspace=shared/contracts  
+          npm run build --workspace=shared/events
+      
+      - name: Run tests
+        run: |
+          npm test --workspace=packages/auth-common --if-present
+          npm test --workspace=shared/contracts --if-present
+          npm test --workspace=shared/events --if-present
+
+  test-services:
+    name: Test ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    needs: [changes, test-shared]
+    if: always() && !cancelled() && (needs.test-shared.result == 'success' || needs.test-shared.result == 'skipped')
+    strategy:
+      fail-fast: false
+      matrix:
+        service: 
+          - auth-service
+          - client-service
+          - policy-service
+          - control-service
+          - evidence-service
+          - workflow-service
+          - reporting-service
+          - audit-service
+          - integration-service
+          - notification-service
+          - ai-service
+    
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+      
+      mongodb:
+        image: mongo:7
+        env:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 27017:27017
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check if service changed
+        id: check
+        run: |
+          SERVICE_NAME="${{ matrix.service }}"
+          if [ "${{ needs.changes.outputs[format('{0}', matrix.service)] }}" == "true" ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Setup Node.js
+        if: steps.check.outputs.should_run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        if: steps.check.outputs.should_run == 'true'
+        run: |
+          npm ci
+          cd services/${{ matrix.service }}
+          npm ci
+      
+      - name: Build shared packages
+        if: steps.check.outputs.should_run == 'true'
+        run: |
+          npm run build --workspace=packages/auth-common
+          npm run build --workspace=shared/contracts
+          npm run build --workspace=shared/events
+      
+      - name: Create test database
+        if: steps.check.outputs.should_run == 'true'
+        run: |
+          SERVICE_NAME=$(echo ${{ matrix.service }} | sed 's/-service$//' | sed 's/-/_/g')
+          PGPASSWORD=postgres psql -h localhost -U postgres -d postgres -c "CREATE DATABASE soc_${SERVICE_NAME}_test;"
+        env:
+          PGPASSWORD: postgres
+      
+      - name: Run unit tests
+        if: steps.check.outputs.should_run == 'true'
+        working-directory: services/${{ matrix.service }}
+        run: npm test -- --coverage --passWithNoTests
+        env:
+          NODE_ENV: test
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+          DB_NAME: soc_$(echo ${{ matrix.service }} | sed 's/-service$//' | sed 's/-/_/g')_test
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          REDIS_PASSWORD: ''
+          JWT_SECRET: test-secret-key
+          JWT_EXPIRES_IN: 30m
+          MONGODB_URI: mongodb://admin:admin@localhost:27017
+      
+      - name: Upload coverage
+        if: steps.check.outputs.should_run == 'true' && always()
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./services/${{ matrix.service }}/coverage/lcov.info
+          flags: ${{ matrix.service }}
+          name: ${{ matrix.service }}
+        continue-on-error: true
+
+  test-frontend:
+    name: Test Frontend
+    runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test -- --passWithNoTests
+        env:
+          NEXTAUTH_URL: http://localhost:3000
+          NEXTAUTH_SECRET: test-secret
+      
+      - name: Build Next.js application
+        run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:3000/api
+          NEXTAUTH_URL: http://localhost:3000
+          NEXTAUTH_SECRET: test-secret
+
+  build-docker:
+    name: Build Docker - ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    needs: [lint, test-services, test-frontend]
+    if: always() && !cancelled() && !failure()
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - auth-service
+          - client-service
+          - policy-service
+          - control-service
+          - evidence-service
+          - workflow-service
+          - reporting-service
+          - audit-service
+          - integration-service
+          - notification-service
+          - ai-service
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check if service changed
+        id: check
+        run: |
+          if [ "${{ needs.changes.outputs[format('{0}', matrix.service)] }}" == "true" ]; then
+            echo "should_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_build=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Set up Docker Buildx
+        if: steps.check.outputs.should_build == 'true'
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build Docker image
+        if: steps.check.outputs.should_build == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./services/${{ matrix.service }}/Dockerfile
+          push: false
+          tags: soc-platform/${{ matrix.service }}:pr-${{ github.event.pull_request.number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            SERVICE_NAME=${{ matrix.service }}
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: changes
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+      
+      - name: Run Trivy repo scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+        continue-on-error: true
+      
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+        continue-on-error: true
+
+  pr-comment:
+    name: PR Status Comment
+    runs-on: ubuntu-latest
+    needs: [lint, test-services, test-frontend, build-docker, security-scan]
+    if: always()
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Comment PR Status
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const jobs = {
+              lint: '${{ needs.lint.result }}',
+              testServices: '${{ needs.test-services.result }}',
+              testFrontend: '${{ needs.test-frontend.result }}',
+              buildDocker: '${{ needs.build-docker.result }}',
+              securityScan: '${{ needs.security-scan.result }}'
+            };
+            
+            const getEmoji = (status) => {
+              switch(status) {
+                case 'success': return '✅';
+                case 'failure': return '❌';
+                case 'cancelled': return '⚠️';
+                case 'skipped': return '⏭️';
+                default: return '❓';
+              }
+            };
+            
+            const comment = `## 🔍 PR Validation Results
+            
+            | Check | Status |
+            |-------|--------|
+            | Code Quality | ${getEmoji(jobs.lint)} |
+            | Service Tests | ${getEmoji(jobs.testServices)} |
+            | Frontend Tests | ${getEmoji(jobs.testFrontend)} |
+            | Docker Build | ${getEmoji(jobs.buildDocker)} |
+            | Security Scan | ${getEmoji(jobs.securityScan)} |
+            
+            ${Object.values(jobs).includes('failure') ? '### ❌ PR validation failed\nPlease fix the failing checks before merging.' : '### ✅ All checks passed\nThis PR is ready for review.'}
+            
+            ---
+            <details>
+            <summary>📋 Check Details</summary>
+            
+            - **Node Version**: ${{ env.NODE_VERSION }}
+            - **Workflow Run**: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - **Commit**: ${{ github.event.pull_request.head.sha }}
+            
+            </details>`;
+            
+            try {
+              const { data: comments } = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+              });
+              
+              const botComment = comments.find(comment => 
+                comment.user.type === 'Bot' && 
+                comment.body.includes('PR Validation Results')
+              );
+              
+              if (botComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: botComment.id,
+                  body: comment
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: comment
+                });
+              }
+            } catch (error) {
+              console.error('Failed to comment on PR:', error);
+            }

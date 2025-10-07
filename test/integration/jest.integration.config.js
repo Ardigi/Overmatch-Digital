@@ -1,0 +1,38 @@
+module.exports = {
+  displayName: 'Service Communication Integration Tests',
+  rootDir: '../../',
+  testEnvironment: 'node',
+  testMatch: ['<rootDir>/test/integration/**/*.integration.spec.ts'],
+  transform: {
+    '^.+\\.(t|j)s$': 'ts-jest',
+  },
+  collectCoverageFrom: [
+    'packages/**/*.(t|j)s',
+    'shared/**/*.(t|j)s',
+    '!**/*.spec.ts',
+    '!**/*.e2e-spec.ts',
+    '!**/node_modules/**',
+    '!**/dist/**',
+  ],
+  coverageDirectory: '<rootDir>/coverage/integration',
+  testTimeout: 30000,
+  setupFilesAfterEnv: ['<rootDir>/test/integration/setup.ts'],
+  moduleNameMapping: {
+    '^@soc-compliance/shared-contracts$': '<rootDir>/shared/contracts/src/index.ts',
+    '^@soc-compliance/shared-events$': '<rootDir>/shared/events/src/index.ts',
+    '^@soc-compliance/auth-common$': '<rootDir>/packages/auth-common/src/index.ts',
+    '^@soc-compliance/http-common$': '<rootDir>/packages/http-common/src/index.ts',
+    '^@soc-compliance/cache-common$': '<rootDir>/packages/cache-common/src/index.ts',
+  },
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/dist/',
+    '<rootDir>/services/*/dist/',
+    '<rootDir>/packages/*/dist/',
+  ],
+  moduleFileExtensions: ['js', 'json', 'ts'],
+  collectCoverage: false,
+  verbose: true,
+  forceExit: true,
+  detectOpenHandles: true,
+};

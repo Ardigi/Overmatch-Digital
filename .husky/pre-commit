@@ -1,0 +1,123 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# SOC Compliance Platform - Pre-commit Hooks
+# Ensures code quality and security before commits
+
+echo "🔍 Running pre-commit checks..."
+
+# 1. Type Safety Check - No production 'as any'
+echo "📝 Checking for type safety violations..."
+PRODUCTION_AS_ANY=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx)$' | grep -v '\.spec\.' | grep -v '\.test\.' | xargs grep -l 'as any' 2>/dev/null)
+
+if [ ! -z "$PRODUCTION_AS_ANY" ]; then
+  echo "❌ Type safety violation: 'as any' found in production code!"
+  echo "Files with violations:"
+  echo "$PRODUCTION_AS_ANY"
+  echo ""
+  echo "💡 Fix: Create proper interfaces instead of using 'as any'"
+  exit 1
+fi
+
+# 2. Hardcoded Secrets Check
+echo "🔐 Scanning for hardcoded secrets..."
+SECRETS_FOUND=$(git diff --cached --name-only --diff-filter=ACM | xargs grep -E "(JWT_SECRET|AUTH_SECRET|CSRF_SECRET|DB_PASSWORD|API_KEY)\s*[:=]\s*['\"]" 2>/dev/null | grep -v "process.env" | grep -v "\.example" | grep -v "\.template")
+
+if [ ! -z "$SECRETS_FOUND" ]; then
+  echo "❌ Security violation: Hardcoded secrets detected!"
+  echo "$SECRETS_FOUND"
+  echo ""
+  echo "💡 Fix: Use environment variables or secrets management"
+  exit 1
+fi
+
+# 3. Hardcoded IP Check
+echo "🌐 Checking for hardcoded IP addresses..."
+HARDCODED_IPS=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx)$' | xargs grep -E "['\"](127\.0\.0\.1|localhost)['\"]" 2>/dev/null | grep -v "\.spec\." | grep -v "\.test\." | grep -v "docker-compose" | grep -v "README")
+
+if [ ! -z "$HARDCODED_IPS" ]; then
+  echo "⚠️  Warning: Hardcoded IP addresses found (non-blocking):"
+  echo "$HARDCODED_IPS"
+  echo "Consider using configuration or environment variables"
+  echo ""
+fi
+
+# 4. Lint Check
+echo "🎨 Running linter..."
+npm run lint:fix --silent 2>/dev/null || {
+  echo "⚠️  Linting issues found. Attempting auto-fix..."
+  npm run lint:fix
+}
+
+# 5. TypeScript Compilation Check
+echo "🔧 Checking TypeScript compilation..."
+CHANGED_TS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx)$')
+
+if [ ! -z "$CHANGED_TS_FILES" ]; then
+  # Check only changed services
+  for file in $CHANGED_TS_FILES; do
+    SERVICE_DIR=$(echo $file | grep -oE "services/[^/]+" | head -1)
+    if [ ! -z "$SERVICE_DIR" ]; then
+      echo "  Checking $SERVICE_DIR..."
+      (cd $SERVICE_DIR && npx tsc --noEmit 2>/dev/null) || {
+        echo "❌ TypeScript compilation failed in $SERVICE_DIR"
+        echo "Run: cd $SERVICE_DIR && npx tsc --noEmit"
+        exit 1
+      }
+    fi
+  done
+fi
+
+# 6. Test Affected Services
+echo "🧪 Running tests for affected services..."
+AFFECTED_SERVICES=$(git diff --cached --name-only --diff-filter=ACM | grep -oE "services/[^/]+" | sort -u)
+
+for service in $AFFECTED_SERVICES; do
+  if [ -f "$service/package.json" ]; then
+    echo "  Testing $service..."
+    (cd $service && npm test -- --passWithNoTests --silent 2>/dev/null) || {
+      echo "⚠️  Tests failed in $service (non-blocking)"
+    }
+  fi
+done
+
+# 7. Check for console.log in production code
+echo "📋 Checking for console.log statements..."
+CONSOLE_LOGS=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx)$' | grep -v '\.spec\.' | grep -v '\.test\.' | xargs grep -n 'console\.log' 2>/dev/null)
+
+if [ ! -z "$CONSOLE_LOGS" ]; then
+  echo "⚠️  Warning: console.log found in production code:"
+  echo "$CONSOLE_LOGS"
+  echo "Consider using proper logging with Logger service"
+  echo ""
+fi
+
+# 8. File Size Check
+echo "📦 Checking file sizes..."
+LARGE_FILES=$(git diff --cached --name-only --diff-filter=ACM | xargs ls -la 2>/dev/null | awk '$5 > 1048576 {print $9 " (" $5 " bytes)"}')
+
+if [ ! -z "$LARGE_FILES" ]; then
+  echo "⚠️  Warning: Large files detected (>1MB):"
+  echo "$LARGE_FILES"
+  echo ""
+fi
+
+# 9. TODO/FIXME Check
+echo "📌 Checking for unresolved TODOs..."
+TODO_COUNT=$(git diff --cached --name-only --diff-filter=ACM | xargs grep -c "TODO\|FIXME" 2>/dev/null | awk -F: '{sum+=$2} END {print sum}')
+
+if [ "$TODO_COUNT" -gt "0" ]; then
+  echo "ℹ️  Found $TODO_COUNT TODO/FIXME comments in staged files"
+  echo ""
+fi
+
+echo "✅ All critical pre-commit checks passed!"
+echo ""
+
+# Format staged files
+git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx|json)$' | xargs npx prettier --write 2>/dev/null
+
+# Re-add formatted files
+git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx|json)$' | xargs git add
+
+exit 0

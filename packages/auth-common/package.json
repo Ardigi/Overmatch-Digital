@@ -1,0 +1,28 @@
+{
+  "name": "@soc-compliance/auth-common",
+  "version": "1.0.0",
+  "description": "Shared authentication utilities for SOC Compliance platform",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.6",
+    "@nestjs/core": "^11.1.6",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/passport": "^10.0.3",
+    "@nestjs/platform-express": "^11.1.6",
+    "@nestjs/swagger": "^8.1.1",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@types/passport-jwt": "^3.0.8",
+    "typescript": "^5.1.3"
+  }
+}

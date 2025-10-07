@@ -1,0 +1,14 @@
+{
+  "name": "@soc-compliance/contracts",
+  "version": "1.0.0",
+  "description": "Shared API contracts and interfaces",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

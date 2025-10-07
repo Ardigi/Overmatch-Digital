@@ -1,19 +1,31 @@
 /**
- * Jest Configuration for Unit Tests
+ * Jest Configuration for Integration Tests
  *
- * Fast unit tests with mocked dependencies
- * Run with: npm test
+ * Integration tests with real infrastructure
+ * Run with: npm run test:integration
  *
- * Excludes integration tests (*.integration.spec.ts)
- * For integration tests: npm run test:integration
+ * Key Features:
+ * - Real database connections (no TypeORM mocking)
+ * - Longer timeout (60 seconds)
+ * - Runs serially for database consistency
+ * - Requires Docker infrastructure running
+ *
+ * Prerequisites:
+ * - PostgreSQL: docker-compose up -d postgres
+ * - Redis: docker-compose up -d redis
+ * - Test database: soc_clients_test
+ *
+ * For unit tests: npm test
  */
 
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  roots: ['<rootDir>/src'],
-  testMatch: ['**/*.spec.ts'],
-  testPathIgnorePatterns: ['/node_modules/', '\\.integration\\.spec\\.ts$'],
+  roots: ['<rootDir>/src', '<rootDir>/test'],
+
+  // Only match integration test files
+  testMatch: ['**/*.integration.spec.ts'],
+
   transform: {
     '^.+\\.ts$': [
       'ts-jest',
@@ -22,18 +34,22 @@ module.exports = {
       },
     ],
   },
+
   moduleFileExtensions: ['ts', 'js', 'json'],
+
+  // NO TypeORM mocking - allows real database connections
+  // Only mock non-critical dependencies
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@shared/(.*)$': '<rootDir>/../../shared/$1',
     '^@soc-compliance/auth-common$': '<rootDir>/../../packages/auth-common/dist/index.js',
     '^@soc-compliance/events$': '<rootDir>/../../shared/events/dist/index.js',
     '^@soc-compliance/monitoring$': '<rootDir>/src/__mocks__/@soc-compliance/monitoring.js',
-    '^typeorm$': '<rootDir>/src/__mocks__/typeorm.ts',
-    '^@nestjs/typeorm$': '<rootDir>/src/__mocks__/@nestjs/typeorm.ts',
   },
+
   moduleDirectories: ['node_modules', '<rootDir>/../../node_modules'],
   setupFilesAfterEnv: ['<rootDir>/test/jest-setup.ts'],
+
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.spec.ts',
@@ -41,7 +57,11 @@ module.exports = {
     '!src/**/index.ts',
     '!src/main.ts',
   ],
-  coverageDirectory: '../coverage',
-  testTimeout: 30000,
+
+  coverageDirectory: '../coverage/integration',
+
+  // Integration tests need more time
+  testTimeout: 60000,
+
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
 };

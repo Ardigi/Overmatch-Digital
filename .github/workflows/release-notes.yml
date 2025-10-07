@@ -1,9 +1,8 @@
 name: Release Notes Generator
 
+# DISABLED: Auto-release notes disabled until needed
+# Use workflow_dispatch when creating releases
 on:
-  push:
-    tags:
-      - 'v*.*.*'
   workflow_dispatch:
     inputs:
       version:

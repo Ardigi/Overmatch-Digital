@@ -1,8 +1,8 @@
 name: Dependency Updates
 
+# DISABLED: Auto-dependency updates disabled until needed
+# Use workflow_dispatch to manually run when ready
 on:
-  schedule:
-    - cron: '0 6 * * 1'  # Every Monday at 6 AM UTC
   workflow_dispatch:
     inputs:
       update_type:
@@ -17,7 +17,7 @@ on:
         default: 'all'
 
 env:
-  NODE_VERSION: '18.x'
+  NODE_VERSION: '20.x'
 
 jobs:
   update-dependencies:

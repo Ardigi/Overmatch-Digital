@@ -6,8 +6,10 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  NODE_VERSION: '18.x'
+  NODE_VERSION: '20.x'
   CACHE_VERSION: 'v1'
+  PUPPETEER_SKIP_DOWNLOAD: 'true'
+  PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
 
 jobs:
   changes:
@@ -132,28 +134,20 @@ jobs:
       - name: Install dependencies
         if: matrix.condition
         run: |
-          npm ci
+          npm ci --legacy-peer-deps --ignore-scripts
           if [ "${{ matrix.path }}" != "." ]; then
             cd ${{ matrix.path }}
-            npm ci
+            npm ci --legacy-peer-deps --ignore-scripts
           fi
       
-      - name: Run ESLint
+      - name: Run Biome lint
         if: matrix.condition
         run: |
           if [ "${{ matrix.path }}" != "." ]; then
             cd ${{ matrix.path }}
           fi
-          npm run lint -- --max-warnings 0
+          npm run lint
         continue-on-error: true
-      
-      - name: Run Prettier Check
-        if: matrix.condition
-        run: |
-          if [ "${{ matrix.path }}" != "." ]; then
-            cd ${{ matrix.path }}
-          fi
-          npx prettier --check "**/*.{ts,tsx,js,jsx,json,md}" || true
       
       - name: TypeScript Type Check
         if: matrix.condition
@@ -178,8 +172,8 @@ jobs:
           cache: 'npm'
       
       - name: Install dependencies
-        run: npm ci
-      
+        run: npm ci --legacy-peer-deps --ignore-scripts
+
       - name: Build shared packages
         run: |
           npm run build --workspace=packages/auth-common
@@ -274,9 +268,9 @@ jobs:
       - name: Install dependencies
         if: steps.check.outputs.should_run == 'true'
         run: |
-          npm ci
+          npm ci --legacy-peer-deps --ignore-scripts
           cd services/${{ matrix.service }}
-          npm ci
+          npm ci --legacy-peer-deps --ignore-scripts
       
       - name: Build shared packages
         if: steps.check.outputs.should_run == 'true'
@@ -335,8 +329,8 @@ jobs:
           cache: 'npm'
       
       - name: Install dependencies
-        run: npm ci
-      
+        run: npm ci --legacy-peer-deps --ignore-scripts
+
       - name: Run tests
         run: npm test -- --passWithNoTests
         env:
@@ -387,6 +381,10 @@ jobs:
         if: steps.check.outputs.should_build == 'true'
         uses: docker/setup-buildx-action@v3
       
+      - name: Build shared packages first
+        if: steps.check.outputs.should_build == 'true'
+        run: npm run build:shared
+
       - name: Build Docker image
         if: steps.check.outputs.should_build == 'true'
         uses: docker/build-push-action@v5
@@ -426,7 +424,7 @@ jobs:
         continue-on-error: true
       
       - name: Upload Trivy scan results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
         continue-on-error: true

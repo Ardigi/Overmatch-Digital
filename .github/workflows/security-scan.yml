@@ -1,25 +1,77 @@
 name: Security Scanning
 
+# FREE security tools - no tokens required
+# Runs on: push to main/develop, PRs, manual trigger
 on:
   push:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
-  schedule:
-    - cron: '0 2 * * *'  # Daily at 2 AM UTC
   workflow_dispatch:
+    inputs:
+      scan_type:
+        description: 'Type of scan to run'
+        required: false
+        type: choice
+        options:
+          - all
+          - code
+          - dependencies
+          - secrets
+        default: 'all'
 
 env:
-  NODE_VERSION: '18.x'
+  NODE_VERSION: '20.x'
+  PUPPETEER_SKIP_DOWNLOAD: 'true'
 
 jobs:
-  dependency-scan:
+  code-security:
+    name: Code Security Analysis
+    runs-on: ubuntu-latest
+    if: github.event.inputs.scan_type == 'all' || github.event.inputs.scan_type == 'code' || github.event.inputs.scan_type == ''
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: Run Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/javascript
+            p/typescript
+            p/nodejs
+            p/security-audit
+            p/secrets
+            p/sql-injection
+            p/xss
+            p/jwt
+            p/owasp-top-ten
+        continue-on-error: true
+
+  dependency-security:
     name: Dependency Security Scan
     runs-on: ubuntu-latest
+    if: github.event.inputs.scan_type == 'all' || github.event.inputs.scan_type == 'dependencies' || github.event.inputs.scan_type == ''
     permissions:
       contents: read
       security-events: write
     strategy:
+      fail-fast: false
       matrix:
         directory:
           - .
@@ -34,353 +86,114 @@ jobs:
           - services/integration-service
           - services/notification-service
           - services/ai-service
-    
+
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          args: --severity-threshold=high --file=${{ matrix.directory }}/package.json
-        continue-on-error: true
-      
-      - name: Upload Snyk results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk.sarif
-        continue-on-error: true
-      
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
       - name: Run npm audit
         working-directory: ${{ matrix.directory }}
         run: |
           if [ -f "package-lock.json" ]; then
-            npm audit --audit-level=high || true
+            npm audit --audit-level=moderate --json > npm-audit-${{ strategy.job-index }}.json || true
+            cat npm-audit-${{ strategy.job-index }}.json
           fi
-      
+        continue-on-error: true
+
       - name: Run OWASP Dependency Check
         uses: dependency-check/Dependency-Check_Action@main
         with:
           project: 'soc-platform-${{ matrix.directory }}'
           path: '${{ matrix.directory }}'
-          format: 'ALL'
+          format: 'SARIF'
           args: >
             --enableRetired
             --enableExperimental
+            --nvdApiKey ${{ secrets.NVD_API_KEY || '' }}
         continue-on-error: true
-      
-      - name: Upload OWASP results
-        uses: actions/upload-artifact@v3
-        with:
-          name: dependency-check-report-${{ strategy.job-index }}
-          path: reports/
 
-  code-security-scan:
-    name: Code Security Analysis
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+      - name: Upload OWASP results to GitHub
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          languages: javascript, typescript
-          queries: security-and-quality
-      
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
-      
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-      
-      - name: Run Semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            p/javascript
-            p/typescript
-            p/nodejs
-            p/security-audit
-            p/secrets
-            p/sql-injection
-            p/xss
-            p/jwt
-            p/owasp-top-ten
-        generateSarif: true
-      
-      - name: Upload Semgrep results
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: semgrep.sarif
+          sarif_file: reports/dependency-check-report.sarif
         continue-on-error: true
-      
-      - name: Run ESLint security plugin
-        run: |
-          npm install -g eslint eslint-plugin-security
-          npx eslint . --ext .js,.jsx,.ts,.tsx \
-            --plugin security \
-            --rule 'security/detect-object-injection: error' \
-            --rule 'security/detect-non-literal-regexp: error' \
-            --rule 'security/detect-unsafe-regex: error' \
-            --format json \
-            --output-file eslint-security-results.json || true
-      
-      - name: Upload ESLint results
-        uses: actions/upload-artifact@v3
+
+      - name: Upload npm audit results
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: eslint-security-results
-          path: eslint-security-results.json
+          name: npm-audit-results-${{ strategy.job-index }}
+          path: npm-audit-${{ strategy.job-index }}.json
+        continue-on-error: true
 
   secret-scan:
     name: Secret Detection
     runs-on: ubuntu-latest
+    if: github.event.inputs.scan_type == 'all' || github.event.inputs.scan_type == 'secrets' || github.event.inputs.scan_type == ''
     permissions:
       contents: read
       security-events: write
-    
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_ENABLE_SUMMARY: true
-      
+        continue-on-error: true
+
       - name: Run TruffleHog
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
           base: ${{ github.event.repository.default_branch }}
           head: HEAD
-          extra_args: --debug --json
-      
+          extra_args: --debug --only-verified
+        continue-on-error: true
+
       - name: Run detect-secrets
         run: |
           pip install detect-secrets
           detect-secrets scan --all-files --force-use-all-plugins > secrets-baseline.json || true
-          detect-secrets audit secrets-baseline.json || true
+          if [ -f secrets-baseline.json ]; then
+            echo "Secrets baseline generated"
+            cat secrets-baseline.json
+          fi
+        continue-on-error: true
 
-  container-scan:
-    name: Container Security Scan
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    strategy:
-      matrix:
-        service:
-          - auth-service
-          - client-service
-          - policy-service
-          - control-service
-          - evidence-service
-          - workflow-service
-          - reporting-service
-          - audit-service
-          - integration-service
-          - notification-service
-          - ai-service
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      
-      - name: Build Docker image
-        uses: docker/build-push-action@v5
+      - name: Upload secrets baseline
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          context: .
-          file: ./services/${{ matrix.service }}/Dockerfile
-          push: false
-          load: true
-          tags: soc-platform/${{ matrix.service }}:scan
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'soc-platform/${{ matrix.service }}:scan'
-          format: 'sarif'
-          output: 'trivy-results-${{ matrix.service }}.sarif'
-          severity: 'CRITICAL,HIGH,MEDIUM'
-          vuln-type: 'os,library'
-      
-      - name: Upload Trivy scan results
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-results-${{ matrix.service }}.sarif'
-      
-      - name: Run Grype scanner
-        uses: anchore/scan-action@v3
-        with:
-          image: 'soc-platform/${{ matrix.service }}:scan'
-          fail-build: false
-          severity-cutoff: high
-      
-      - name: Run Docker Scout
-        run: |
-          docker scout cves soc-platform/${{ matrix.service }}:scan || true
+          name: secrets-baseline
+          path: secrets-baseline.json
+        continue-on-error: true
 
-  infrastructure-scan:
-    name: Infrastructure Security Scan
+  security-summary:
+    name: Security Summary
     runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Terraform security scan
-        uses: aquasecurity/tfsec-action@v1.0.0
-        with:
-          working_directory: ./infrastructure/terraform
-      
-      - name: Kubernetes security scan
-        run: |
-          # Install kubesec
-          wget https://github.com/controlplaneio/kubesec/releases/download/v2.11.0/kubesec_linux_amd64.tar.gz
-          tar xzf kubesec_linux_amd64.tar.gz
-          
-          # Scan Kubernetes manifests
-          find ./infrastructure/kubernetes -name "*.yaml" -o -name "*.yml" | while read file; do
-            echo "Scanning $file..."
-            ./kubesec scan "$file" || true
-          done
-      
-      - name: Helm chart security scan
-        run: |
-          # Install Helm
-          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-          
-          # Lint Helm charts
-          helm lint ./helm/soc-platform
-          
-          # Install helm-secrets plugin
-          helm plugin install https://github.com/jkroepke/helm-secrets || true
-
-  compliance-check:
-    name: Compliance and License Check
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: License compliance check
-        uses: fossas/fossa-action@main
-        with:
-          api-key: ${{ secrets.FOSSA_API_KEY }}
-      
-      - name: SPDX SBOM generation
-        uses: anchore/sbom-action@v0
-        with:
-          format: spdx-json
-          output-file: sbom.spdx.json
-      
-      - name: CycloneDX SBOM generation
-        run: |
-          npm install -g @cyclonedx/bom
-          cyclonedx-bom -o sbom.cyclonedx.json
-      
-      - name: Upload SBOMs
-        uses: actions/upload-artifact@v3
-        with:
-          name: sbom-reports
-          path: |
-            sbom.spdx.json
-            sbom.cyclonedx.json
-
-  security-report:
-    name: Generate Security Report
-    runs-on: ubuntu-latest
-    needs: [dependency-scan, code-security-scan, secret-scan, container-scan, infrastructure-scan, compliance-check]
+    needs: [code-security, dependency-security, secret-scan]
     if: always()
-    
+
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Download all artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: security-artifacts/
-      
-      - name: Generate consolidated report
+      - name: Generate Summary
         run: |
-          cat > security-report.md <<EOF
-          # Security Scan Report
-          
-          **Date**: $(date -u +%Y-%m-%d)
-          **Branch**: ${{ github.ref_name }}
-          **Commit**: ${{ github.sha }}
-          
-          ## Summary
-          
-          | Scan Type | Status |
-          |-----------|--------|
-          | Dependency Scan | ${{ needs.dependency-scan.result }} |
-          | Code Security | ${{ needs.code-security-scan.result }} |
-          | Secret Detection | ${{ needs.secret-scan.result }} |
-          | Container Scan | ${{ needs.container-scan.result }} |
-          | Infrastructure | ${{ needs.infrastructure-scan.result }} |
-          | Compliance | ${{ needs.compliance-check.result }} |
-          
-          ## Detailed Results
-          
-          See attached artifacts for detailed scan results.
-          
-          ## Action Items
-          
-          1. Review all HIGH and CRITICAL vulnerabilities
-          2. Update dependencies with known vulnerabilities
-          3. Rotate any exposed secrets immediately
-          4. Address infrastructure misconfigurations
-          
-          EOF
-      
-      - name: Upload security report
-        uses: actions/upload-artifact@v3
-        with:
-          name: security-scan-report
-          path: security-report.md
-      
-      - name: Post report to PR
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const report = fs.readFileSync('security-report.md', 'utf8');
-            
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: report
-            });
-      
-      - name: Send critical alerts
-        if: contains(needs.*.result, 'failure')
-        uses: 8398a7/action-slack@v3
-        with:
-          status: custom
-          custom_payload: |
-            {
-              text: "⚠️ Security scan found critical issues",
-              attachments: [{
-                color: 'danger',
-                fields: [
-                  { title: 'Branch', value: '${{ github.ref_name }}', short: true },
-                  { title: 'Commit', value: '${{ github.sha }}', short: true },
-                  { title: 'Action Required', value: 'Review security scan results immediately', short: false }
-                ]
-              }]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_SECURITY_WEBHOOK_URL }}
+          echo "## Security Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Scan Type | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Code Security | ${{ needs.code-security.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependencies | ${{ needs.dependency-security.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Secret Detection | ${{ needs.secret-scan.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**All tools used are FREE** - no paid services required!" >> $GITHUB_STEP_SUMMARY

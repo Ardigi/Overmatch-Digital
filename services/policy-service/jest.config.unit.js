@@ -1,3 +1,19 @@
+/**
+ * Jest Configuration for Unit Tests
+ *
+ * This config is for fast unit tests with mocked dependencies
+ * Run with: npm test
+ *
+ * Key Features:
+ * - All dependencies mocked
+ * - Fast execution (<10 seconds)
+ * - No infrastructure required
+ * - Perfect for TDD workflow
+ * - Excludes integration tests
+ *
+ * For integration tests, use: npm run test:integration
+ */
+
 module.exports = {
   displayName: 'policy-service:unit',
   testEnvironment: 'node',
@@ -12,7 +28,8 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
   testMatch: ['**/__tests__/**/*.spec.ts', '**/*.spec.ts'],
-  testPathIgnorePatterns: ['/node_modules/', '/test/e2e/'],
+  // Exclude integration tests and e2e tests from unit test runs
+  testPathIgnorePatterns: ['/node_modules/', '/test/e2e/', '\\.integration\\.spec\\.ts$'],
   coverageDirectory: './coverage/unit',
   collectCoverageFrom: [
     'src/**/*.ts',

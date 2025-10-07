@@ -187,6 +187,7 @@ secrets/
 .claude/hooks.d/notifications/*.json
 .claude/hooks.d/cache/
 .claude/settings.local.json
+CLAUDE.md
 
 # Monitoring and metrics
 monitoring-data/
